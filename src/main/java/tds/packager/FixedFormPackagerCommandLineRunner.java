@@ -116,8 +116,14 @@ public class FixedFormPackagerCommandLineRunner implements CommandLineRunner {
                 printHelpAndExit();
             }
 
-            // Get the output test package filename (first arg)
-            final String inputFilepath = cmd.getArgList().get(0);
+            // Get the input filename (first arg)
+            final String inputFilePath = cmd.getArgList().get(0);
+
+            if (inputFilePath.endsWith(".xlsx")) {
+                System.out.println("No arguments were provided to the fixed form packager. Aborting...");
+                return;
+            }
+
             final GitCredentials credentials = new GitCredentials(
                     cmd.getOptionValue(GIT_USERNAME),
                     cmd.getOptionValue(GIT_PASSWORD),
@@ -126,7 +132,7 @@ public class FixedFormPackagerCommandLineRunner implements CommandLineRunner {
             );
 
             // If no -o/--output is provided, just default to the current directory
-            service.generateFixedFormPackage(inputFilepath,
+            service.generateFixedFormPackage(inputFilePath,
                     cmd.hasOption(OUTPUT_PATH) ? cmd.getOptionValue(OUTPUT_PATH) : DEFAULT_OUTPUT_PATH,
                     credentials);
 
