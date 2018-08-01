@@ -136,12 +136,16 @@ public class FixedFormPackagerCommandLineRunner implements CommandLineRunner {
                     cmd.hasOption(OUTPUT_PATH) ? cmd.getOptionValue(OUTPUT_PATH) : DEFAULT_OUTPUT_PATH,
                     credentials);
 
-        } catch (Exception e) {
+        } catch (Throwable e) {
             if (cmd != null && cmd.hasOption(VERBOSE_FLAG)) {
                 e.printStackTrace();
             }
 
             System.out.println(String.format("The fixed-form test package was not successfully created"));
+            System.out.println(String.format("Error message: %s", e.getMessage()));
+            if (e.getCause() != null) {
+                System.out.println(String.format("Cause: %s", e.getCause().getMessage()));
+            }
             printHelpAndExit();
         }
     }

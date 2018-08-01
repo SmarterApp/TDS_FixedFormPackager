@@ -1,16 +1,29 @@
 package tds.packager.service;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Iterator;
+
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.DateUtil;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.util.CellReference;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import tds.packager.model.GitCredentials;
+import tds.packager.model.xlsx.TestPackageSheet;
+import tds.packager.model.xlsx.TestPackageWorkbook;
 import tds.support.tool.testpackage.configuration.TestPackageObjectMapperConfiguration;
 import tds.testpackage.model.TestPackage;
-
-import java.io.File;
-import java.io.IOException;
 
 @Service
 public class FixedFormPackagerServiceImpl implements FixedFormPackagerService {
@@ -22,27 +35,43 @@ public class FixedFormPackagerServiceImpl implements FixedFormPackagerService {
         this.xmlMapper = configuration.getLegacyTestSpecXmlMapper();
     }
 
+    private TestPackageWorkbook createTestPackageWorkbook(final String inputSpreadsheetPath)  {
+        try {
+            return new TestPackageWorkbook(new XSSFWorkbook(new FileInputStream(inputSpreadsheetPath)));
+        } catch (IOException e) {
+            throw new RuntimeException("Error reading test package spreadsheet.", e);
+        }
+    }
+
+    private TestPackage mapWorkbookToTestPackage(final TestPackageWorkbook testPackageWorkbook) {
+        // testPackageWorkbook.dump();
+        final TestPackageSheet sheet = testPackageWorkbook.getSheet("Package");
+        final TestPackage.Builder builder = TestPackage.builder();
+
+        builder.setId(sheet.getString("PackageId"));
+        builder.setBankKey(Integer.parseInt(sheet.getString("BankKey")));
+        
+        return builder.build();
+    }
+    
     @Override
     public void generateFixedFormPackage(final String inputSpreadsheetPath, final String outputFilePath,
                                          final GitCredentials credentials) {
 
         // TODO: get item data from gitlab using the GitCredentials
-
-        // TODO: read/process input spreadsheet + map to TestPackage
-        final TestPackage testPackage = TestPackage.builder().setId("testPackageId").build();
+        final TestPackageWorkbook testPackageWorkbook = createTestPackageWorkbook(inputSpreadsheetPath);
+        final TestPackage testPackage = mapWorkbookToTestPackage(testPackageWorkbook);
         final String outputFileFullPath = outputFilePath + File.separator + testPackage.getId() + ".xml";
 
         try {
             createTestPackageFile(outputFileFullPath, testPackage);
             System.out.println("Successfully created the fixed form test package " + testPackage.getId() + ".xml");
         } catch (IOException e) {
-            log.error("An exception occurred while creating the file {}", outputFileFullPath, e);
-            throw new RuntimeException(e);
+            throw new RuntimeException(String.format("An exception occurred while creating the file %s", outputFileFullPath), e);
         }
     }
 
     private void createTestPackageFile(final String outputFilePath, final TestPackage testPackage) throws IOException {
-
         final File testPackageFile = new File(outputFilePath);
         xmlMapper.writeValue(testPackageFile, testPackage);
         testPackageFile.createNewFile();
