@@ -2,8 +2,6 @@ package tds.packager.service;
 
 import tds.packager.model.GitCredentials;
 
-import java.io.IOException;
-
 public interface FixedFormPackagerService {
     /**
      * Generates a new {@link tds.testpackage.model.TestPackage} in the file system
