@@ -119,7 +119,7 @@ public class FixedFormPackagerCommandLineRunner implements CommandLineRunner {
             // Get the input filename (first arg)
             final String inputFilePath = cmd.getArgList().get(0);
 
-            if (inputFilePath.endsWith(".xlsx")) {
+            if (!inputFilePath.endsWith(".xlsx")) {
                 System.out.println("No arguments were provided to the fixed form packager. Aborting...");
                 return;
             }
