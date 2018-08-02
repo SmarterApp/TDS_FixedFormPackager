@@ -4,7 +4,7 @@ import org.apache.commons.cli.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-import tds.packager.model.GitCredentials;
+import tds.packager.model.gitlab.GitCredentials;
 import tds.packager.service.FixedFormPackagerService;
 
 import javax.annotation.PostConstruct;
@@ -128,7 +128,7 @@ public class FixedFormPackagerCommandLineRunner implements CommandLineRunner {
                     cmd.getOptionValue(GIT_USERNAME),
                     cmd.getOptionValue(GIT_PASSWORD),
                     cmd.getOptionValue(GIT_GROUP),
-                    cmd.getOptionValue(GIT_USERNAME)
+                    cmd.getOptionValue(GIT_URL)
             );
 
             // If no -o/--output is provided, just default to the current directory
@@ -137,6 +137,7 @@ public class FixedFormPackagerCommandLineRunner implements CommandLineRunner {
                     credentials);
 
         } catch (Exception e) {
+            e.printStackTrace();
             if (cmd != null && cmd.hasOption(VERBOSE_FLAG)) {
                 e.printStackTrace();
             }
