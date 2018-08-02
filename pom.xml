@@ -23,7 +23,6 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<support-tool-client.version>4.1.12</support-tool-client.version>
-
 		<maven.compiler.plugin.version>3.5.1</maven.compiler.plugin.version>
 		<maven.release.plugin.version>2.5.3</maven.release.plugin.version>
 		<maven.source.plugin.version>2.1.2</maven.source.plugin.version>
@@ -48,6 +47,26 @@
 			<version>${support-tool-client.version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.opentestsystem.delivery</groupId>
+			<artifactId>item-renderer</artifactId>
+			<version>4.0.7.RELEASE</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-context</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-mock</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.tomcat</groupId>
+					<artifactId>el-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
 		<!-- Apache -->
 		<dependency>
     		<groupId>org.apache.poi</groupId>
@@ -64,6 +83,14 @@
 			<artifactId>commons-cli</artifactId>
 			<version>1.4</version>
 		</dependency>
+
+		<!-- GitLab API for Java: https://github.com/gmessner/gitlab4j-api -->
+		<dependency>
+			<groupId>org.gitlab4j</groupId>
+			<artifactId>gitlab4j-api</artifactId>
+			<version>4.8.37</version>
+		</dependency>
+
 	</dependencies>
 
 	<scm>
