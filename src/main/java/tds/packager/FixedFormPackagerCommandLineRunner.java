@@ -137,7 +137,6 @@ public class FixedFormPackagerCommandLineRunner implements CommandLineRunner {
                     credentials);
 
         } catch (Exception e) {
-            e.printStackTrace();
             if (cmd != null && cmd.hasOption(VERBOSE_FLAG)) {
                 e.printStackTrace();
             }
