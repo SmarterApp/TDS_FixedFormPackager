@@ -1,4 +1,4 @@
-package tds.packager.model;
+package tds.packager.model.gitlab;
 
 public class GitCredentials {
     private final String userName;
