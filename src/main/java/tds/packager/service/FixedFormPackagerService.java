@@ -1,6 +1,6 @@
 package tds.packager.service;
 
-import tds.packager.model.GitCredentials;
+import tds.packager.model.gitlab.GitCredentials;
 
 public interface FixedFormPackagerService {
     /**
