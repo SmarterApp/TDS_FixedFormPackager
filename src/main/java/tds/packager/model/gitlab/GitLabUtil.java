@@ -52,7 +52,6 @@ public class GitLabUtil {
 
     private static GitLabApi gitLabApiLogin(String url, String username, String password) {
         try {
-            System.out.println("trying to log in with username="+ username + " url=" + url + " password=" + password);
             return GitLabApi.login(url, username, password);
         } catch (GitLabApiException gae) {
             throw new RuntimeException("Unable to login to Gitlab with provided credentials and URL to retrieve item metadata: ", gae);
