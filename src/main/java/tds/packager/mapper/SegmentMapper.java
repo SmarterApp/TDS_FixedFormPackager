@@ -38,7 +38,8 @@ public class SegmentMapper {
                     .setExitApproval(StringUtils.isEmpty(segmentInputValuesMap.get("SegmentExitApproval"))
                             ? false
                             : Boolean.valueOf(segmentInputValuesMap.get("SegmentExitApproval")))
-                    .setAlgorithmImplementation(Algorithm.FIXED_FORM.getType())
+                    .setAlgorithmType(Algorithm.FIXED_FORM.getType())
+                    .setAlgorithmImplementation("FAIRWAY FIXEDFORM")
                     .setSegmentForms(SegmentFormMapper.map(workbook, segmentId, mapPresentations(segmentInputValuesMap)))
                     .setTools(ToolMapper.map(workbook, segmentId))
                     .setSegmentBlueprint(mapSegmentBlueprint(segmentId, segmentInputValuesMap))
