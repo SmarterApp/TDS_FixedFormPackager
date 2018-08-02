@@ -19,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import tds.packager.mapper.TestPackageMapper;
 import tds.packager.model.GitCredentials;
 import tds.packager.model.xlsx.TestPackageSheet;
 import tds.packager.model.xlsx.TestPackageWorkbook;
@@ -43,24 +44,13 @@ public class FixedFormPackagerServiceImpl implements FixedFormPackagerService {
         }
     }
 
-    private TestPackage mapWorkbookToTestPackage(final TestPackageWorkbook testPackageWorkbook) {
-        // testPackageWorkbook.dump();
-        final TestPackageSheet sheet = testPackageWorkbook.getSheet("Package");
-        final TestPackage.Builder builder = TestPackage.builder();
-
-        builder.setId(sheet.getString("PackageId"));
-        builder.setBankKey(Integer.parseInt(sheet.getString("BankKey")));
-        
-        return builder.build();
-    }
-    
     @Override
     public void generateFixedFormPackage(final String inputSpreadsheetPath, final String outputFilePath,
                                          final GitCredentials credentials) {
 
         // TODO: get item data from gitlab using the GitCredentials
         final TestPackageWorkbook testPackageWorkbook = createTestPackageWorkbook(inputSpreadsheetPath);
-        final TestPackage testPackage = mapWorkbookToTestPackage(testPackageWorkbook);
+        final TestPackage testPackage = TestPackageMapper.map(testPackageWorkbook);
         final String outputFileFullPath = outputFilePath + File.separator + testPackage.getId() + ".xml";
 
         try {
