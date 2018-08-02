@@ -5,7 +5,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import tds.packager.model.GitCredentials;
+import tds.packager.model.gitlab.GitCredentials;
 import tds.packager.service.FixedFormPackagerService;
 
 import static org.mockito.Matchers.eq;
