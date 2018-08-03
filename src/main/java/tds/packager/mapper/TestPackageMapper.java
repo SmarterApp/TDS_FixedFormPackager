@@ -7,6 +7,7 @@ import tds.packager.model.xlsx.TestPackageSheetNames;
 import tds.packager.model.xlsx.TestPackageWorkbook;
 import tds.testpackage.model.TestPackage;
 
+import java.time.Instant;
 import java.util.*;
 
 public class TestPackageMapper {
@@ -20,6 +21,7 @@ public class TestPackageMapper {
                 .setAcademicYear(valuesMap.get("AcademicYear"))
                 .setVersion(valuesMap.get("Version"))
                 .setPublisher(valuesMap.get("Publisher"))
+                .setPublishDate(Instant.now().toString())
                 .setSubject(valuesMap.get("Subject"))
                 .setType(valuesMap.get("AssessmentType"))
                 .setSubType(valuesMap.containsKey("AssessmentSubType") ? Optional.of(valuesMap.get("AssessmentSubType")) : Optional.empty())

@@ -1,6 +1,7 @@
 package tds.packager.model.xlsx;
 
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.util.CellReference;
@@ -73,7 +74,7 @@ public class TestPackageSheet {
     }
 
     public int getTotalNumberOfInputColumns() {
-        return sheet.getRow(0).getLastCellNum() - getInputVariableColumnIndex();
+        return sheet.getRow(0).getLastCellNum() - getInputVariableColumnIndex() - 1;
     }
 
     /**
@@ -85,13 +86,14 @@ public class TestPackageSheet {
      * @return A map of input variable keys and values
      */
     public Map<String, String> getInputVariableValuesMap(final int columnIndex) {
+        DataFormatter formatter = new DataFormatter();
         final Map<String, String> inputValuesMap = new HashMap<>();
         int inputVariableCol = getInputVariableColumnIndex();
 
         for (int i = HEADER_ROW + 1; i <= sheet.getLastRowNum(); i++) {
             final Row row = sheet.getRow(i);
             final int absoluteCol = inputVariableCol + columnIndex + 1;
-            inputValuesMap.put(row.getCell(inputVariableCol).getStringCellValue(), row.getCell(absoluteCol).getStringCellValue());
+            inputValuesMap.put(formatter.formatCellValue(row.getCell(inputVariableCol)), formatter.formatCellValue(row.getCell(absoluteCol)));
         }
 
         return inputValuesMap;

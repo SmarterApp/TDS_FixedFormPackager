@@ -48,6 +48,8 @@ public class SegmentMapper {
                     .build());
         }
 
+        segments.sort(Comparator.comparingInt(Segment::position));
+
         return segments;
     }
 
@@ -72,6 +74,8 @@ public class SegmentMapper {
         segmentBlueprint.add(SegmentBlueprintElement.builder()
                 .setIdRef(segmentId)
                 .setItemSelection(mapItemSelection(segmentInputValuesMap.get("SegmentSlope"), segmentInputValuesMap.get("SegmentIntercept")))
+                .setMinExamItems(0)
+                .setMaxExamItems(0)
                 .build());
 
         return segmentBlueprint;
