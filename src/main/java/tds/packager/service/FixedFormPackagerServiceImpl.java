@@ -18,8 +18,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+<<<<<<< HEAD
 import tds.itemrenderer.data.xml.itemrelease.Itemrelease;
 import tds.packager.model.gitlab.GitCredentials;
+=======
+
+import tds.packager.mapper.TestPackageMapper;
+import tds.packager.model.GitCredentials;
+>>>>>>> a160689b8f2265e23b67c24f3578c039ce0dad10
 import tds.packager.model.xlsx.TestPackageSheet;
 import tds.packager.model.xlsx.TestPackageWorkbook;
 import tds.support.tool.testpackage.configuration.TestPackageObjectMapperConfiguration;
@@ -49,17 +55,6 @@ public class FixedFormPackagerServiceImpl implements FixedFormPackagerService {
         }
     }
 
-    private TestPackage mapWorkbookToTestPackage(final TestPackageWorkbook testPackageWorkbook) {
-        // testPackageWorkbook.dump();
-        final TestPackageSheet sheet = testPackageWorkbook.getSheet("Package");
-        final TestPackage.Builder builder = TestPackage.builder();
-
-        builder.setId(sheet.getString("PackageId"));
-        builder.setBankKey(Integer.parseInt(sheet.getString("BankKey")));
-        
-        return builder.build();
-    }
-    
     @Override
     public void generateFixedFormPackage(final String inputSpreadsheetPath, final String outputFilePath,
                                          final GitCredentials credentials) {

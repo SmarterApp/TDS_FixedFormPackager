@@ -46,6 +46,11 @@
 			<artifactId>tds-support-tool-client</artifactId>
 			<version>${support-tool-client.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.opentestsystem.delivery</groupId>
+			<artifactId>tds-common-legacy</artifactId>
+			<version>${tds-common.version}</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.opentestsystem.delivery</groupId>
