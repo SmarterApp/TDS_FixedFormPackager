@@ -1,6 +1,7 @@
 package tds.packager.mapper;
 
 import org.apache.poi.ss.util.CellReference;
+import tds.packager.model.gitlab.GitLabItemMetaData;
 import tds.packager.model.xlsx.TestPackageSheet;
 import tds.packager.model.xlsx.TestPackageSheetNames;
 import tds.packager.model.xlsx.TestPackageWorkbook;
@@ -9,9 +10,9 @@ import tds.testpackage.model.TestPackage;
 import java.util.*;
 
 public class TestPackageMapper {
-    public static TestPackage map(final TestPackageWorkbook workbook) {
+    public static TestPackage map(final TestPackageWorkbook workbook, final HashMap<String, GitLabItemMetaData> itemMetaData) {
         final TestPackageSheet sheet = workbook.getSheet(TestPackageSheetNames.PACKAGE);
-        final Map<String, String> valuesMap = sheet.getInputVariableValuesMap(CellReference.convertColStringToIndex("E"));
+        final Map<String, String> valuesMap = sheet.getInputVariableValuesMap(0);
 
         final TestPackage.Builder testPackageBuilder = TestPackage.builder()
                 .setId(valuesMap.get("PackageId"))
@@ -23,7 +24,7 @@ public class TestPackageMapper {
                 .setType(valuesMap.get("AssessmentType"))
                 .setSubType(valuesMap.containsKey("AssessmentSubType") ? Optional.of(valuesMap.get("AssessmentSubType")) : Optional.empty())
                 .setBlueprint(BlueprintMapper.map(workbook, valuesMap))
-                .setAssessments(AssessmentMapper.map(workbook, parseGrades(valuesMap.get("Grade"))));
+                .setAssessments(AssessmentMapper.map(workbook, parseGrades(valuesMap.get("Grade")), itemMetaData));
 
         return testPackageBuilder.build();
     }

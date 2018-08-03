@@ -61,7 +61,7 @@ public class FixedFormPackagerServiceImpl implements FixedFormPackagerService {
 
         // TODO: get item data from gitlab using the GitCredentials
         final TestPackageWorkbook testPackageWorkbook = createTestPackageWorkbook(inputSpreadsheetPath);
-        final TestPackage testPackage = TestPackageMapper.map(testPackageWorkbook);
+        final TestPackage testPackage = TestPackageMapper.map(testPackageWorkbook, itemMetaData);
         final String outputFileFullPath = outputFilePath + File.separator + testPackage.getId() + ".xml";
 
         try {

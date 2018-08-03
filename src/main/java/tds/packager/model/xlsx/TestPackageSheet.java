@@ -24,25 +24,33 @@ public class TestPackageSheet {
         return workbook;
     }
 
-    private Cell getInputVariableCell(final String inputVariable) {
+    private Cell getInputVariableCell(final String inputVariable, final int index) {
         final Optional<CellReference> cellOption = WorkbookUtil.getCellTypeString(sheet, inputVariable);
         final CellReference cellReference = cellOption.orElseThrow(
                 () -> new RuntimeException(
                         String.format("Input Variable: '%s' Does not exist in Sheet: '%s'", inputVariable, sheet.getSheetName())));
 
         final Row row = sheet.getRow(cellReference.getRow());
-        return row.getCell(cellReference.getCol() + 1);
+        return row.getCell(cellReference.getCol() + index + 1);
     }
 
     public String getString(final String inputVariable) {
-        final Cell cell = getInputVariableCell(inputVariable);
+        return getString(inputVariable, 0);
+    }
+
+    public String getString(final String inputVariable, final int index) {
+        final Cell cell = getInputVariableCell(inputVariable, index);
         // get the text that appears in the cell by getting the cell value and applying any data formats (Date, 0.00, 1.23e9, $1.23, etc)
         return WorkbookUtil.FORMATTER.formatCellValue(cell);
     }
 
-    public double getNumeric(final String inputVariable) {
-        final Cell cell = getInputVariableCell(inputVariable);
+    public double getNumeric(final String inputVariable, final int index) {
+        final Cell cell = getInputVariableCell(inputVariable, index);
         return cell.getNumericCellValue();
+    }
+
+    public double getNumeric(final String inputVariable) {
+        return getNumeric(inputVariable, 0);
     }
 
     public int getInputVariableColumnIndex() {
@@ -91,5 +99,9 @@ public class TestPackageSheet {
 
     public void dump() {
         WorkbookUtil.dump(sheet);
+    }
+
+    public Sheet getSheet() {
+        return sheet;
     }
 }

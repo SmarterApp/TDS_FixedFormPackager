@@ -2,6 +2,7 @@ package tds.packager.mapper;
 
 import org.springframework.util.StringUtils;
 import tds.common.Algorithm;
+import tds.packager.model.gitlab.GitLabItemMetaData;
 import tds.packager.model.xlsx.TestPackageSheet;
 import tds.packager.model.xlsx.TestPackageSheetNames;
 import tds.packager.model.xlsx.TestPackageWorkbook;
@@ -13,9 +14,10 @@ import tds.testpackage.model.SegmentBlueprintElement;
 import java.util.*;
 
 public class SegmentMapper {
-    public static List<Segment> map(final TestPackageWorkbook workbook, final String assessmentId) {
+    public static List<Segment> map(final TestPackageWorkbook workbook, final String assessmentId, final HashMap<String, GitLabItemMetaData> itemMetaData) {
         final List<Segment> segments = new ArrayList<>();
         final TestPackageSheet sheet = workbook.getSheet(TestPackageSheetNames.SEGMENTS);
+        final TestPackageSheet segmentFormsSheet = workbook.getSheet(TestPackageSheetNames.SEGMENT_FORMS);
 
         for (int i = 0; i < sheet.getTotalNumberOfInputColumns(); i++) {
             final Map<String, String> segmentInputValuesMap = sheet.getInputVariableValuesMap(i);
@@ -40,16 +42,30 @@ public class SegmentMapper {
                             : Boolean.valueOf(segmentInputValuesMap.get("SegmentExitApproval")))
                     .setAlgorithmType(Algorithm.FIXED_FORM.getType())
                     .setAlgorithmImplementation("FAIRWAY FIXEDFORM")
-                    .setSegmentForms(SegmentFormMapper.map(workbook, segmentId, mapPresentations(segmentInputValuesMap)))
+                    .setSegmentForms(SegmentFormMapper.map(workbook, segmentId, mapPresentations(segmentInputValuesMap), itemMetaData))
                     .setTools(ToolMapper.map(workbook, segmentId))
-                    .setSegmentBlueprint(mapSegmentBlueprint(segmentId, segmentInputValuesMap))
+                    .setSegmentBlueprint(mapSegmentBlueprint(segmentId, segmentInputValuesMap, itemMetaData, findItemIdsForSegment(segmentId, segmentFormsSheet)))
                     .build());
         }
 
         return segments;
     }
 
-    private static List<SegmentBlueprintElement> mapSegmentBlueprint(final String segmentId, final Map<String, String> segmentInputValuesMap) {
+    private static List<String> findItemIdsForSegment(final String segmentId, final TestPackageSheet segmentFormsSheet) {
+        final List<String> itemIds = new ArrayList<>();
+
+        for (int i = 0; i <= segmentFormsSheet.getTotalNumberOfInputColumns(); i++) {
+            if (segmentFormsSheet.getString("SegmentId", i).equals(segmentId))
+            itemIds.add(segmentFormsSheet.getString("ItemId", i));
+        }
+
+        return itemIds;
+    }
+
+    private static List<SegmentBlueprintElement> mapSegmentBlueprint(final String segmentId,
+                                                                     final Map<String, String> segmentInputValuesMap,
+                                                                     final HashMap<String, GitLabItemMetaData> itemMetaData,
+                                                                     final List<String> itemIds) {
         final List<SegmentBlueprintElement> segmentBlueprint = new ArrayList<>();
 
         // Add the segment blueprint, containing the slope and intercept values
