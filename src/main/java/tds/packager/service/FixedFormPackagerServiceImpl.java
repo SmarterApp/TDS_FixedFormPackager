@@ -7,12 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tds.itemrenderer.data.xml.itemrelease.Itemrelease;
-import tds.packager.model.gitlab.GitCredentials;
-
-import tds.packager.mapper.TestPackageMapper;
-import tds.packager.model.GitCredentials;
-import tds.packager.model.xlsx.TestPackageSheet;
-import tds.itemrenderer.data.xml.itemrelease.Itemrelease;
 import tds.packager.mapper.TestPackageMapper;
 import tds.packager.model.gitlab.GitCredentials;
 import tds.packager.model.gitlab.GitLabItemMetaData;
