@@ -8,10 +8,13 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
 import java.io.StringReader;
+import java.util.HashMap;
+import java.util.List;
 
 
 public class ItemMetaDataUtil {
@@ -49,4 +52,12 @@ public class ItemMetaDataUtil {
             throw new RuntimeException("XPath expression " + expression + " failed. Could not retrieve PrimaryStandard. ", e);
         }
     }
+
+    public Node getIrtDimension() {
+        final String expression = "metadata/smarterAppMetadata/IrtDimension";
+        NodeList nodes = xpathQuery(expression);
+
+        return nodes.item(0);
+    }
+
 }

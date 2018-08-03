@@ -34,7 +34,6 @@ public class FixedFormPackagerServiceImpl implements FixedFormPackagerService {
         // TODO: read/process input spreadsheet + map to TestPackage
 
         //TODO: get Iterable list of Item ids and pass to GitLabUtil.getItemMetaData
-        //String [] items = new String[] { "200-12164", "200-14286", "200-12585", "200-3453", "200-14426", "200-16433", "200-13888", "200-13923", "200-32704", "200-14241", "200-50961","200-501","200-28171"};
         String [] items = new String[] { "200-12164", "200-14286"};
 
         final HashMap<String, GitLabItemMetaData> itemMetaData = GitLabUtil.getItemMetaData(credentials, Arrays.asList(items));
