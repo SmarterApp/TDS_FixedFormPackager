@@ -16,10 +16,10 @@ import java.io.StringReader;
 
 public class ItemMetaDataUtil {
 
-    DocumentBuilderFactory builderFactory;
-    DocumentBuilder builder;
-    Document xmlDocument;
-    XPath xPath;
+    private final DocumentBuilderFactory builderFactory;
+    private final DocumentBuilder builder;
+    private final Document xmlDocument;
+    private final XPath xPath;
 
     public ItemMetaDataUtil(String itemMeta) {
 
@@ -38,6 +38,15 @@ public class ItemMetaDataUtil {
             return (NodeList) this.xPath.compile(expression).evaluate(this.xmlDocument, XPathConstants.NODESET);
         } catch (XPathExpressionException e) {
             throw new RuntimeException("XPath expression " + expression + " failed.", e);
+        }
+    }
+
+    public String getPrimaryStandard() {
+        final String expression = "metadata/smarterAppMetadata/StandardPublication/PrimaryStandard[contains(.,'-v6:')]";
+        try {
+            return ((NodeList) this.xPath.compile(expression).evaluate(this.xmlDocument, XPathConstants.NODESET)).item(0).getTextContent();
+        } catch (XPathExpressionException e) {
+            throw new RuntimeException("XPath expression " + expression + " failed. Could not retrieve PrimaryStandard. ", e);
         }
     }
 }

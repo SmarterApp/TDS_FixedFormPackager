@@ -38,15 +38,15 @@ public class FixedFormPackagerServiceImpl implements FixedFormPackagerService {
         String [] items = new String[] { "200-12164", "200-14286"};
 
         final HashMap<String, GitLabItemMetaData> itemMetaData = GitLabUtil.getItemMetaData(credentials, Arrays.asList(items));
+        GitLabItemMetaData gli = itemMetaData.get(items[0]);
         final ItemreleaseUnmarshaller unmarshaller = new ItemreleaseUnmarshaller();
-        Itemrelease ir = unmarshaller.unmarshallItem(itemMetaData.get(items[0]).getItemReleaseMetadata(),items[0]);
+        Itemrelease ir = unmarshaller.unmarshallItem(gli.getItemReleaseMetadata(),items[0]);
         System.out.println("unmarshalled: " + ir.getItemPassage().getId());
 
-        GitLabItemMetaData gli = itemMetaData.get(items[0]);
+        // Example of getting the PrimaryStandard from the item metadata.xml
         String itemMetaString = gli.getItemMetadata();
         ItemMetaDataUtil itemMetaDataUtil = new ItemMetaDataUtil(itemMetaString);
-        NodeList nodeList = itemMetaDataUtil.xpathQuery("metadata/smarterAppMetadata/StandardPublication/PrimaryStandard[contains(.,'-v6:')]");
-        System.out.println("nodelist: " + nodeList.item(0).getTextContent());
+        System.out.println("PrimaryStandard v6= " + itemMetaDataUtil.getPrimaryStandard());
 
         final TestPackage testPackage = TestPackage.builder().setId("testPackageId").build();
         final String outputFileFullPath = outputFilePath + File.separator + testPackage.getId() + ".xml";
