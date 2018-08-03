@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tds.itemrenderer.data.xml.itemrelease.Itemrelease;
 import tds.packager.mapper.TestPackageMapper;
-import tds.packager.model.gitlab.GitCredentials;
-import tds.packager.model.gitlab.GitLabItemMetaData;
-import tds.packager.model.gitlab.GitLabUtil;
-import tds.packager.model.gitlab.ItemreleaseUnmarshaller;
+import tds.packager.model.gitlab.*;
 import tds.packager.model.xlsx.TestPackageWorkbook;
 import tds.support.tool.testpackage.configuration.TestPackageObjectMapperConfiguration;
 import tds.testpackage.model.TestPackage;
@@ -47,15 +44,22 @@ public class FixedFormPackagerServiceImpl implements FixedFormPackagerService {
         // TODO: read/process input spreadsheet + map to TestPackage
 
         //TODO: get Iterable list of Item ids and pass to GitLabUtil.getItemMetaData
-        String[] items = new String[]{"200-12164", "200-14286", "200-12585", "200-3453", "200-14426", "200-16433", "200-13888", "200-13923", "200-32704", "200-14241", "200-50961", "200-501", "200-28171"};
+        String [] items = new String[] { "200-12164", "200-14286"};
+
         final HashMap<String, GitLabItemMetaData> itemMetaData = GitLabUtil.getItemMetaData(credentials, Arrays.asList(items));
+        GitLabItemMetaData gli = itemMetaData.get(items[0]);
         final ItemreleaseUnmarshaller unmarshaller = new ItemreleaseUnmarshaller();
-        Itemrelease ir = unmarshaller.unmarshallItem(itemMetaData.get(items[0]).getItemMetadata(), items[0]);
+        Itemrelease ir = unmarshaller.unmarshallItem(gli.getItemReleaseMetadata(),items[0]);
         System.out.println("unmarshalled: " + ir.getItemPassage().getId());
 
         // TODO: get item data from gitlab using the GitCredentials
         final TestPackageWorkbook testPackageWorkbook = createTestPackageWorkbook(inputSpreadsheetPath);
         final TestPackage testPackage = TestPackageMapper.map(testPackageWorkbook, itemMetaData);
+        // Example of getting the PrimaryStandard from the item metadata.xml
+        String itemMetaString = gli.getItemMetadata();
+        ItemMetaDataUtil itemMetaDataUtil = new ItemMetaDataUtil(itemMetaString);
+        System.out.println("PrimaryStandard v6= " + itemMetaDataUtil.getPrimaryStandard());
+
         final String outputFileFullPath = outputFilePath + File.separator + testPackage.getId() + ".xml";
 
         try {
