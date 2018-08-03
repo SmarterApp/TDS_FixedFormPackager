@@ -1,16 +1,16 @@
 package tds.packager.model.gitlab;
 
 public class GitLabItemMetaData {
-    private final String metadata;
     private final String itemMetadata;
+    private final String itemReleaseMetadata;
 
-    public GitLabItemMetaData(final String metadata, final String itemMetadata) {
-        this.metadata = metadata;
+    public GitLabItemMetaData(final String itemMetadata, final String itemReleaseMetadata) {
         this.itemMetadata = itemMetadata;
+        this.itemReleaseMetadata = itemReleaseMetadata;
     }
 
-    public String getMetadata() { return metadata; }
-
     public String getItemMetadata() { return itemMetadata; }
+
+    public String getItemReleaseMetadata() { return itemReleaseMetadata; }
 
 }
