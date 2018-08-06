@@ -65,6 +65,8 @@ public class FixedFormPackagerServiceImpl implements FixedFormPackagerService {
     private static String[] getItemIds(final String bankKey, final TestPackageSheet sheet) {
         final String[] itemIds = sheet.getStrings("ItemId");
 
+        // Item IDs in the input file do not incude the bank key - but the items are keyed by the entire item key (which is
+        // prefixed by the bank key) in gitlab
         for (int i = 0; i < itemIds.length; i++) {
             itemIds[i] = String.format("%s-%s", bankKey, itemIds[i]);
         }
