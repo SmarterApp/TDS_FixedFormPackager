@@ -6,9 +6,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.util.CellReference;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public class TestPackageSheet {
     private static final int HEADER_ROW = 1;
@@ -52,6 +50,26 @@ public class TestPackageSheet {
 
     public double getNumeric(final String inputVariable) {
         return getNumeric(inputVariable, 0);
+    }
+
+    public String[] getStrings(final String inputVariable) {
+        final DataFormatter formatter = new DataFormatter();
+        final int inputVariableIndex = getInputVariableColumnIndex();
+        final List<String> values = new ArrayList<>();
+
+        for (int i = 0; i < sheet.getLastRowNum(); i++) {
+            Row row = sheet.getRow(i);
+            if (formatter.formatCellValue(row.getCell(inputVariableIndex)).equals(inputVariable)) {
+
+                for (int j = inputVariableIndex + 1; j < row.getLastCellNum(); j++) {
+                    values.add(formatter.formatCellValue(row.getCell(j)));
+                }
+
+                break;
+            }
+        }
+
+        return values.toArray(new String[values.size()]);
     }
 
     public int getInputVariableColumnIndex() {

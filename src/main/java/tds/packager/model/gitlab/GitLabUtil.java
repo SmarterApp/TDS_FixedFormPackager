@@ -8,10 +8,11 @@ import org.gitlab4j.api.models.RepositoryFile;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class GitLabUtil {
 
-    public static HashMap<String, GitLabItemMetaData> getItemMetaData(GitCredentials gitCredentials, Iterable<String> items) {
+    public static Map<String, GitLabItemMetaData> getItemMetaData(GitCredentials gitCredentials, Iterable<String> items) {
 
         //Gitlab login
         final GitLabApi gitLabApi = gitLabApiLogin(gitCredentials.getUrl(), gitCredentials.getUserName(), gitCredentials.getPassword());
@@ -20,26 +21,30 @@ public class GitLabUtil {
         final HashMap<String, GitLabItemMetaData> gitLabItems = new HashMap<>();
 
         try {
-            for (String itemId : items) {
-                System.out.println("Fetching metadata for " + group + "/Item-" + itemId);
-                List<Project> projects = gitLabApi.getProjectApi().getProjects("Item-"+ itemId);
-                Project project = getGitLabProject(projects, itemId);
-                gitLabItems.put(itemId, new GitLabItemMetaData(
+            for (String itemKey : items) {
+                System.out.println("Fetching metadata for " + group + "/Item-" + itemKey);
+                List<Project> projects = gitLabApi.getProjectApi().getProjects("Item-" + itemKey);
+                Project project = getGitLabProject(projects, itemKey);
+                gitLabItems.put(trimBankKey(itemKey), new GitLabItemMetaData(
                                 decodeGitLabFile(gitLabApi.getRepositoryFileApi().getFile(project, "metadata.xml", "master")),
-                                decodeGitLabFile(gitLabApi.getRepositoryFileApi().getFile(project, "item-" + itemId + ".xml", "master"))
+                                decodeGitLabFile(gitLabApi.getRepositoryFileApi().getFile(project, "item-" + itemKey + ".xml", "master"))
                         )
                 );
             }
-        } catch (GitLabApiException e)   {
+        } catch (GitLabApiException e) {
             throw new RuntimeException("Error fetching files from GitLab: ", e);
         }
         System.out.println("Done fetching item metadata.");
         return gitLabItems;
     }
 
+    private static String trimBankKey(final String itemKey) {
+        return itemKey.split("-")[1];
+    }
+
     private static Project getGitLabProject(List<Project> projects, String itemId) {
         for (Project project : projects) {
-            if(project.getName().equalsIgnoreCase("Item-"+itemId)) {
+            if (project.getName().equalsIgnoreCase("Item-" + itemId)) {
                 return project;
             }
         }
