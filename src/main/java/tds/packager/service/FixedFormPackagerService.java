@@ -10,5 +10,6 @@ public interface FixedFormPackagerService {
      * @param outputFilePath       The path to output the generated test package file
      * @param credentials          The gitlab credentials for the fetching the item content
      */
-    void generateFixedFormPackage(final String inputSpreadsheetPath, final String outputFilePath, final GitCredentials credentials);
+    void generateFixedFormPackage(final String inputSpreadsheetPath, final String outputFilePath, final GitCredentials credentials,
+                                  final boolean debug);
 }

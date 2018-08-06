@@ -1,6 +1,5 @@
 package tds.packager.mapper;
 
-import org.apache.poi.ss.util.CellReference;
 import tds.packager.model.gitlab.GitLabItemMetaData;
 import tds.packager.model.xlsx.TestPackageSheet;
 import tds.packager.model.xlsx.TestPackageSheetNames;
@@ -11,7 +10,7 @@ import java.time.Instant;
 import java.util.*;
 
 public class TestPackageMapper {
-    public static TestPackage map(final TestPackageWorkbook workbook, final HashMap<String, GitLabItemMetaData> itemMetaData) {
+    public static TestPackage map(final TestPackageWorkbook workbook, final Map<String, GitLabItemMetaData> itemMetaData) {
         final TestPackageSheet sheet = workbook.getSheet(TestPackageSheetNames.PACKAGE);
         final Map<String, String> valuesMap = sheet.getInputVariableValuesMap(0);
 

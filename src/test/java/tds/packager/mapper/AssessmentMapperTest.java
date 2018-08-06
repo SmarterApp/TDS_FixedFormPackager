@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class AssessmentMapperTest extends MapperBaseTest {
     @Test
     public void shouldMapAssessments() {
-        List<Assessment> assessments = AssessmentMapper.map(mockWorkbook, Arrays.asList("05", "06"), new HashMap<>());
+        List<Assessment> assessments = AssessmentMapper.map(mockWorkbook, Arrays.asList("05", "06"), itemMetadata);
         assertThat(assessments).hasSize(1);
         Assessment assessment = assessments.get(0);
         assertThat(assessment.getId()).isEqualTo("SBAC-IAB-FIXED-G11M-AlgLin");

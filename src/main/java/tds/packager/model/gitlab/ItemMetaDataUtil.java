@@ -53,6 +53,15 @@ public class ItemMetaDataUtil {
         }
     }
 
+    public String getStatus() {
+        final String expression = "metadata/smarterAppMetadata/Status";
+        try {
+            return ((NodeList) this.xPath.compile(expression).evaluate(this.xmlDocument, XPathConstants.NODESET)).item(0).getTextContent();
+        } catch (XPathExpressionException e) {
+            throw new RuntimeException("XPath expression " + expression + " failed. Could not retrieve Status. ", e);
+        }
+    }
+
     public Node getIrtDimension() {
         final String expression = "metadata/smarterAppMetadata/IrtDimension";
         NodeList nodes = xpathQuery(expression);
