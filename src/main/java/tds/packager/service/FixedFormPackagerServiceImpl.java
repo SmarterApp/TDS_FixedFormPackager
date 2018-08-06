@@ -39,10 +39,7 @@ public class FixedFormPackagerServiceImpl implements FixedFormPackagerService {
 
     @Override
     public void generateFixedFormPackage(final String inputSpreadsheetPath, final String outputFilePath,
-                                         final GitCredentials credentials) {
-
-        // TODO: read/process input spreadsheet + map to TestPackage
-
+                                         final GitCredentials credentials, final boolean debug) {
         //TODO: get Iterable list of Item ids and pass to GitLabUtil.getItemMetaData
         String [] items = new String[] { "200-12164", "200-14286"};
 
@@ -50,15 +47,22 @@ public class FixedFormPackagerServiceImpl implements FixedFormPackagerService {
         GitLabItemMetaData gli = itemMetaData.get(items[0]);
         final ItemreleaseUnmarshaller unmarshaller = new ItemreleaseUnmarshaller();
         Itemrelease ir = unmarshaller.unmarshallItem(gli.getItemReleaseMetadata(),items[0]);
-        System.out.println("unmarshalled: " + ir.getItemPassage().getId());
+
+        if (debug) {
+            System.out.println("unmarshalled: " + ir.getItemPassage().getId());
+        }
 
         // TODO: get item data from gitlab using the GitCredentials
         final TestPackageWorkbook testPackageWorkbook = createTestPackageWorkbook(inputSpreadsheetPath);
         final TestPackage testPackage = TestPackageMapper.map(testPackageWorkbook, itemMetaData);
+
         // Example of getting the PrimaryStandard from the item metadata.xml
         String itemMetaString = gli.getItemMetadata();
         ItemMetaDataUtil itemMetaDataUtil = new ItemMetaDataUtil(itemMetaString);
-        System.out.println("PrimaryStandard v6= " + itemMetaDataUtil.getPrimaryStandard());
+
+        if (debug) {
+            System.out.println("PrimaryStandard v6= " + itemMetaDataUtil.getPrimaryStandard());
+        }
 
         final String outputFileFullPath = outputFilePath + File.separator + testPackage.getId() + ".xml";
 

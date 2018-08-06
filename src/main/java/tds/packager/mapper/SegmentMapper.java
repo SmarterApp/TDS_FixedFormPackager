@@ -68,7 +68,7 @@ public class SegmentMapper {
 
             final String standard = util.getPrimaryStandard();
             final List<String> blueprintElementIds = parseBlueprintId(standard);
-            final boolean fieldTestItem = false; //TODO: Get this val from metadata file
+            final boolean fieldTestItem = !util.getStatus().equalsIgnoreCase("Operational");
 
             // Increment the segment counts
             incrementCounts(blueprintElementCountsMap, fieldTestItem, segmentId);
@@ -153,14 +153,13 @@ public class SegmentMapper {
                                                                      final List<String> itemIds) {
         final List<SegmentBlueprintElement> segmentBlueprint = new ArrayList<>();
         final Map<String, BlueprintElementCounts> bpRefCounts = getBlueprintReferenceCounts(segmentId, itemIds, itemMetaData);
-        // Add the segment blueprint, containing the slope and intercept values\
 
         bpRefCounts.forEach((bpId, counts) ->
                 segmentBlueprint.add(SegmentBlueprintElement.builder()
                         .setIdRef(bpId)
-                        .setMinExamItems(counts.getExamItemCount()) //TODO: get the sum of all exam items/fieldTestItems
+                        .setMinExamItems(0)
                         .setMaxExamItems(counts.getExamItemCount())
-                        .setMinFieldTestItems(Optional.of(counts.getFieldTestItemCount()))
+                        .setMinFieldTestItems(Optional.of(0))
                         .setMaxFieldTestItems(Optional.of(counts.getFieldTestItemCount()))
                         .setItemSelection(bpId.equals(segmentId) // Primary segment blueprint element should have item selection data
                                 ? mapItemSelection(segmentInputValuesMap.get("SegmentSlope"), segmentInputValuesMap.get("SegmentIntercept"))

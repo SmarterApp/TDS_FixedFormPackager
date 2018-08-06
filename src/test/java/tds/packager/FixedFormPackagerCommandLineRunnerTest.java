@@ -33,7 +33,7 @@ public class FixedFormPackagerCommandLineRunnerTest {
                 "-g", "myGroup",
                 "-z", "myUrl");
 
-        verify(mockPackagerService).generateFixedFormPackage(eq("/path/to/spreadsheet.xlsx"), eq("."), isA(GitCredentials.class));
+        verify(mockPackagerService).generateFixedFormPackage(eq("/path/to/spreadsheet.xlsx"), eq("."), isA(GitCredentials.class), eq(false));
     }
 
     @Test
@@ -45,6 +45,6 @@ public class FixedFormPackagerCommandLineRunnerTest {
                 "-z", "myUrl",
                 "-o", "/output/path/");
 
-        verify(mockPackagerService).generateFixedFormPackage(eq("/path/to/spreadsheet.xlsx"), eq("/output/path/"), isA(GitCredentials.class));
+        verify(mockPackagerService).generateFixedFormPackage(eq("/path/to/spreadsheet.xlsx"), eq("/output/path/"), isA(GitCredentials.class), eq(false));
     }
 }

@@ -17,7 +17,7 @@ public class FixedFormPackagerCommandLineRunner implements CommandLineRunner {
     private static final String GIT_GROUP = "g";
     private static final String GIT_URL = "z";
     private static final String OUTPUT_PATH = "o";
-    private static final String VERBOSE_FLAG = "v";
+    private static final String DEBUG_FLAG = "d";
 
     private Options options;
     private CommandLineParser parser;
@@ -85,11 +85,11 @@ public class FixedFormPackagerCommandLineRunner implements CommandLineRunner {
                 .required(false)
                 .build();
 
-        final Option verboseOption = Option.builder(VERBOSE_FLAG)
-                .argName("verbose")
-                .longOpt("verbose")
+        final Option debugOption = Option.builder(DEBUG_FLAG)
+                .argName("debug")
+                .longOpt("debug")
                 .hasArg(false)
-                .desc("Prints more verbose output in case of errors")
+                .desc("Prints more verbose debug output in case of errors")
                 .required(false)
                 .build();
 
@@ -98,7 +98,7 @@ public class FixedFormPackagerCommandLineRunner implements CommandLineRunner {
         options.addOption(groupOption);
         options.addOption(urlOption);
         options.addOption(outputPathOption);
-        options.addOption(verboseOption);
+        options.addOption(debugOption);
     }
 
     @Override
@@ -134,10 +134,11 @@ public class FixedFormPackagerCommandLineRunner implements CommandLineRunner {
             // If no -o/--output is provided, just default to the current directory
             service.generateFixedFormPackage(inputFilePath,
                     cmd.hasOption(OUTPUT_PATH) ? cmd.getOptionValue(OUTPUT_PATH) : DEFAULT_OUTPUT_PATH,
-                    credentials);
+                    credentials,
+                    cmd.hasOption(DEBUG_FLAG));
 
         } catch (Throwable e) {
-            if (cmd != null && cmd.hasOption(VERBOSE_FLAG)) {
+            if (cmd != null && cmd.hasOption(DEBUG_FLAG)) {
                 e.printStackTrace();
             }
 

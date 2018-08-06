@@ -43,7 +43,7 @@ public class SegmentMapperTest extends MapperBaseTest {
                 .findFirst()
                 .get();
 
-        assertThat(segmentBpEl.getMinExamItems()).isEqualTo(12);
+        assertThat(segmentBpEl.getMinExamItems()).isEqualTo(0);
         assertThat(segmentBpEl.getMaxExamItems()).isEqualTo(12);
 
     }
