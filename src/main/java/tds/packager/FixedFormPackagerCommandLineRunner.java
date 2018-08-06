@@ -12,8 +12,7 @@ import javax.annotation.PostConstruct;
 @Component
 public class FixedFormPackagerCommandLineRunner implements CommandLineRunner {
     private static final String DEFAULT_OUTPUT_PATH = ".";
-    private static final String GIT_USERNAME = "u";
-    private static final String GIT_PASSWORD = "p";
+    private static final String GIT_TOKEN = "t";
     private static final String GIT_GROUP = "g";
     private static final String GIT_URL = "z";
     private static final String OUTPUT_PATH = "o";
@@ -40,20 +39,11 @@ public class FixedFormPackagerCommandLineRunner implements CommandLineRunner {
         parser = new DefaultParser();
         formatter = new HelpFormatter();
 
-        final Option usernameOption = Option.builder(GIT_USERNAME)
-                .argName("username")
+        final Option tokenOption = Option.builder(GIT_TOKEN)
+                .argName("token")
                 .hasArgs()
-                .longOpt("username")
-                .desc("*REQUIRED* GitLab Username")
-                .optionalArg(false)
-                .required(true)
-                .build();
-
-        final Option passwordOption = Option.builder(GIT_PASSWORD)
-                .argName("password")
-                .longOpt("password")
-                .hasArg()
-                .desc("*REQUIRED* GitLab Password")
+                .longOpt("token")
+                .desc("*REQUIRED* GitLab Token")
                 .optionalArg(false)
                 .required(true)
                 .build();
@@ -93,8 +83,7 @@ public class FixedFormPackagerCommandLineRunner implements CommandLineRunner {
                 .required(false)
                 .build();
 
-        options.addOption(usernameOption);
-        options.addOption(passwordOption);
+        options.addOption(tokenOption);
         options.addOption(groupOption);
         options.addOption(urlOption);
         options.addOption(outputPathOption);
@@ -125,8 +114,7 @@ public class FixedFormPackagerCommandLineRunner implements CommandLineRunner {
             }
 
             final GitCredentials credentials = new GitCredentials(
-                    cmd.getOptionValue(GIT_USERNAME),
-                    cmd.getOptionValue(GIT_PASSWORD),
+                    cmd.getOptionValue(GIT_TOKEN),
                     cmd.getOptionValue(GIT_GROUP),
                     cmd.getOptionValue(GIT_URL)
             );
@@ -136,12 +124,16 @@ public class FixedFormPackagerCommandLineRunner implements CommandLineRunner {
                     cmd.hasOption(OUTPUT_PATH) ? cmd.getOptionValue(OUTPUT_PATH) : DEFAULT_OUTPUT_PATH,
                     credentials);
 
-        } catch (Exception e) {
+        } catch (Throwable e) {
             if (cmd != null && cmd.hasOption(VERBOSE_FLAG)) {
                 e.printStackTrace();
             }
 
             System.out.println(String.format("The fixed-form test package was not successfully created"));
+            System.out.println(String.format("Error message: %s", e.getMessage()));
+            if (e.getCause() != null) {
+                System.out.println(String.format("Cause: %s", e.getCause().getMessage()));
+            }
             printHelpAndExit();
         }
     }
