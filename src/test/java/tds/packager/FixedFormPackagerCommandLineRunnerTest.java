@@ -28,8 +28,7 @@ public class FixedFormPackagerCommandLineRunnerTest {
     @Test
     public void shouldCreateFixedFormPackageSuccessfullyNoOutputPath() {
         runner.run("/path/to/spreadsheet.xlsx",
-                "-u", "myUserName",
-                "-p", "myPassword",
+                "-t", "myToken",
                 "-g", "myGroup",
                 "-z", "myUrl");
 
@@ -39,8 +38,7 @@ public class FixedFormPackagerCommandLineRunnerTest {
     @Test
     public void shouldCreateFixedFormPackageSuccessfullyWithOutputPath() {
         runner.run("/path/to/spreadsheet.xlsx",
-                "-u", "myUserName",
-                "-p", "myPassword",
+                "-t", "myToken",
                 "-g", "myGroup",
                 "-z", "myUrl",
                 "-o", "/output/path/");

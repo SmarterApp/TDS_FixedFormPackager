@@ -15,7 +15,7 @@ public class GitLabUtil {
     public static Map<String, GitLabItemMetaData> getItemMetaData(GitCredentials gitCredentials, Iterable<String> items) {
 
         //Gitlab login
-        final GitLabApi gitLabApi = gitLabApiLogin(gitCredentials.getUrl(), gitCredentials.getUserName(), gitCredentials.getPassword());
+        final GitLabApi gitLabApi = gitLabApiLogin(gitCredentials.getUrl(), gitCredentials.getToken());
         final String group = gitCredentials.getGroup();
 
         final HashMap<String, GitLabItemMetaData> gitLabItems = new HashMap<>();
@@ -55,11 +55,14 @@ public class GitLabUtil {
         return new String(Base64.getDecoder().decode(file.getContent()));
     }
 
-    private static GitLabApi gitLabApiLogin(String url, String username, String password) {
+    private static GitLabApi gitLabApiLogin(String url, String token) {
+        GitLabApi gitLabApi = new GitLabApi(url, token);
         try {
-            return GitLabApi.login(url, username, password);
+            System.out.println("Successfully authenticated to GitLab API as user " + gitLabApi.getUserApi().getCurrentUser().getUsername());
         } catch (GitLabApiException gae) {
             throw new RuntimeException("Unable to login to Gitlab with provided credentials and URL to retrieve item metadata: ", gae);
         }
+        return gitLabApi;
+
     }
 }

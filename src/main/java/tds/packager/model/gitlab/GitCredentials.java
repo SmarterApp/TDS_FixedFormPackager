@@ -1,24 +1,18 @@
 package tds.packager.model.gitlab;
 
 public class GitCredentials {
-    private final String userName;
-    private final String password;
+    private final String token;
     private final String group;
     private final String url;
 
-    public GitCredentials(final String userName, final String password, final String group, final String url) {
-        this.userName = userName;
-        this.password = password;
+    public GitCredentials(final String token, final String group, final String url) {
+        this.token = token;
         this.group = group;
         this.url = url;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public String getPassword() {
-        return password;
+    public String getToken() {
+        return token;
     }
 
     public String getGroup() {
