@@ -12,11 +12,10 @@ import javax.annotation.PostConstruct;
 @Component
 public class FixedFormPackagerCommandLineRunner implements CommandLineRunner {
     private static final String DEFAULT_OUTPUT_PATH = ".";
-    private static final String GIT_TOKEN = "t";
-    private static final String GIT_GROUP = "g";
-    private static final String GIT_URL = "u";
     private static final String OUTPUT_PATH = "o";
     private static final String DEBUG_FLAG = "d";
+
+    private final GitCredentials credentials;
 
     private Options options;
     private CommandLineParser parser;
@@ -26,8 +25,9 @@ public class FixedFormPackagerCommandLineRunner implements CommandLineRunner {
     private final FixedFormPackagerService service;
 
     @Autowired
-    public FixedFormPackagerCommandLineRunner(final FixedFormPackagerService service) {
+    public FixedFormPackagerCommandLineRunner(final FixedFormPackagerService service, final GitCredentials credentials) {
         this.service = service;
+        this.credentials = credentials;
     }
 
     /**
@@ -38,33 +38,6 @@ public class FixedFormPackagerCommandLineRunner implements CommandLineRunner {
         options = new Options();
         parser = new DefaultParser();
         formatter = new HelpFormatter();
-
-        final Option tokenOption = Option.builder(GIT_TOKEN)
-                .argName("token")
-                .hasArgs()
-                .longOpt("token")
-                .desc("*REQUIRED* GitLab Token")
-                .optionalArg(false)
-                .required(true)
-                .build();
-
-        final Option groupOption = Option.builder(GIT_GROUP)
-                .argName("group")
-                .longOpt("group")
-                .hasArg()
-                .desc("*REQUIRED* GitLab Group")
-                .optionalArg(false)
-                .required(true)
-                .build();
-
-        final Option urlOption = Option.builder(GIT_URL)
-                .argName("url")
-                .longOpt("url")
-                .hasArg()
-                .desc("*REQUIRED* GitLab URL")
-                .optionalArg(false)
-                .required(true)
-                .build();
 
         final Option outputPathOption = Option.builder(OUTPUT_PATH)
                 .argName("output")
@@ -83,9 +56,6 @@ public class FixedFormPackagerCommandLineRunner implements CommandLineRunner {
                 .required(false)
                 .build();
 
-        options.addOption(tokenOption);
-        options.addOption(groupOption);
-        options.addOption(urlOption);
         options.addOption(outputPathOption);
         options.addOption(debugOption);
     }
@@ -112,12 +82,6 @@ public class FixedFormPackagerCommandLineRunner implements CommandLineRunner {
                 System.out.println("No arguments were provided to the fixed form packager. Aborting...");
                 return;
             }
-
-            final GitCredentials credentials = new GitCredentials(
-                    cmd.getOptionValue(GIT_TOKEN),
-                    cmd.getOptionValue(GIT_GROUP),
-                    cmd.getOptionValue(GIT_URL)
-            );
 
             // If no -o/--output is provided, just default to the current directory
             service.generateFixedFormPackage(inputFilePath,
