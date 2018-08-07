@@ -2,19 +2,21 @@ package tds.packager.service;
 
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tds.itemrenderer.data.xml.itemrelease.Itemrelease;
+import org.xml.sax.SAXException;
 import tds.packager.mapper.TestPackageMapper;
-import tds.packager.model.gitlab.*;
+import tds.packager.model.gitlab.GitCredentials;
+import tds.packager.model.gitlab.GitLabItemMetaData;
+import tds.packager.model.gitlab.GitLabUtil;
 import tds.packager.model.xlsx.TestPackageSheet;
 import tds.packager.model.xlsx.TestPackageSheetNames;
 import tds.packager.model.xlsx.TestPackageWorkbook;
 import tds.support.tool.testpackage.configuration.TestPackageObjectMapperConfiguration;
 import tds.testpackage.model.TestPackage;
 
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.Validator;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -23,20 +25,13 @@ import java.util.Map;
 
 @Service
 public class FixedFormPackagerServiceImpl implements FixedFormPackagerService {
-    private static final Logger log = LoggerFactory.getLogger(FixedFormPackagerServiceImpl.class);
     private final XmlMapper xmlMapper;
+    private final Validator schemaValidator;
 
     @Autowired
-    public FixedFormPackagerServiceImpl(final TestPackageObjectMapperConfiguration configuration) {
-        this.xmlMapper = configuration.getLegacyTestSpecXmlMapper();
-    }
-
-    private TestPackageWorkbook createTestPackageWorkbook(final String inputSpreadsheetPath) {
-        try {
-            return new TestPackageWorkbook(new XSSFWorkbook(new FileInputStream(inputSpreadsheetPath)));
-        } catch (IOException e) {
-            throw new RuntimeException("Error reading test package spreadsheet.", e);
-        }
+    public FixedFormPackagerServiceImpl(final TestPackageObjectMapperConfiguration configuration) throws SAXException {
+        xmlMapper = configuration.getLegacyTestSpecXmlMapper();
+        schemaValidator = configuration.getTestPackageSchemaValidator();
     }
 
     @Override
@@ -51,7 +46,7 @@ public class FixedFormPackagerServiceImpl implements FixedFormPackagerService {
         final String outputFileFullPath = outputFilePath + File.separator + testPackage.getId() + ".xml";
 
         try {
-            createTestPackageFile(outputFileFullPath, testPackage);
+            createAndValidateTestPackageFile(outputFileFullPath, testPackage, debug);
             System.out.println("Successfully created the fixed form test package " + testPackage.getId() + ".xml");
         } catch (IOException e) {
             throw new RuntimeException(String.format("An exception occurred while creating the file %s", outputFileFullPath), e);
@@ -74,10 +69,29 @@ public class FixedFormPackagerServiceImpl implements FixedFormPackagerService {
         return itemIds;
     }
 
+    private TestPackageWorkbook createTestPackageWorkbook(final String inputSpreadsheetPath) {
+        try {
+            return new TestPackageWorkbook(new XSSFWorkbook(new FileInputStream(inputSpreadsheetPath)));
+        } catch (IOException e) {
+            throw new RuntimeException("Error reading test package spreadsheet.", e);
+        }
+    }
 
-    private void createTestPackageFile(final String outputFilePath, final TestPackage testPackage) throws IOException {
+    private void createAndValidateTestPackageFile(final String outputFilePath, final TestPackage testPackage,
+                                                 final boolean debug) throws IOException {
         final File testPackageFile = new File(outputFilePath);
         xmlMapper.writeValue(testPackageFile, testPackage);
-        testPackageFile.createNewFile();
+
+        try (FileInputStream fis = new FileInputStream(testPackageFile)) {
+            final StreamSource xmlFile = new StreamSource(fis);
+            schemaValidator.validate(xmlFile);
+            testPackageFile.createNewFile();
+        } catch (SAXException e) {
+            System.out.println("Error during XSD validation of the test packge " + testPackage.getId());
+
+            if (debug) {
+                e.printStackTrace();
+            }
+        }
     }
 }
