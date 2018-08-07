@@ -32,7 +32,7 @@ public class ToolMapperTest extends MapperBaseTest {
 
         Option offOption = maskingTool.options().get(0);
         assertThat(offOption.getCode()).isEqualTo("TDS_Masking0");
-        assertThat(offOption.getLabel()).isEqualTo("Masking Not Available");
+        assertThat(offOption.getLabel().get()).isEqualTo("Masking Not Available");
         assertThat(offOption.getSortOrder()).isEqualTo(0);
         assertThat(offOption.dependencies()).hasSize(3);
 
@@ -46,9 +46,9 @@ public class ToolMapperTest extends MapperBaseTest {
 
         Option onOption = maskingTool.options().get(1);
         assertThat(onOption.getCode()).isEqualTo("TDS_Masking1");
-        assertThat(onOption.getLabel()).isEqualTo("Masking Available");
+        assertThat(onOption.getLabel().get()).isEqualTo("Masking Available");
         assertThat(onOption.getSortOrder()).isEqualTo(1);
-        assertThat(offOption.dependencies()).hasSize(2);
+        assertThat(onOption.dependencies()).hasSize(2);
 
         Optional<Dependency> brailleOnDependency = onOption.dependencies().stream()
                 .filter(dep -> dep.getIfToolCode().equals("ENU-Braille"))
