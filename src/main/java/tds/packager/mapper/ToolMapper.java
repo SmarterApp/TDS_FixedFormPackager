@@ -62,6 +62,9 @@ public class ToolMapper {
             final String toolName = toolVars.get(name);
             tools.add(Tool.builder()
                     .setName(toolName)
+                    .setType(!StringUtils.isEmpty(toolVars.get(getKey(TOOL_TYPE_PREFIX, i)))
+                            ? Optional.of(toolVars.get(getKey(TOOL_TYPE_PREFIX, i)))
+                            : Optional.empty())
                     .setStudentPackageFieldName(!StringUtils.isEmpty(toolVars.get(getKey(TOOL_ART_FIELDNAME_PREFIX, i)))
                             ? Optional.of(toolVars.get(getKey(TOOL_ART_FIELDNAME_PREFIX, i)))
                             : Optional.empty())
