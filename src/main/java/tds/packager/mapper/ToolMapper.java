@@ -55,7 +55,8 @@ public class ToolMapper {
 
         for (int i = 1; ; i++) {
             final String name = getKey(TOOL_NAME_PREFIX, i);
-            if (!toolVars.containsKey(name)) {
+
+            if (!toolVars.containsKey(name) || StringUtils.isEmpty(toolVars.get(name))) {
                 break;
             }
 

@@ -14,7 +14,7 @@ public class FixedFormPackagerCommandLineRunner implements CommandLineRunner {
     private static final String DEFAULT_OUTPUT_PATH = ".";
     private static final String GIT_TOKEN = "t";
     private static final String GIT_GROUP = "g";
-    private static final String GIT_URL = "z";
+    private static final String GIT_URL = "u";
     private static final String OUTPUT_PATH = "o";
     private static final String DEBUG_FLAG = "d";
 
