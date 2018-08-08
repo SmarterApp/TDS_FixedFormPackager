@@ -13,9 +13,6 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
 import java.io.StringReader;
-import java.util.HashMap;
-import java.util.List;
-
 
 public class ItemMetaDataUtil {
 
@@ -45,12 +42,32 @@ public class ItemMetaDataUtil {
     }
 
     public String getPrimaryStandard() {
-        final String expression = "metadata/smarterAppMetadata/StandardPublication/PrimaryStandard[contains(.,'-v6:')]";
+        final String v6expression = "metadata/smarterAppMetadata/StandardPublication/PrimaryStandard[contains(.,'-v6:')]";
+        final String v1expression = "metadata/smarterAppMetadata/StandardPublication/PrimaryStandard[contains(.,'-v1:')]";
+        try {
+            NodeList nodeList = (NodeList) this.xPath.compile(v6expression).evaluate(this.xmlDocument, XPathConstants.NODESET);
+            if(nodeList.getLength() == 1) {
+                return nodeList.item(0).getTextContent();
+            } else {
+                return ((NodeList) this.xPath.compile(v1expression).evaluate(this.xmlDocument, XPathConstants.NODESET)).item(0).getTextContent();
+            }
+
+        } catch (XPathExpressionException e) {
+            throw new RuntimeException("XPath expression failed. Could not retrieve PrimaryStandard. ", e);
+        }
+    }
+
+    public String getIrtElement(String elementName) {
+        final String expression = "metadata/smarterAppMetadata/IrtDimension/" + elementName;
         try {
             return ((NodeList) this.xPath.compile(expression).evaluate(this.xmlDocument, XPathConstants.NODESET)).item(0).getTextContent();
         } catch (XPathExpressionException e) {
-            throw new RuntimeException("XPath expression " + expression + " failed. Could not retrieve PrimaryStandard. ", e);
+            throw new RuntimeException("XPath expression " + expression + " failed. Could not retrieve IrtModelType. ", e);
         }
+    }
+
+    public NodeList getIrtParameters() {
+        return this.xpathQuery("metadata/smarterAppMetadata/IrtDimension/IrtParameter");
     }
 
     public String getStatus() {
@@ -62,11 +79,21 @@ public class ItemMetaDataUtil {
         }
     }
 
-    public Node getIrtDimension() {
-        final String expression = "metadata/smarterAppMetadata/IrtDimension";
-        NodeList nodes = xpathQuery(expression);
-
-        return nodes.item(0);
+    public String getDepthOfKnowledge() {
+        final String expression = "metadata/smarterAppMetadata/DepthOfKnowledge";
+        try {
+            return ((NodeList) this.xPath.compile(expression).evaluate(this.xmlDocument, XPathConstants.NODESET)).item(0).getTextContent();
+        } catch (XPathExpressionException e) {
+            throw new RuntimeException("XPath expression " + expression + " failed. Could not retrieve Depth of Knowledge. ", e);
+        }
     }
 
+    public String getIntendedGrade() {
+        final String expression = "metadata/smarterAppMetadata/IntendedGrade";
+        try {
+            return ((NodeList) this.xPath.compile(expression).evaluate(this.xmlDocument, XPathConstants.NODESET)).item(0).getTextContent();
+        } catch (XPathExpressionException e) {
+            throw new RuntimeException("XPath expression " + expression + " failed. Could not retrieve IntendedGrade. ", e);
+        }
+    }
 }
