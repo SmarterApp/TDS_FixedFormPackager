@@ -1,10 +1,8 @@
 package tds.packager.mapper;
 
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import tds.itemrenderer.data.xml.itemrelease.Attrib;
-import tds.itemrenderer.data.xml.itemrelease.Attriblist;
 import tds.itemrenderer.data.xml.itemrelease.Itemrelease;
 import tds.packager.model.gitlab.GitLabItemMetaData;
 import tds.packager.model.gitlab.ItemMetaDataUtil;
@@ -17,6 +15,7 @@ import tds.testpackage.model.*;
 import org.springframework.util.StringUtils;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class SegmentFormMapper {
     private static final String EMPTY_STRING = "";
@@ -53,6 +52,10 @@ public class SegmentFormMapper {
             String stimulusId = stimNodes.getLength() == 1 ? stimNodes.item(0).getTextContent() : EMPTY_STRING;
 
             System.out.println("Stimulus ID =" + stimulusId );
+            //If no stimulus associated with this item then it gets its own itemgroup
+            if(stimulusId.isEmpty()) {
+                stimulusId = "I-" + itemId;
+            }
 
             if(!itemGroups.containsKey(segFormId)) {
                 ArrayList<String> itemList = new ArrayList<>();
@@ -167,34 +170,46 @@ public class SegmentFormMapper {
     }
 
     private static List<PoolProperty> getPoolProperties(Itemrelease itemrelease, ItemMetaDataUtil itemMetaDataUtil) {
+        // Was not able to find:
+        //Appropriate for Hearing Impaired
+        //Difficulty Category
+        //Rubric Source
+        //Spanish Translation
+        //Test Pool
         final List<PoolProperty> poolProperties = new ArrayList<>();
         final List<Attrib> attrList = itemrelease.getItemPassage().getAttriblist().getAttrib();
-        final Attrib ansKey = attrList.stream().filter(attrib -> attrib.getAttid().equals("itm_att_Answer Key")).findFirst().get();
-        poolProperties.add(PoolProperty.builder()
-                .setName("Answer Key").setValue(ansKey.getVal())
-                .build());
-        //"Appropriate for Hearing Impaired" ??
-        //ASL ??
-        //Braille ??
+        final List<Attrib> ansKeys = attrList.stream().filter(attrib -> attrib.getAttid().equals("itm_att_Answer Key")).collect(Collectors.toList());
+        ansKeys.forEach(ansKey->{
+            if(!ansKey.getVal().isEmpty()) {
+                poolProperties.add(PoolProperty.builder()
+                        .setName("Answer Key").setValue(ansKey.getVal())
+                        .build());
+            }
 
+        });
+        final List<Attrib> ansKeysII = attrList.stream().filter(attrib -> attrib.getAttid().equals("itm_att_Answer Key (Part II)")).collect(Collectors.toList());
+        ansKeysII.forEach(ansKey->{
+            if(!ansKey.getVal().isEmpty()) {
+                poolProperties.add(PoolProperty.builder()
+                        .setName("Answer Key (Part II)").setValue(ansKey.getVal())
+                        .build());
+            }
+        });
+        poolProperties.add(PoolProperty.builder()
+                .setName("ASL").setValue(itemMetaDataUtil.getASL())
+                .build());
+        poolProperties.add(PoolProperty.builder()
+                .setName("Braille").setValue(itemMetaDataUtil.getBraille())
+                .build());
         poolProperties.add(PoolProperty.builder()
                 .setName("Depth of Knowledge").setValue(itemMetaDataUtil.getDepthOfKnowledge())
                 .build());
-        // Difficulty Category ??
-
         poolProperties.add(PoolProperty.builder()
                 .setName("Grade").setValue(itemMetaDataUtil.getIntendedGrade())
                 .build());
-        // Rubric Source ??
         poolProperties.add(PoolProperty.builder()
                 .setName("Scoring Engine").setValue(itemMetaDataUtil.getScoringEngine())
                 .build());
-        /*
-          <PoolProperty name="Rubric Source" value="Answer Key"/>
-          <PoolProperty name="Spanish Translation" value="N"/>
-          <PoolProperty name="Test Pool" value="Interim"/>
-         */
-
         return poolProperties;
     }
 
@@ -234,7 +249,8 @@ public class SegmentFormMapper {
                 i++;
             }
             return itemScoreDimensions;
-        } else { //if nothing in the measurementmodel field then fetch from metadata.xml
+        } else {
+            //if nothing in the measurementmodel field then fetch from metadata.xml
             String modelType = fixMeasurementModelFormat(itemMetaDataUtil.getIrtElement("IrtModelType"));
 
             String dimension = itemMetaDataUtil.getIrtElement("IrtDimensionPurpose");

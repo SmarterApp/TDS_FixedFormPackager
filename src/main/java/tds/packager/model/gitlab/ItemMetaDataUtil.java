@@ -105,4 +105,23 @@ public class ItemMetaDataUtil {
             throw new RuntimeException("XPath expression " + expression + " failed. Could not retrieve ScoringEngine. ", e);
         }
     }
+
+    public String getASL() {
+        final String expression = "metadata/smarterAppMetadata/AccessibilityTagsASLLanguage";
+        try {
+            return ((NodeList) this.xPath.compile(expression).evaluate(this.xmlDocument, XPathConstants.NODESET)).item(0).getTextContent();
+        } catch (XPathExpressionException e) {
+            throw new RuntimeException("XPath expression " + expression + " failed. Could not retrieve AccessibilityTagsASLLanguage. ", e);
+        }
+    }
+
+    public String getBraille() {
+        final String expression = "metadata/smarterAppMetadata/BrailleType";
+        try {
+            final String brailleType = ((NodeList) this.xPath.compile(expression).evaluate(this.xmlDocument, XPathConstants.NODESET)).item(0).getTextContent();
+            return brailleType.split("_")[0];
+        } catch (XPathExpressionException e) {
+            throw new RuntimeException("XPath expression " + expression + " failed. Could not retrieve AccessibilityTagsASLLanguage. ", e);
+        }
+    }
 }
