@@ -18,32 +18,95 @@ import java.util.stream.Collectors;
 import static tds.packager.mapper.BlueprintConsts.*;
 
 public class BlueprintMapper {
-    public static List<BlueprintElement> map(final TestPackageWorkbook workbook,
+    public static List<BlueprintElement> map(final String testPackageId,
+                                             final TestPackageWorkbook workbook,
                                              final Map<String, String> testPackageValues,
                                              final Map<String, GitLabItemMetaData> itemMetaData) {
-        final List<BlueprintElement> rootBlueprintElements = new ArrayList<>();
-
-        // TODO: Map package/test/segment blueprints
-        // TODO: Map other misc blueprint elements (sock, affinitygroup)
-
+        //TODO: Map scoring performancelevels
         final Set<String> itemIds = findItemIds(workbook.getSheet(TestPackageSheetNames.SEGMENT_FORMS));
+        final Map<String, Scoring> scoringMap = mapBlueprintScoring(workbook, testPackageValues);
 
-        rootBlueprintElements.addAll(mapPackageAndTests(workbook));
-        rootBlueprintElements.addAll(mapMiscellaneousElements(workbook));
-        rootBlueprintElements.addAll(mapClaimsAndTargets(itemIds, itemMetaData, new HashMap<>()));
+        final List<BlueprintElement> rootBlueprintElements = mapPackageAndTests(testPackageId, workbook, scoringMap);
+        rootBlueprintElements.addAll(mapMiscellaneousElements(workbook, scoringMap));
+        rootBlueprintElements.addAll(mapClaimsAndTargets(itemIds, itemMetaData, scoringMap));
 
         return rootBlueprintElements;
     }
 
-    private static List<BlueprintElement> mapPackageAndTests(final TestPackageWorkbook workbook) {
+    private static List<BlueprintElement> mapPackageAndTests(final String testPackageId,
+                                                             final TestPackageWorkbook workbook,
+                                                             final Map<String, Scoring> scoringMap) {
+        final List<BlueprintElement> blueprintElements = new ArrayList<>();
+        final TestPackageSheet testsSheet = workbook.getSheet(TestPackageSheetNames.TESTS);
+        final TestPackageSheet segmentsSheet = workbook.getSheet(TestPackageSheetNames.SEGMENTS);
+
+        final Multimap<String, BlueprintElement> parentMap = HashMultimap.create();
+
+        final boolean isMultiAssessment = testsSheet.getTotalNumberOfInputColumns() > 1;
+
+        if (isMultiAssessment) {
+            final BlueprintElement packageBlueprintEl = BlueprintElement.builder()
+                    .setId(testPackageId)
+                    .setType(BlueprintElementTypes.PACKAGE)
+                    .setScoring(Optional.ofNullable(scoringMap.get(testPackageId)))
+                    .setBlueprintElements(mapTestBlueprintElements(testsSheet, segmentsSheet, scoringMap))
+                    .build();
+            blueprintElements.add(packageBlueprintEl);
+        } else {
+            return mapTestBlueprintElements(testsSheet, segmentsSheet, scoringMap);
+        }
+
+
+        return blueprintElements;
+    }
+
+    private static List<BlueprintElement> mapTestBlueprintElements(final TestPackageSheet testsSheet,
+                                                                   final TestPackageSheet segmentsSheet,
+                                                                   final Map<String, Scoring> scoringMap) {
+        final List<BlueprintElement> testBlueprintElements = new ArrayList<>();
+        for (int i = 0; i < testsSheet.getTotalNumberOfInputColumns(); i++) {
+            final String assessmentId = testsSheet.getString("TestId", i);
+
+            testBlueprintElements.add(BlueprintElement.builder()
+                    .setId(assessmentId)
+                    .setType(BlueprintElementTypes.TEST)
+                    .setScoring(Optional.ofNullable(scoringMap.get(assessmentId)))
+                    .setBlueprintElements(mapSegmentBlueprintElements(assessmentId, segmentsSheet, scoringMap))
+                    .build());
+        }
+
+        return testBlueprintElements;
+    }
+
+    private static List<BlueprintElement> mapSegmentBlueprintElements(final String assessmentId, final TestPackageSheet segmentsSheet,
+                                                                      final Map<String, Scoring> scoringMap) {
+        final List<BlueprintElement> segmentBlueprintElements = new ArrayList<>();
+
+        for (int i = 0; i < segmentsSheet.getTotalNumberOfInputColumns(); i++) {
+            final Map<String, String> segmentInputValuesMap = segmentsSheet.getInputVariableValuesMap(i);
+
+            if (!assessmentId.equals(segmentInputValuesMap.get("TestId"))) {
+                // Skip this column if it does not correspond to the assessment ID we are dealing with
+                continue;
+            }
+            final String segmentId = segmentInputValuesMap.get("SegmentId");
+
+            segmentBlueprintElements.add(BlueprintElement.builder()
+                    .setId(segmentId)
+                    .setType(BlueprintElementTypes.SEGMENT)
+                    .setScoring(Optional.ofNullable(scoringMap.get(segmentId)))
+                    .build());
+
+        }
+
+        return segmentBlueprintElements;
+    }
+
+    private static List<BlueprintElement> mapMiscellaneousElements(final TestPackageWorkbook workbook, final Map<String, Scoring> scoringMap) {
         return new ArrayList<>();
     }
 
-    private static List<BlueprintElement> mapMiscellaneousElements(final TestPackageWorkbook workbook) {
-        return new ArrayList<>();
-    }
-
-    private static Map<String, Scoring> mapBlueprintScoring(final TestPackageWorkbook workbook) {
+    private static Map<String, Scoring> mapBlueprintScoring(final TestPackageWorkbook workbook, final Map<String, String> testPackageValues) {
         final TestPackageSheet sheet = workbook.getSheet(TestPackageSheetNames.SCORING);
         final List<List<Pair<String, String>>> columns = sheet.getColumnPairs();
 
@@ -58,7 +121,7 @@ public class BlueprintMapper {
 
     private static String getValue(final String name, List<Pair<String, String>> column) {
         return ColumnUtil.getValue(name, column).
-                orElseThrow(() -> new RuntimeException(String.format("Error while mapping scoring sheet. Varible not found: %s", name)));
+                orElseThrow(() -> new RuntimeException(String.format("Error while mapping scoring sheet. Variable not found: %s", name)));
     }
 
     private static List<BlueprintElement> mapClaimsAndTargets(final Set<String> itemIds,
