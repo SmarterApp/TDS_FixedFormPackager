@@ -27,10 +27,10 @@ public class SegmentFormMapper {
         final int cols = sheet.getTotalNumberOfInputColumns();
         final ItemreleaseUnmarshaller unmarshaller = new ItemreleaseUnmarshaller();
 
-        LinkedHashSet<String> segFormIds = new LinkedHashSet();
-        HashMap<String,Set<String>> segFormPresentations = new HashMap<>();
-        LinkedHashMap<String, LinkedHashMap<String, ArrayList<String>>> itemGroups = new LinkedHashMap<>();
-        HashMap<String, Item> items = new HashMap<>();
+        final LinkedHashSet<String> segFormIds = new LinkedHashSet();
+        final HashMap<String,Set<String>> segFormPresentations = new HashMap<>();
+        final LinkedHashMap<String, LinkedHashMap<String, ArrayList<String>>> itemGroups = new LinkedHashMap<>();
+        final HashMap<String, Item> items = new HashMap<>();
 
         // Iterate over all the columns / items
         for(int i = 0; i < cols; i++) {
@@ -42,8 +42,6 @@ public class SegmentFormMapper {
             String segFormId = column.get("SegmentFormId");
             segFormIds.add(segFormId);
             String itemId = column.get("ItemId");
-            System.out.println("ItemId: " + itemId);
-            System.out.println("SegmentFormId: " + segFormId);
             GitLabItemMetaData gitMeta = itemMetaData.get(itemId);
             ItemMetaDataUtil itemMetaDataUtil = new ItemMetaDataUtil(gitMeta.getItemMetadata());
             Itemrelease itemrelease = unmarshaller.unmarshallItem(gitMeta.getItemReleaseMetadata(), itemId);
@@ -51,11 +49,10 @@ public class SegmentFormMapper {
             NodeList stimNodes = itemMetaDataUtil.xpathQuery("metadata/smarterAppMetadata/AssociatedStimulus");
             String stimulusId = stimNodes.getLength() == 1 ? stimNodes.item(0).getTextContent() : EMPTY_STRING;
 
-            //If no stimulus associated with this item then it gets its own itemgroup
+            //If no stimulus associated with this item then it gets its own itemgroup with the id=itemId
             if(stimulusId.isEmpty()) {
                 stimulusId = itemId;
             }
-            System.out.println("Stimulus ID =" + stimulusId );
 
             if(!itemGroups.containsKey(segFormId)) {
                 ArrayList<String> itemList = new ArrayList<>();
@@ -94,7 +91,6 @@ public class SegmentFormMapper {
                 itemPresentations.add("Spanish");
             }
 
-
             items.put(itemId, Item.builder()
                     .setId(itemId)
                     .setType(itemrelease.getItemPassage().getFormat().toUpperCase())
@@ -116,12 +112,7 @@ public class SegmentFormMapper {
                     .setPoolProperties(getPoolProperties(itemrelease, itemMetaDataUtil))
                     .setPresentations(getPresentations(itemPresentations))
                     .build());
-
-
         }
-
-        System.out.println(itemGroups.entrySet());
-        //List<ItemGroup> itemGroupList = getItemGroups(itemGroups);
 
         segFormIds.forEach((segFormId)->{
             segmentForms.add(
@@ -129,11 +120,9 @@ public class SegmentFormMapper {
                             .setId(segFormId)
                             .setCohort(getCohort(segFormId, sheet))
                             .setPresentations(getPresentations(segFormPresentations.get(segFormId)))
-                            .setItemGroups(getItemGroups(segFormId, itemGroups.get(segFormId), items))
+                            .setItemGroups(getItemGroups(itemGroups.get(segFormId), items))
                             .build());
         });
-
-        System.out.println("returning the segmentforms:: " + segmentForms.toString());
 
         return segmentForms;
     }
@@ -161,7 +150,7 @@ public class SegmentFormMapper {
         return Optional.of(teacherHandScoring);
     }
 
-    private static String fixMeasurementModelFormat(String modelType) {
+    private static String fixMeasurementModelFormat(final String modelType) {
         if (modelType != null && modelType.equalsIgnoreCase("IRT3PLN"))
         {
             return "IRT3PLn";
@@ -169,13 +158,14 @@ public class SegmentFormMapper {
         return modelType;
     }
 
-    private static List<PoolProperty> getPoolProperties(Itemrelease itemrelease, ItemMetaDataUtil itemMetaDataUtil) {
+    private static List<PoolProperty> getPoolProperties(final Itemrelease itemrelease, final ItemMetaDataUtil itemMetaDataUtil) {
         // Was not able to find:
         //Appropriate for Hearing Impaired
         //Difficulty Category
         //Rubric Source
         //Spanish Translation
         //Test Pool
+        //Glossary
         final List<PoolProperty> poolProperties = new ArrayList<>();
         final List<Attrib> attrList = itemrelease.getItemPassage().getAttriblist().getAttrib();
         final List<Attrib> ansKeys = attrList.stream().filter(attrib -> attrib.getAttid().equals("itm_att_Answer Key")).collect(Collectors.toList());
@@ -250,7 +240,7 @@ public class SegmentFormMapper {
             }
             return itemScoreDimensions;
         } else {
-            //if nothing in the measurementmodel field then fetch from metadata.xml
+            //if nothing in the Measurementmodel_x field then fetch from metadata.xml
             String modelType = fixMeasurementModelFormat(itemMetaDataUtil.getIrtElement("IrtModelType"));
             String dimension = itemMetaDataUtil.getIrtElement("IrtDimensionPurpose");
             int scorePoints = Integer.parseInt(itemMetaDataUtil.getIrtElement("IrtScore"));
@@ -287,7 +277,7 @@ public class SegmentFormMapper {
             return blueprintReferences;
         }
         blueprintReferences.add(BlueprintReference.builder().setIdRef(assessmentId).build());
-        List<String> refIds = new ArrayList<>();
+        final List<String> refIds = new ArrayList<>();
 
         final String[] targetSections = bottomLevelBpRef.split("\\|");
 
@@ -308,7 +298,6 @@ public class SegmentFormMapper {
         }
         refIds.forEach(refId->{
             if(!refId.contains(".")){
-                System.out.println("BpRef: " + refId);
                 blueprintReferences.add(BlueprintReference.builder().setIdRef(refId).build());
             }
         });
@@ -323,7 +312,7 @@ public class SegmentFormMapper {
         return EMPTY_STRING;
     }
 
-    private static List<Presentation> getPresentations(Set<String> presentationStrings) {
+    private static List<Presentation> getPresentations(final Set<String> presentationStrings) {
         final List<Presentation> presentations = new ArrayList<>();
         presentationStrings.forEach( presentation-> {
             if(presentation.equalsIgnoreCase("English")) {
@@ -348,14 +337,11 @@ public class SegmentFormMapper {
         return presentations;
     }
 
-    private static List<ItemGroup> getItemGroups(String segFormId , HashMap<String, ArrayList<String>> itemGroup, HashMap<String, Item> items) {
+    private static List<ItemGroup> getItemGroups(final HashMap<String, ArrayList<String>> itemGroup, final HashMap<String, Item> items) {
         final List<ItemGroup> itemGroups = new ArrayList<>();
-            System.out.println("SegmentFormId: " + segFormId);
             itemGroup.forEach((stimId, itemList) -> {
-                System.out.println("Stimulus ID: " + stimId);
                 List <Item> itemsList= new ArrayList<>();
                 itemList.forEach((itemId)->{
-                    System.out.println("item: " + itemId);
                     itemsList.add(items.get(itemId));
                 });
                 // Single Item ItemGroups don't get a Stimulus element
