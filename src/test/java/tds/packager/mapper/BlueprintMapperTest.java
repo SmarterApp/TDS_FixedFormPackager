@@ -67,5 +67,17 @@ public class BlueprintMapperTest extends MapperBaseTest {
         assertThat(seg2BpEl.getId()).isEqualTo("SBAC-IAB-FIXED-G11M-AlgLinearFun-Calc");
         assertThat(seg2BpEl.getType()).isEqualTo(BlueprintElementTypes.SEGMENT);
         assertThat(seg2BpEl.blueprintElements()).isEmpty();
+
+        BlueprintElement claimBpEl = blueprint.stream()
+                .filter(bpEl -> bpEl.getId().equalsIgnoreCase("1"))
+                .findFirst()
+                .get();
+
+        assertThat(claimBpEl.getType()).isEqualTo(BlueprintElementTypes.CLAIM);
+        assertThat(claimBpEl.blueprintElements()).hasSize(1);
+
+        assertThat(claimBpEl.blueprintElements().get(0).getId()).isEqualTo("1|P");
+        assertThat(claimBpEl.blueprintElements().get(0).getType()).isEqualTo(BlueprintElementTypes.TARGET);
+        assertThat(claimBpEl.blueprintElements().get(0).blueprintElements()).hasSize(3);
     }
 }
