@@ -2,31 +2,71 @@ package tds.packager.service;
 
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tds.itemrenderer.data.xml.itemrelease.Itemrelease;
+import org.xml.sax.SAXException;
 import tds.packager.mapper.TestPackageMapper;
-import tds.packager.model.gitlab.*;
+import tds.packager.model.gitlab.GitCredentials;
+import tds.packager.model.gitlab.GitLabItemMetaData;
+import tds.packager.model.gitlab.GitLabUtil;
+import tds.packager.model.xlsx.TestPackageSheet;
+import tds.packager.model.xlsx.TestPackageSheetNames;
 import tds.packager.model.xlsx.TestPackageWorkbook;
 import tds.support.tool.testpackage.configuration.TestPackageObjectMapperConfiguration;
 import tds.testpackage.model.TestPackage;
 
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.Validator;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class FixedFormPackagerServiceImpl implements FixedFormPackagerService {
-    private static final Logger log = LoggerFactory.getLogger(FixedFormPackagerServiceImpl.class);
     private final XmlMapper xmlMapper;
+    private final Validator schemaValidator;
 
     @Autowired
-    public FixedFormPackagerServiceImpl(final TestPackageObjectMapperConfiguration configuration) {
-        this.xmlMapper = configuration.getLegacyTestSpecXmlMapper();
+    public FixedFormPackagerServiceImpl(final TestPackageObjectMapperConfiguration configuration) throws SAXException {
+        xmlMapper = configuration.getLegacyTestSpecXmlMapper();
+        schemaValidator = configuration.getTestPackageSchemaValidator();
+    }
+
+    @Override
+    public void generateFixedFormPackage(final String inputSpreadsheetPath, final String outputFilePath,
+                                         final GitCredentials credentials, final boolean debug) {
+        final TestPackageWorkbook testPackageWorkbook = createTestPackageWorkbook(inputSpreadsheetPath);
+        final String bankKey = getBankKey(testPackageWorkbook.getSheet(TestPackageSheetNames.PACKAGE));
+        final String[] items = getItemIds(bankKey, testPackageWorkbook.getSheet(TestPackageSheetNames.SEGMENT_FORMS));
+
+        final Map<String, GitLabItemMetaData> itemMetaData = GitLabUtil.getItemMetaData(credentials, Arrays.asList(items));
+        final TestPackage testPackage = TestPackageMapper.map(testPackageWorkbook, itemMetaData);
+        final String outputFileFullPath = outputFilePath + File.separator + testPackage.getId() + ".xml";
+
+        try {
+            createAndValidateTestPackageFile(outputFileFullPath, testPackage, debug);
+            System.out.println("Successfully created the fixed form test package " + testPackage.getId() + ".xml");
+        } catch (IOException e) {
+            throw new RuntimeException(String.format("An exception occurred while creating the file %s", outputFileFullPath), e);
+        }
+    }
+
+    private static String getBankKey(final TestPackageSheet sheet) {
+        return sheet.getString("BankKey");
+    }
+
+    private static String[] getItemIds(final String bankKey, final TestPackageSheet sheet) {
+        final String[] itemIds = sheet.getStrings("ItemId");
+
+        // Item IDs in the input file do not incude the bank key - but the items are keyed by the entire item key (which is
+        // prefixed by the bank key) in gitlab
+        for (int i = 0; i < itemIds.length; i++) {
+            itemIds[i] = String.format("%s-%s", bankKey, itemIds[i]);
+        }
+
+        return itemIds;
     }
 
     private TestPackageWorkbook createTestPackageWorkbook(final String inputSpreadsheetPath) {
@@ -37,42 +77,21 @@ public class FixedFormPackagerServiceImpl implements FixedFormPackagerService {
         }
     }
 
-    @Override
-    public void generateFixedFormPackage(final String inputSpreadsheetPath, final String outputFilePath,
-                                         final GitCredentials credentials) {
-
-        // TODO: read/process input spreadsheet + map to TestPackage
-
-        //TODO: get Iterable list of Item ids and pass to GitLabUtil.getItemMetaData
-        String [] items = new String[] { "200-12164", "200-14286"};
-
-        final HashMap<String, GitLabItemMetaData> itemMetaData = GitLabUtil.getItemMetaData(credentials, Arrays.asList(items));
-        GitLabItemMetaData gli = itemMetaData.get(items[0]);
-        final ItemreleaseUnmarshaller unmarshaller = new ItemreleaseUnmarshaller();
-        Itemrelease ir = unmarshaller.unmarshallItem(gli.getItemReleaseMetadata(),items[0]);
-        System.out.println("unmarshalled: " + ir.getItemPassage().getId());
-
-        // TODO: get item data from gitlab using the GitCredentials
-        final TestPackageWorkbook testPackageWorkbook = createTestPackageWorkbook(inputSpreadsheetPath);
-        final TestPackage testPackage = TestPackageMapper.map(testPackageWorkbook, itemMetaData);
-        // Example of getting the PrimaryStandard from the item metadata.xml
-        String itemMetaString = gli.getItemMetadata();
-        ItemMetaDataUtil itemMetaDataUtil = new ItemMetaDataUtil(itemMetaString);
-        System.out.println("PrimaryStandard v6= " + itemMetaDataUtil.getPrimaryStandard());
-
-        final String outputFileFullPath = outputFilePath + File.separator + testPackage.getId() + ".xml";
-
-        try {
-            createTestPackageFile(outputFileFullPath, testPackage);
-            System.out.println("Successfully created the fixed form test package " + testPackage.getId() + ".xml");
-        } catch (IOException e) {
-            throw new RuntimeException(String.format("An exception occurred while creating the file %s", outputFileFullPath), e);
-        }
-    }
-
-    private void createTestPackageFile(final String outputFilePath, final TestPackage testPackage) throws IOException {
+    private void createAndValidateTestPackageFile(final String outputFilePath, final TestPackage testPackage,
+                                                 final boolean debug) throws IOException {
         final File testPackageFile = new File(outputFilePath);
         xmlMapper.writeValue(testPackageFile, testPackage);
-        testPackageFile.createNewFile();
+
+        try (FileInputStream fis = new FileInputStream(testPackageFile)) {
+            final StreamSource xmlFile = new StreamSource(fis);
+            schemaValidator.validate(xmlFile);
+            testPackageFile.createNewFile();
+        } catch (SAXException e) {
+            System.out.println("Error during XSD validation of the test packge " + testPackage.getId());
+
+            if (debug) {
+                e.printStackTrace();
+            }
+        }
     }
 }

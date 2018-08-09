@@ -8,13 +8,13 @@ import tds.testpackage.model.Assessment;
 import tds.testpackage.model.Grade;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 public class AssessmentMapper {
-    public static List<Assessment> map(final TestPackageWorkbook workbook, final List<String> grades, final HashMap<String, GitLabItemMetaData> itemMetaData) {
+    public static List<Assessment> map(final TestPackageWorkbook workbook, final List<String> grades,
+                                       final Map<String, GitLabItemMetaData> itemMetaData) {
         final List<Assessment> assessments = new ArrayList<>();
         final TestPackageSheet sheet = workbook.getSheet(TestPackageSheetNames.TESTS);
 

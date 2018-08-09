@@ -3,6 +3,7 @@ package tds.packager.mapper;
 import org.springframework.util.StringUtils;
 import tds.common.Algorithm;
 import tds.packager.model.gitlab.GitLabItemMetaData;
+import tds.packager.model.gitlab.ItemMetaDataUtil;
 import tds.packager.model.xlsx.TestPackageSheet;
 import tds.packager.model.xlsx.TestPackageSheetNames;
 import tds.packager.model.xlsx.TestPackageWorkbook;
@@ -14,7 +15,8 @@ import tds.testpackage.model.SegmentBlueprintElement;
 import java.util.*;
 
 public class SegmentMapper {
-    public static List<Segment> map(final TestPackageWorkbook workbook, final String assessmentId, final HashMap<String, GitLabItemMetaData> itemMetaData) {
+    public static List<Segment> map(final TestPackageWorkbook workbook, final String assessmentId,
+                                    final Map<String, GitLabItemMetaData> itemMetaData) {
         final List<Segment> segments = new ArrayList<>();
         final TestPackageSheet sheet = workbook.getSheet(TestPackageSheetNames.SEGMENTS);
         final TestPackageSheet segmentFormsSheet = workbook.getSheet(TestPackageSheetNames.SEGMENT_FORMS);
@@ -53,12 +55,93 @@ public class SegmentMapper {
         return segments;
     }
 
+    private static Map<String, BlueprintElementCounts> getBlueprintReferenceCounts(final String segmentId, final List<String> itemIds,
+                                                                                   final Map<String, GitLabItemMetaData> itemMetaData) {
+        final Map<String, BlueprintElementCounts> blueprintElementCountsMap = new HashMap<>();
+
+        itemIds.forEach(id -> {
+            if (!itemMetaData.containsKey(id)) {
+                throw new RuntimeException(String.format("Error locating the item metadata file for item %s", id));
+            }
+
+            ItemMetaDataUtil util = new ItemMetaDataUtil(itemMetaData.get(id).getItemMetadata());
+
+            final String standard = util.getPrimaryStandard();
+            final List<String> blueprintElementIds = parseBlueprintId(standard);
+            final boolean fieldTestItem = !util.getStatus().equalsIgnoreCase("Operational");
+
+            // Increment the segment counts
+            incrementCounts(blueprintElementCountsMap, fieldTestItem, segmentId);
+
+            // Increment all the other blueprint reference counts
+            for (String refId : blueprintElementIds) {
+                incrementCounts(blueprintElementCountsMap, fieldTestItem, refId);
+            }
+        });
+
+        return blueprintElementCountsMap;
+    }
+
+    private static void incrementCounts(final Map<String, BlueprintElementCounts> blueprintElementCountsMap, final boolean fieldTestItem, final String refId) {
+        if (!blueprintElementCountsMap.containsKey(refId)) {
+            BlueprintElementCounts counts = new BlueprintElementCounts(refId);
+
+            if (fieldTestItem) {
+                counts.incrementFieldTestItemCount();
+            } else {
+                counts.incrementExamItemCount();
+            }
+
+            blueprintElementCountsMap.put(refId, counts);
+        } else {
+            final BlueprintElementCounts counts = blueprintElementCountsMap.get(refId);
+            if (fieldTestItem) {
+                counts.incrementFieldTestItemCount();
+            } else {
+                counts.incrementExamItemCount();
+            }
+        }
+    }
+
+    private static List<String> parseBlueprintId(final String standard) {
+        //SBAC-MA-v6:1|P|TS06|M - > 1|P|TS06|M
+        final String bottomLevelBpRef = standard.split(":")[1];
+
+        // If its not a target string (containing a pipe), then simply return this id
+        if (!bottomLevelBpRef.contains("|")) {
+            return Collections.singletonList(bottomLevelBpRef);
+        }
+
+        List<String> refIds = new ArrayList<>();
+
+        final String[] targetSections = bottomLevelBpRef.split("\\|");
+
+        for (int i = 0; i < targetSections.length; i++) {
+            if (i == 0) {
+                refIds.add(targetSections[i]);
+            } else {
+                StringBuilder id = new StringBuilder();
+                for (int j = 0; j <= i; j++) {
+                    if (j > 0) {
+                        id.append("|");
+                    }
+                    id.append(targetSections[j]);
+                }
+
+                refIds.add(id.toString());
+            }
+        }
+
+        return refIds;
+    }
+
     private static List<String> findItemIdsForSegment(final String segmentId, final TestPackageSheet segmentFormsSheet) {
         final List<String> itemIds = new ArrayList<>();
 
         for (int i = 0; i <= segmentFormsSheet.getTotalNumberOfInputColumns(); i++) {
-            if (segmentFormsSheet.getString("SegmentId", i).equals(segmentId))
-            itemIds.add(segmentFormsSheet.getString("ItemId", i));
+            if (segmentFormsSheet.getString("SegmentId", i).equals(segmentId)) {
+                itemIds.add(segmentFormsSheet.getString("ItemId", i));
+            }
         }
 
         return itemIds;
@@ -66,17 +149,23 @@ public class SegmentMapper {
 
     private static List<SegmentBlueprintElement> mapSegmentBlueprint(final String segmentId,
                                                                      final Map<String, String> segmentInputValuesMap,
-                                                                     final HashMap<String, GitLabItemMetaData> itemMetaData,
+                                                                     final Map<String, GitLabItemMetaData> itemMetaData,
                                                                      final List<String> itemIds) {
         final List<SegmentBlueprintElement> segmentBlueprint = new ArrayList<>();
+        final Map<String, BlueprintElementCounts> bpRefCounts = getBlueprintReferenceCounts(segmentId, itemIds, itemMetaData);
 
-        // Add the segment blueprint, containing the slope and intercept values
-        segmentBlueprint.add(SegmentBlueprintElement.builder()
-                .setIdRef(segmentId)
-                .setItemSelection(mapItemSelection(segmentInputValuesMap.get("SegmentSlope"), segmentInputValuesMap.get("SegmentIntercept")))
-                .setMinExamItems(0)
-                .setMaxExamItems(0)
-                .build());
+        bpRefCounts.forEach((bpId, counts) ->
+                segmentBlueprint.add(SegmentBlueprintElement.builder()
+                        .setIdRef(bpId)
+                        .setMinExamItems(0)
+                        .setMaxExamItems(counts.getExamItemCount())
+                        .setMinFieldTestItems(Optional.of(0))
+                        .setMaxFieldTestItems(Optional.of(counts.getFieldTestItemCount()))
+                        .setItemSelection(bpId.equals(segmentId) // Primary segment blueprint element should have item selection data
+                                ? mapItemSelection(segmentInputValuesMap.get("SegmentSlope"), segmentInputValuesMap.get("SegmentIntercept"))
+                                : null)
+                        .build())
+        );
 
         return segmentBlueprint;
     }
@@ -118,5 +207,4 @@ public class SegmentMapper {
 
         return presentations;
     }
-
 }

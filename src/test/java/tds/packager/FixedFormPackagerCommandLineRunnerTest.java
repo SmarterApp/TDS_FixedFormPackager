@@ -30,9 +30,9 @@ public class FixedFormPackagerCommandLineRunnerTest {
         runner.run("/path/to/spreadsheet.xlsx",
                 "-t", "myToken",
                 "-g", "myGroup",
-                "-z", "myUrl");
+                "-u", "myUrl");
 
-        verify(mockPackagerService).generateFixedFormPackage(eq("/path/to/spreadsheet.xlsx"), eq("."), isA(GitCredentials.class));
+        verify(mockPackagerService).generateFixedFormPackage(eq("/path/to/spreadsheet.xlsx"), eq("."), isA(GitCredentials.class), eq(false));
     }
 
     @Test
@@ -40,9 +40,9 @@ public class FixedFormPackagerCommandLineRunnerTest {
         runner.run("/path/to/spreadsheet.xlsx",
                 "-t", "myToken",
                 "-g", "myGroup",
-                "-z", "myUrl",
+                "-u", "myUrl",
                 "-o", "/output/path/");
 
-        verify(mockPackagerService).generateFixedFormPackage(eq("/path/to/spreadsheet.xlsx"), eq("/output/path/"), isA(GitCredentials.class));
+        verify(mockPackagerService).generateFixedFormPackage(eq("/path/to/spreadsheet.xlsx"), eq("/output/path/"), isA(GitCredentials.class), eq(false));
     }
 }

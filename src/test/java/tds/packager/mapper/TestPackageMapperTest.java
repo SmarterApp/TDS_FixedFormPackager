@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class TestPackageMapperTest extends MapperBaseTest {
     @Test
     public void shouldMapTestPackage() {
-        TestPackage testPackage = TestPackageMapper.map(mockWorkbook, new HashMap<>());
+        TestPackage testPackage = TestPackageMapper.map(mockWorkbook, itemMetadata);
         assertThat(testPackage).isNotNull();
         assertThat(testPackage.getId()).isEqualTo("SBAC-IAB-FIXED-G11M");
         assertThat(testPackage.getPublisher()).isEqualTo("SBAC");
