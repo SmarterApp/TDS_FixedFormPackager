@@ -1,14 +1,21 @@
 package tds.packager.model.xlsx;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.Pair;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.util.CellReference;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
 
 public class TestPackageSheet {
     private static final int HEADER_ROW = 1;
@@ -98,6 +105,53 @@ public class TestPackageSheet {
 
         return inputValuesMap;
     }
+
+    private List<String> getColumn(final int rowIndex, final int columnIndex) {
+        final int lastRowNum = sheet.getLastRowNum()-1;
+        final Stream<Cell> cells = IntStream.range(rowIndex, lastRowNum).mapToObj(i -> {
+            final Row row = sheet.getRow(i);
+            if (row != null) {
+                return row.getCell(columnIndex);
+            }
+            return null;
+        });
+
+        List<String> column = cells.map(cell -> WorkbookUtil.FORMATTER.formatCellValue(cell)).collect(Collectors.toList());
+        return column;
+    }
+
+    private List<List<String>> getColumns(final int rowIndex, final int startColumnIndex) {
+        final Row row = sheet.getRow(rowIndex);
+        final short lastColumIndex = row.getLastCellNum();
+        final Stream<List<String>> columns = IntStream.range(startColumnIndex, lastColumIndex-1).mapToObj(i -> getColumn(rowIndex, i));
+        return columns.collect(Collectors.toList());
+    }
+
+    public List<List<String>> getColumns() {
+        final Optional<CellReference> cellRefOption = WorkbookUtil.getCellTypeString(sheet, "Input Variable");
+        final CellReference cellRef = cellRefOption.orElseThrow(
+            () -> new IllegalArgumentException("Fixed Form Packager requires each sheet to have 'Input Variable'"));
+        return getColumns(cellRef.getRow()+1, cellRef.getCol());
+    }
+
+    private List<Pair<String, String>> zipColumn(final List<String> names, final List<String> values) {
+        final List<Pair<String, String>> zipped = new ArrayList<>();
+        IntStream.range(0, names.size()).forEach(i -> {
+            final String value = values.get(i);
+            if (StringUtils.isNoneBlank(value)) {
+                zipped.add(Pair.of(names.get(i), values.get(i)));
+            }
+        });
+        return zipped;
+    }
+
+    public List<List<Pair<String, String>>> getColumnPairs() {
+        final List<List<String>> columns = getColumns();
+        final List<String> names = columns.get(0);
+        columns.remove(0);
+        return columns.stream().map(col -> zipColumn(names, col)).collect(Collectors.toList());
+    }
+
 
     public void dump() {
         WorkbookUtil.dump(sheet);

@@ -25,7 +25,7 @@ public class TestPackageMapper {
                 .setSubject(valuesMap.get("Subject"))
                 .setType(valuesMap.get("AssessmentType"))
                 .setSubType(valuesMap.containsKey("AssessmentSubType") ? Optional.of(valuesMap.get("AssessmentSubType")) : Optional.empty())
-                .setBlueprint(BlueprintMapper.map(workbook, valuesMap))
+                //.setBlueprint(BlueprintMapper.map(workbook, valuesMap))
                 .setAssessments(AssessmentMapper.map(workbook, parseGrades(valuesMap.get("Grade")), itemMetaData));
 
         return testPackageBuilder.build();
