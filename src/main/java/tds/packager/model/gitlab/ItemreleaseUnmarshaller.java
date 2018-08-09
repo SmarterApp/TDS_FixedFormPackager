@@ -24,7 +24,7 @@ public class ItemreleaseUnmarshaller {
             StringReader reader = removeBomIfPresent(itemXml);
             return (Itemrelease) jaxbUnmarshaller.unmarshal(reader);
         } catch (JAXBException e) {
-            throw new RuntimeException("Could not unmarshall item " + itemId);
+            throw new RuntimeException("Could not unmarshall item " + itemId, e);
         }
     }
     /*

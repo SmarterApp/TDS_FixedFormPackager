@@ -44,7 +44,7 @@ public class SegmentMapper {
                             : Boolean.valueOf(segmentInputValuesMap.get("SegmentExitApproval")))
                     .setAlgorithmType(Algorithm.FIXED_FORM.getType())
                     .setAlgorithmImplementation("FAIRWAY FIXEDFORM")
-                    .setSegmentForms(SegmentFormMapper.map(workbook, segmentId, mapPresentations(segmentInputValuesMap), itemMetaData))
+                    .setSegmentForms(SegmentFormMapper.map(workbook, segmentId, itemMetaData, assessmentId))
                     .setTools(ToolMapper.map(workbook, segmentId))
                     .setSegmentBlueprint(mapSegmentBlueprint(segmentId, segmentInputValuesMap, itemMetaData, findItemIdsForSegment(segmentId, segmentFormsSheet)))
                     .build());
