@@ -12,6 +12,7 @@ import tds.packager.model.xlsx.TestPackageWorkbook;
 import tds.testpackage.model.*;
 
 import java.util.*;
+import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 import static tds.packager.mapper.BlueprintConsts.*;
@@ -42,17 +43,15 @@ public class BlueprintMapper {
         return new ArrayList<>();
     }
 
-
-    //TODO: Mike - Change this signature to return a Map<String, Scoring>
-    private static List<Pair<String, Scoring>> mapBlueprintScoring(final TestPackageWorkbook workbook) {
+    private static Map<String, Scoring> mapBlueprintScoring(final TestPackageWorkbook workbook) {
         final TestPackageSheet sheet = workbook.getSheet(TestPackageSheetNames.SCORING);
         final List<List<Pair<String, String>>> columns = sheet.getColumnPairs();
 
         final Map<String, List<List<Pair<String, String>>>> blueprintElements =
                 columns.stream().collect(Collectors.groupingBy(column -> getValue(BLUEPRINT_ELEMENT_ID, column)));
 
-        final List<Pair<String, Scoring>> scorings = blueprintElements.entrySet().stream().
-                map(e -> Pair.of(e.getKey(), mapScoring(e.getValue()))).collect(Collectors.toList());
+        final Map<String, Scoring> scorings = blueprintElements.entrySet().stream().collect(
+            Collectors.toMap(Entry::getKey, e -> mapScoring(e.getValue())));
 
         return scorings;
     }
