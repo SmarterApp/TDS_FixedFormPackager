@@ -21,13 +21,16 @@ public class FixedFormPackagerCommandLineRunnerTest {
 
     @Before
     public void setup() {
-        runner = new FixedFormPackagerCommandLineRunner(mockPackagerService, new GitCredentials("token", "group", "url"));
+        runner = new FixedFormPackagerCommandLineRunner(mockPackagerService);
         runner.init();
     }
 
     @Test
     public void shouldCreateFixedFormPackageSuccessfullyNoOutputPath() {
-        runner.run("/path/to/spreadsheet.xlsx");
+        runner.run("/path/to/spreadsheet.xlsx",
+                "-t", "myToken",
+                "-g", "myGroup",
+                "-z", "myUrl");
 
         verify(mockPackagerService).generateFixedFormPackage(eq("/path/to/spreadsheet.xlsx"), eq("."), isA(GitCredentials.class));
     }
@@ -35,6 +38,9 @@ public class FixedFormPackagerCommandLineRunnerTest {
     @Test
     public void shouldCreateFixedFormPackageSuccessfullyWithOutputPath() {
         runner.run("/path/to/spreadsheet.xlsx",
+                "-t", "myToken",
+                "-g", "myGroup",
+                "-z", "myUrl",
                 "-o", "/output/path/");
 
         verify(mockPackagerService).generateFixedFormPackage(eq("/path/to/spreadsheet.xlsx"), eq("/output/path/"), isA(GitCredentials.class));
