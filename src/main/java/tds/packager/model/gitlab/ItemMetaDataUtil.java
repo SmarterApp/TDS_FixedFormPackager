@@ -96,4 +96,13 @@ public class ItemMetaDataUtil {
             throw new RuntimeException("XPath expression " + expression + " failed. Could not retrieve IntendedGrade. ", e);
         }
     }
+
+    public String getScoringEngine() {
+        final String expression = "metadata/smarterAppMetadata/ScoringEngine";
+        try {
+            return ((NodeList) this.xPath.compile(expression).evaluate(this.xmlDocument, XPathConstants.NODESET)).item(0).getTextContent();
+        } catch (XPathExpressionException e) {
+            throw new RuntimeException("XPath expression " + expression + " failed. Could not retrieve ScoringEngine. ", e);
+        }
+    }
 }

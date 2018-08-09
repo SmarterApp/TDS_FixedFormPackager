@@ -12,6 +12,7 @@ import tds.packager.model.gitlab.ItemreleaseUnmarshaller;
 import tds.packager.model.xlsx.TestPackageSheet;
 import tds.packager.model.xlsx.TestPackageSheetNames;
 import tds.packager.model.xlsx.TestPackageWorkbook;
+import tds.teacherhandscoring.model.TeacherHandScoring;
 import tds.testpackage.model.*;
 import org.springframework.util.StringUtils;
 
@@ -27,9 +28,9 @@ public class SegmentFormMapper {
         final int cols = sheet.getTotalNumberOfInputColumns();
         final ItemreleaseUnmarshaller unmarshaller = new ItemreleaseUnmarshaller();
 
-        HashSet<String> segFormIds = new HashSet();
+        LinkedHashSet<String> segFormIds = new LinkedHashSet();
         HashMap<String,Set<String>> segFormPresentations = new HashMap<>();
-        HashMap<String, HashMap<String, ArrayList<String>>> itemGroups = new HashMap<>();
+        LinkedHashMap<String, LinkedHashMap<String, ArrayList<String>>> itemGroups = new LinkedHashMap<>();
         HashMap<String, Item> items = new HashMap<>();
 
         // Iterate over all the columns / items
@@ -56,7 +57,7 @@ public class SegmentFormMapper {
             if(!itemGroups.containsKey(segFormId)) {
                 ArrayList<String> itemList = new ArrayList<>();
                 itemList.add(itemId);
-                HashMap<String, ArrayList<String>> stimulusItemList = new HashMap<>();
+                LinkedHashMap<String, ArrayList<String>> stimulusItemList = new LinkedHashMap<>();
                 stimulusItemList.put(stimulusId, itemList);
                 itemGroups.put(segFormId, stimulusItemList);
             } else {
@@ -106,6 +107,7 @@ public class SegmentFormMapper {
                                     ? Optional.of("false")
                                     : Optional.of(column.get("ItemDoNotScore"))
                     )
+                    .setTeacherHandScoring(getTeacherHandScoring(column))
                     .setItemScoreDimensions(getItemScoreDimensions(column, itemMetaDataUtil))
                     .setBlueprintReferences(getBlueprintReferences(itemMetaDataUtil.getPrimaryStandard(), assessmentId))
                     .setPoolProperties(getPoolProperties(itemrelease, itemMetaDataUtil))
@@ -115,7 +117,7 @@ public class SegmentFormMapper {
 
         }
 
-        System.out.println(itemGroups);
+        System.out.println(itemGroups.entrySet());
         //List<ItemGroup> itemGroupList = getItemGroups(itemGroups);
 
         segFormIds.forEach((segFormId)->{
@@ -130,8 +132,30 @@ public class SegmentFormMapper {
 
         System.out.println("returning the segmentforms:: " + segmentForms.toString());
 
-        //TODO: Implement this
         return segmentForms;
+    }
+
+    private static Optional<TeacherHandScoring> getTeacherHandScoring(final Map<String, String> column) {
+        if (column.get("THSDimensions").isEmpty() && column.get("THSExemplar").isEmpty()
+                && column.get("THSTrainingGuide").isEmpty() && column.get("THSLayout").isEmpty()
+                && column.get("THSDescription").isEmpty() && column.get("THSPassage").isEmpty()
+                && column.get("THSItemName").isEmpty()
+        ) {
+            return Optional.empty();
+        }
+        TeacherHandScoring teacherHandScoring = TeacherHandScoring.builder()
+                .setDimensions(
+                        Optional.of(column.get("THSDimensions"))
+                )
+                .setExemplar(column.get("THSExemplar"))
+                .setTrainingGuide(column.get("THSTrainingGuide"))
+                .setLayout(Optional.of(column.get("THSLayout")))
+                .setDescription(column.get("THSDescription"))
+                .setPassage(column.get("THSPassage"))
+                .setItemName(column.get("THSItemName"))
+                .build();
+
+        return Optional.of(teacherHandScoring);
     }
 
     private static String fixMeasurementModelFormat(String modelType) {
@@ -162,23 +186,19 @@ public class SegmentFormMapper {
                 .setName("Grade").setValue(itemMetaDataUtil.getIntendedGrade())
                 .build());
         // Rubric Source ??
+        poolProperties.add(PoolProperty.builder()
+                .setName("Scoring Engine").setValue(itemMetaDataUtil.getScoringEngine())
+                .build());
         /*
           <PoolProperty name="Rubric Source" value="Answer Key"/>
-          <PoolProperty name="Scoring Engine" value="Automatic with Key"/>
           <PoolProperty name="Spanish Translation" value="N"/>
           <PoolProperty name="Test Pool" value="Interim"/>
          */
 
-        /*
-        poolProperties.add(PoolProperty.builder()
-                .setName("Answer Key").setValue(itemrelease.getItemPassage().getAttriblist().getAttrib().)
-                .build());
-        */
-
         return poolProperties;
     }
 
-    private static List<ItemScoreDimension> getItemScoreDimensions(final Map<String, String> column, ItemMetaDataUtil itemMetaDataUtil) {
+    private static List<ItemScoreDimension> getItemScoreDimensions(final Map<String, String> column, final ItemMetaDataUtil itemMetaDataUtil) {
         final List<ItemScoreDimension> itemScoreDimensions = new ArrayList<>();
         int i = 1;
 
