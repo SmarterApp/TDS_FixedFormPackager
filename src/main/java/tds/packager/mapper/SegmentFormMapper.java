@@ -51,11 +51,11 @@ public class SegmentFormMapper {
             NodeList stimNodes = itemMetaDataUtil.xpathQuery("metadata/smarterAppMetadata/AssociatedStimulus");
             String stimulusId = stimNodes.getLength() == 1 ? stimNodes.item(0).getTextContent() : EMPTY_STRING;
 
-            System.out.println("Stimulus ID =" + stimulusId );
             //If no stimulus associated with this item then it gets its own itemgroup
             if(stimulusId.isEmpty()) {
-                stimulusId = "I-" + itemId;
+                stimulusId = itemId;
             }
+            System.out.println("Stimulus ID =" + stimulusId );
 
             if(!itemGroups.containsKey(segFormId)) {
                 ArrayList<String> itemList = new ArrayList<>();
@@ -252,7 +252,6 @@ public class SegmentFormMapper {
         } else {
             //if nothing in the measurementmodel field then fetch from metadata.xml
             String modelType = fixMeasurementModelFormat(itemMetaDataUtil.getIrtElement("IrtModelType"));
-
             String dimension = itemMetaDataUtil.getIrtElement("IrtDimensionPurpose");
             int scorePoints = Integer.parseInt(itemMetaDataUtil.getIrtElement("IrtScore"));
             double weight = Double.parseDouble(itemMetaDataUtil.getIrtElement("IrtWeight"));
@@ -359,10 +358,18 @@ public class SegmentFormMapper {
                     System.out.println("item: " + itemId);
                     itemsList.add(items.get(itemId));
                 });
-                itemGroups.add(ItemGroup.builder().setId(stimId).setStimulus(Optional.of(Stimulus.builder().setId(stimId).build()))
-                        .setItems(itemsList).build());
+                // Single Item ItemGroups don't get a Stimulus element
+                if(itemList.size() == 1) {
+                    itemGroups.add(ItemGroup.builder()
+                            .setId(stimId)
+                            .setItems(itemsList).build());
+                } else {
+                    itemGroups.add(ItemGroup.builder()
+                            .setId(stimId)
+                            .setStimulus(Optional.of(Stimulus.builder().setId(stimId).build()))
+                            .setItems(itemsList).build());
+                }
             });
-
         return itemGroups;
     }
 }
