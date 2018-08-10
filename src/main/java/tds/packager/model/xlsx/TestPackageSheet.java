@@ -143,7 +143,7 @@ public class TestPackageSheet {
     private List<List<String>> getColumns(final int rowIndex, final int startColumnIndex) {
         final Row row = sheet.getRow(rowIndex);
         final short lastColumIndex = row.getLastCellNum();
-        final Stream<List<String>> columns = IntStream.range(startColumnIndex, lastColumIndex-1).mapToObj(i -> getColumn(rowIndex, i));
+        final Stream<List<String>> columns = IntStream.range(startColumnIndex, lastColumIndex).mapToObj(i -> getColumn(rowIndex, i));
         return columns.collect(Collectors.toList());
     }
 
@@ -156,12 +156,7 @@ public class TestPackageSheet {
 
     private List<Pair<String, String>> zipColumn(final List<String> names, final List<String> values) {
         final List<Pair<String, String>> zipped = new ArrayList<>();
-        IntStream.range(0, names.size()).forEach(i -> {
-            final String value = values.get(i);
-            if (StringUtils.isNoneBlank(value)) {
-                zipped.add(Pair.of(names.get(i), values.get(i)));
-            }
-        });
+        IntStream.range(0, names.size()).forEach(i -> zipped.add(Pair.of(names.get(i), values.get(i))));
         return zipped;
     }
 

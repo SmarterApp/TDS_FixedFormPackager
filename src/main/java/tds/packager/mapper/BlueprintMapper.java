@@ -43,7 +43,7 @@ public class BlueprintMapper {
         return new ArrayList<>();
     }
 
-    private static Map<String, Scoring> mapBlueprintScoring(final TestPackageWorkbook workbook) {
+    public static Map<String, Scoring> mapBlueprintScoring(final TestPackageWorkbook workbook) {
         final TestPackageSheet sheet = workbook.getSheet(TestPackageSheetNames.SCORING);
         final List<List<Pair<String, String>>> columns = sheet.getColumnPairs();
 
@@ -202,45 +202,57 @@ public class BlueprintMapper {
 
         builder.setComputationOrder(getInt(COMPUTATION_ORDER, column));
         builder.setName(getValue(NAME, column));
-        builder.setMeasure(ColumnUtil.getValue(MEASURE, column));
+        builder.setMeasure(ColumnUtil.getValue(MEASURE, column).filter(s -> !s.isEmpty()));
         final List<Parameter> parameters = ColumnUtil.mapList(PARAMETER_TYPE, column, BlueprintMapper::mapParameter);
         builder.setParameters(parameters);
 
         return builder.build();
     }
 
-    private static Parameter mapParameter(final int position, final List<Pair<String, String>> column) {
-        final Parameter.Builder builder = Parameter.builder();
+    private static Optional<Parameter> mapParameter(final int position, final List<Pair<String, String>> column) {
+        final String parameterName = getValue(PARAMETER_NAME, column);
+        if (!parameterName.isEmpty()) {
+            final Parameter.Builder builder = Parameter.builder();
 
-        builder.setId(UUID.randomUUID().toString());
-        builder.setPosition(position);
+            builder.setId(UUID.randomUUID().toString());
+            builder.setPosition(position);
 
-        builder.setType(getValue(PARAMETER_TYPE, column));
-        builder.setName(getValue(PARAMETER_NAME, column));
+            builder.setType(getValue(PARAMETER_TYPE, column));
+            builder.setName(parameterName);
 
-        final List<Property> properties = ColumnUtil.mapList(PROPERTY_NAME, column, BlueprintMapper::mapProperty);
-        final List<Value> values = ColumnUtil.mapList(PARAMETER_TYPE, column, BlueprintMapper::mapValue);
-        builder.setProperties(properties);
-        builder.setValues(values);
+            final List<Property> properties = ColumnUtil.mapList(PROPERTY_NAME, column, BlueprintMapper::mapProperty);
+            final List<Value> values = ColumnUtil.mapList(VALUE_INDEX, column, BlueprintMapper::mapValue);
+            builder.setProperties(properties);
+            builder.setValues(values);
 
-        return builder.build();
+            return Optional.of(builder.build());
+        }
+        return Optional.empty();
     }
 
-    private static Property mapProperty(final int position, final List<Pair<String, String>> column) {
-        final Property.Builder builder = Property.builder();
+    private static Optional<Property> mapProperty(final int position, final List<Pair<String, String>> column) {
+        final String propertyName = getValue(PROPERTY_NAME, column);
+        if (!propertyName.isEmpty()) {
+            final Property.Builder builder = Property.builder();
 
-        builder.setName(getValue(PROPERTY_NAME, column));
-        builder.setValue(getValue(PROPERTY_VALUE, column));
+            builder.setName(propertyName);
+            builder.setValue(getValue(PROPERTY_VALUE, column));
 
-        return builder.build();
+            return Optional.of(builder.build());
+        }
+        return Optional.empty();
     }
 
-    private static Value mapValue(final int position, final List<Pair<String, String>> column) {
-        final Value.Builder builder = Value.builder();
+    private static Optional<Value> mapValue(final int position, final List<Pair<String, String>> column) {
+        final String value = getValue(VALUE, column);
+        if (!value.isEmpty()) {
+            final Value.Builder builder = Value.builder();
 
-        builder.setIndex(ColumnUtil.getValue(VALUE_INDEX, column));
-        builder.setValue(getValue(VALUE, column));
+            builder.setIndex(ColumnUtil.getValue(VALUE_INDEX, column).filter(s -> !s.isEmpty()));
+            builder.setValue(getValue(VALUE, column));
 
-        return builder.build();
+            return Optional.of(builder.build());
+        }
+        return Optional.empty();
     }
 }
