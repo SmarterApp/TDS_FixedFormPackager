@@ -35,7 +35,7 @@ public class BlueprintMapperTest extends MapperBaseTest {
         assertThat(testBpEl.getScoring()).isPresent();
 
         Scoring scoring = testBpEl.getScoring().get();
-        assertThat(scoring.getRules()).hasSize(4);
+        assertThat(scoring.getRules()).hasSize(5);
         assertThat(scoring.getRules().get(1).getName()).isEqualTo("SBACTheta");
         assertThat(scoring.getRules().get(1).getComputationOrder()).isEqualTo(20);
         assertThat(scoring.getRules().get(1).measure()).isEqualTo("ThetaScore");
@@ -46,10 +46,10 @@ public class BlueprintMapperTest extends MapperBaseTest {
         assertThat(param1.getName()).isEqualTo("LOT");
         assertThat(param1.getType()).isEqualTo("double");
         assertThat(param1.getPosition()).isEqualTo(1);
-        assertThat(param1.getValues()).hasSize(2);
+        assertThat(param1.getValues()).hasSize(1);
 
         Value paramVal = param1.getValues().get(0);
-        assertThat(paramVal.getValue()).isEqualTo("4.3804");
+        assertThat(paramVal.getValue()).isEqualTo("-2.9564");
 
         assertThat(scoring.performanceLevels()).hasSize(4);
 

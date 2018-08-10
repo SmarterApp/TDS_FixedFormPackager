@@ -79,7 +79,7 @@ public class ScoringMapperTest extends MapperBaseTest {
 
         InputStream is = this.getClass().getResourceAsStream("/SBAC-IAB-FIXED-G11M-Winter-2017-2018-New.xml");
         TestPackage testPackage = this.xmlMapper.readValue(is, TestPackage.class);
-        Scoring expectedScoring = testPackage.getBlueprintElement("SBAC-IAB-FIXED-G11M-AlgLin").orElseThrow(IllegalStateException::new).getScoring().orElseThrow(()-> new IllegalStateException());
+        Scoring expectedScoring = testPackage.getBlueprintElement("SBAC-IAB-FIXED-G11M").orElseThrow(IllegalStateException::new).getScoring().orElseThrow(()-> new IllegalStateException());
 
         scoresEqual(expectedScoring, scoring);
     }

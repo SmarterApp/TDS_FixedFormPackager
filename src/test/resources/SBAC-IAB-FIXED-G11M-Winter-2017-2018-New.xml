@@ -1,6 +1,6 @@
-<TestPackage id="SBAC-IAB-FIXED-G11M-Winter-2017-2018-New" publisher="SBAC" publishDate="2017-06-16T20:51:00Z" subject="MATH" type="interim" version="12101" bankKey="200" academicYear="2018">
+<TestPackage id="SBAC-IAB-FIXED-G11M" publisher="SBAC" publishDate="2017-06-16T20:51:00Z" subject="MATH" type="interim" version="12101" bankKey="200" academicYear="2018">
   <Blueprint>
-    <BlueprintElement id="SBAC-IAB-FIXED-G11M-AlgLin" type="test">
+    <BlueprintElement id="SBAC-IAB-FIXED-G11M" type="test">
       <Scoring>
         <PerformanceLevels>
           <PerformanceLevel pLevel="1" scaledLo="2280.0" scaledHi="2543.0"/>
@@ -85,7 +85,7 @@
       </BlueprintElement>
     </BlueprintElement>
   </Blueprint>
-  <Test id="SBAC-IAB-FIXED-G11M-AlgLin" label="High School Math - Algebra and Functions I (IAB)">
+  <Test id="SBAC-IAB-FIXED-G11M" label="High School Math - Algebra and Functions I (IAB)">
     <Grades>
       <Grade value="11" label="grade 11"/>
     </Grades>
