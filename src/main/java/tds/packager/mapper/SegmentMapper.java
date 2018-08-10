@@ -67,7 +67,7 @@ public class SegmentMapper {
             ItemMetaDataUtil util = new ItemMetaDataUtil(itemMetaData.get(id).getItemMetadata());
 
             final String standard = util.getPrimaryStandard();
-            final List<String> blueprintElementIds = parseBlueprintId(standard);
+            final List<String> blueprintElementIds = BlueprintMapper.parseBlueprintId(standard);
             final boolean fieldTestItem = !util.getStatus().equalsIgnoreCase("Operational");
 
             // Increment the segment counts
@@ -101,38 +101,6 @@ public class SegmentMapper {
                 counts.incrementExamItemCount();
             }
         }
-    }
-
-    private static List<String> parseBlueprintId(final String standard) {
-        //SBAC-MA-v6:1|P|TS06|M - > 1|P|TS06|M
-        final String bottomLevelBpRef = standard.split(":")[1];
-
-        // If its not a target string (containing a pipe), then simply return this id
-        if (!bottomLevelBpRef.contains("|")) {
-            return Collections.singletonList(bottomLevelBpRef);
-        }
-
-        List<String> refIds = new ArrayList<>();
-
-        final String[] targetSections = bottomLevelBpRef.split("\\|");
-
-        for (int i = 0; i < targetSections.length; i++) {
-            if (i == 0) {
-                refIds.add(targetSections[i]);
-            } else {
-                StringBuilder id = new StringBuilder();
-                for (int j = 0; j <= i; j++) {
-                    if (j > 0) {
-                        id.append("|");
-                    }
-                    id.append(targetSections[j]);
-                }
-
-                refIds.add(id.toString());
-            }
-        }
-
-        return refIds;
     }
 
     private static List<String> findItemIdsForSegment(final String segmentId, final TestPackageSheet segmentFormsSheet) {

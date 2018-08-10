@@ -22,10 +22,12 @@ public class TestPackageSheet {
     private static final String INPUT_HEADER = "Input Variable";
     private final TestPackageWorkbook workbook;
     private final Sheet sheet;
+    private final DataFormatter formatter;
 
     public TestPackageSheet(final TestPackageWorkbook workbook, final Sheet sheet) {
         this.workbook = workbook;
         this.sheet = sheet;
+        this.formatter = new DataFormatter();
     }
 
     public TestPackageWorkbook getWorkbook() {
@@ -62,7 +64,6 @@ public class TestPackageSheet {
     }
 
     public String[] getStrings(final String inputVariable) {
-        final DataFormatter formatter = new DataFormatter();
         final int inputVariableIndex = getInputVariableColumnIndex();
         final List<String> values = new ArrayList<>();
 
@@ -113,11 +114,10 @@ public class TestPackageSheet {
      * @return A map of input variable keys and values
      */
     public Map<String, String> getInputVariableValuesMap(final int columnIndex) {
-        DataFormatter formatter = new DataFormatter();
         final Map<String, String> inputValuesMap = new HashMap<>();
         int inputVariableCol = getInputVariableColumnIndex();
 
-        for (int i = HEADER_ROW + 1; i <= sheet.getLastRowNum(); i++) {
+        for (int i = HEADER_ROW + 1; i <= sheet.getLastRowNum() && sheet.getRow(i) != null ; i++) {
             final Row row = sheet.getRow(i);
             final int absoluteCol = inputVariableCol + columnIndex + 1;
             inputValuesMap.put(formatter.formatCellValue(row.getCell(inputVariableCol)), formatter.formatCellValue(row.getCell(absoluteCol)));
@@ -166,7 +166,6 @@ public class TestPackageSheet {
         columns.remove(0);
         return columns.stream().map(col -> zipColumn(names, col)).collect(Collectors.toList());
     }
-
 
     public void dump() {
         WorkbookUtil.dump(sheet);

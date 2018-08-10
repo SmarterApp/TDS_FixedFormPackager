@@ -18,47 +18,156 @@ import java.util.stream.Collectors;
 import static tds.packager.mapper.BlueprintConsts.*;
 
 public class BlueprintMapper {
-    public static List<BlueprintElement> map(final TestPackageWorkbook workbook,
+    public static List<BlueprintElement> map(final String testPackageId,
+                                             final TestPackageWorkbook workbook,
                                              final Map<String, String> testPackageValues,
                                              final Map<String, GitLabItemMetaData> itemMetaData) {
-        final List<BlueprintElement> rootBlueprintElements = new ArrayList<>();
-
-        // TODO: Map package/test/segment blueprints
-        // TODO: Map other misc blueprint elements (sock, affinitygroup)
-
         final Set<String> itemIds = findItemIds(workbook.getSheet(TestPackageSheetNames.SEGMENT_FORMS));
+        final Map<String, Scoring> scoringMap = mapBlueprintScoring(workbook, testPackageValues);
 
-        rootBlueprintElements.addAll(mapPackageAndTests(workbook));
-        rootBlueprintElements.addAll(mapMiscellaneousElements(workbook));
-        rootBlueprintElements.addAll(mapClaimsAndTargets(itemIds, itemMetaData, new HashMap<>()));
+        final List<BlueprintElement> rootBlueprintElements = mapPackageAndTests(testPackageId, workbook, scoringMap);
+        rootBlueprintElements.addAll(mapMiscellaneousElements(workbook, scoringMap));
+        rootBlueprintElements.addAll(mapClaimsAndTargets(itemIds, itemMetaData, scoringMap));
 
         return rootBlueprintElements;
     }
 
-    private static List<BlueprintElement> mapPackageAndTests(final TestPackageWorkbook workbook) {
-        return new ArrayList<>();
+    public static List<String> parseBlueprintId(final String standard) {
+        //SBAC-MA-v6:1|P|TS06|M - > 1|P|TS06|M
+        final String bottomLevelBpRef = standard.split(":")[1];
+
+        // If its not a target string (containing a pipe), then simply return this id
+        if (!bottomLevelBpRef.contains("|")) {
+            return Collections.singletonList(bottomLevelBpRef);
+        }
+
+        List<String> refIds = new ArrayList<>();
+
+        final String[] targetSections = bottomLevelBpRef.split("\\|");
+
+        for (int i = 0; i < targetSections.length; i++) {
+            if (i == 0) {
+                refIds.add(targetSections[i]);
+            } else {
+                StringBuilder id = new StringBuilder();
+                for (int j = 0; j <= i; j++) {
+                    if (j > 0) {
+                        id.append("|");
+                    }
+                    id.append(targetSections[j]);
+                }
+
+                refIds.add(id.toString());
+            }
+        }
+
+        return refIds;
     }
 
-    private static List<BlueprintElement> mapMiscellaneousElements(final TestPackageWorkbook workbook) {
-        return new ArrayList<>();
+    private static List<BlueprintElement> mapPackageAndTests(final String testPackageId,
+                                                             final TestPackageWorkbook workbook,
+                                                             final Map<String, Scoring> scoringMap) {
+        final List<BlueprintElement> blueprintElements = new ArrayList<>();
+        final TestPackageSheet testsSheet = workbook.getSheet(TestPackageSheetNames.TESTS);
+        final TestPackageSheet segmentsSheet = workbook.getSheet(TestPackageSheetNames.SEGMENTS);
+
+        final boolean isMultiAssessment = testsSheet.getTotalNumberOfInputColumns() > 1;
+
+        if (isMultiAssessment) {
+            final BlueprintElement packageBlueprintEl = BlueprintElement.builder()
+                    .setId(testPackageId)
+                    .setType(BlueprintElementTypes.PACKAGE)
+                    .setScoring(Optional.ofNullable(scoringMap.get(testPackageId)))
+                    .setBlueprintElements(mapTestBlueprintElements(testsSheet, segmentsSheet, scoringMap))
+                    .build();
+            blueprintElements.add(packageBlueprintEl);
+        } else {
+            return mapTestBlueprintElements(testsSheet, segmentsSheet, scoringMap);
+        }
+
+
+        return blueprintElements;
     }
 
-    public static Map<String, Scoring> mapBlueprintScoring(final TestPackageWorkbook workbook) {
+    private static List<BlueprintElement> mapTestBlueprintElements(final TestPackageSheet testsSheet,
+                                                                   final TestPackageSheet segmentsSheet,
+                                                                   final Map<String, Scoring> scoringMap) {
+        final List<BlueprintElement> testBlueprintElements = new ArrayList<>();
+        for (int i = 0; i < testsSheet.getTotalNumberOfInputColumns(); i++) {
+            final String assessmentId = testsSheet.getString("TestId", i);
+
+            testBlueprintElements.add(BlueprintElement.builder()
+                    .setId(assessmentId)
+                    .setType(BlueprintElementTypes.TEST)
+                    .setScoring(Optional.ofNullable(scoringMap.get(assessmentId)))
+                    .setBlueprintElements(mapSegmentBlueprintElements(assessmentId, segmentsSheet, scoringMap))
+                    .build());
+        }
+
+        return testBlueprintElements;
+    }
+
+    private static List<BlueprintElement> mapSegmentBlueprintElements(final String assessmentId, final TestPackageSheet segmentsSheet,
+                                                                      final Map<String, Scoring> scoringMap) {
+        final List<BlueprintElement> segmentBlueprintElements = new ArrayList<>();
+
+        for (int i = 0; i < segmentsSheet.getTotalNumberOfInputColumns(); i++) {
+            final Map<String, String> segmentInputValuesMap = segmentsSheet.getInputVariableValuesMap(i);
+
+            if (!assessmentId.equals(segmentInputValuesMap.get("TestId"))) {
+                // Skip this column if it does not correspond to the assessment ID we are dealing with
+                continue;
+            }
+            final String segmentId = segmentInputValuesMap.get("SegmentId");
+
+            segmentBlueprintElements.add(BlueprintElement.builder()
+                    .setId(segmentId)
+                    .setType(BlueprintElementTypes.SEGMENT)
+                    .setScoring(Optional.ofNullable(scoringMap.get(segmentId)))
+                    .build());
+
+        }
+
+        return segmentBlueprintElements;
+    }
+
+    private static List<BlueprintElement> mapMiscellaneousElements(final TestPackageWorkbook workbook, final Map<String, Scoring> scoringMap) {
+        final TestPackageSheet sheet = workbook.getSheet(TestPackageSheetNames.SCORING);
+        final List<BlueprintElement> miscBpElements = new ArrayList<>();
+
+        for (int i = 0; i < sheet.getTotalNumberOfInputColumns(); i++) {
+            final Map<String, String> values = sheet.getInputVariableValuesMap(i);
+            final String bpType = values.get("BlueprintElementType");
+
+            if (bpType.equalsIgnoreCase(BlueprintElementTypes.SOCK) || bpType.equalsIgnoreCase(BlueprintElementTypes.AFFINITY_GROUP)) {
+                final String bpElementId = values.get("BlueprintElementId");
+                miscBpElements.add(BlueprintElement.builder()
+                        .setId(bpElementId)
+                        .setType(bpType)
+                        .setScoring(Optional.ofNullable(scoringMap.get(bpElementId)))
+                        .build());
+            }
+        }
+
+        return miscBpElements;
+    }
+
+    public static Map<String, Scoring> mapBlueprintScoring(final TestPackageWorkbook workbook, final Map<String, String> testPackageValues) {
         final TestPackageSheet sheet = workbook.getSheet(TestPackageSheetNames.SCORING);
         final List<List<Pair<String, String>>> columns = sheet.getColumnPairs();
 
         final Map<String, List<List<Pair<String, String>>>> blueprintElements =
                 columns.stream().collect(Collectors.groupingBy(column -> getValue(BLUEPRINT_ELEMENT_ID, column)));
 
-        final Map<String, Scoring> scorings = blueprintElements.entrySet().stream().collect(
-            Collectors.toMap(Entry::getKey, e -> mapScoring(e.getValue())));
+        final Map<String, Scoring> scoringMap = blueprintElements.entrySet().stream().collect(
+                Collectors.toMap(Entry::getKey, e -> mapScoring(e.getKey(), e.getValue(), testPackageValues)));
 
-        return scorings;
+        return scoringMap;
     }
 
     private static String getValue(final String name, List<Pair<String, String>> column) {
         return ColumnUtil.getValue(name, column).
-                orElseThrow(() -> new RuntimeException(String.format("Error while mapping scoring sheet. Varible not found: %s", name)));
+                orElseThrow(() -> new RuntimeException(String.format("Error while mapping scoring sheet. Variable not found: %s", name)));
     }
 
     private static List<BlueprintElement> mapClaimsAndTargets(final Set<String> itemIds,
@@ -133,38 +242,6 @@ public class BlueprintMapper {
         }
     }
 
-    private static List<String> parseBlueprintId(final String standard) {
-        //SBAC-MA-v6:1|P|TS06|M - > 1|P|TS06|M
-        final String bottomLevelBpRef = standard.split(":")[1];
-
-        // If its not a target string (containing a pipe), then simply return this id
-        if (!bottomLevelBpRef.contains("|")) {
-            return Collections.singletonList(bottomLevelBpRef);
-        }
-
-        List<String> refIds = new ArrayList<>();
-
-        final String[] targetSections = bottomLevelBpRef.split("\\|");
-
-        for (int i = 0; i < targetSections.length; i++) {
-            if (i == 0) {
-                refIds.add(targetSections[i]);
-            } else {
-                StringBuilder id = new StringBuilder();
-                for (int j = 0; j <= i; j++) {
-                    if (j > 0) {
-                        id.append("|");
-                    }
-                    id.append(targetSections[j]);
-                }
-
-                refIds.add(id.toString());
-            }
-        }
-
-        return refIds;
-    }
-
     private static Set<String> findItemIds(final TestPackageSheet segmentFormsSheet) {
         final Set<String> itemIds = new HashSet<>();
 
@@ -182,19 +259,53 @@ public class BlueprintMapper {
         return Integer.parseInt(getValue(name, column));
     }
 
-    private static Scoring mapScoring(final List<List<Pair<String, String>>> columns) {
+    private static Scoring mapScoring(final String blueprintElementId, final List<List<Pair<String, String>>> columns,
+                                      final Map<String, String> testPackageValues) {
         final Scoring.Builder builder = Scoring.builder();
 
         final List<Rule> rules = columns.stream().map(BlueprintMapper::mapRule).collect(Collectors.toList());
         builder.setRules(rules);
 
+        if (blueprintElementId.equals(testPackageValues.get("PackageId"))) {
+            builder.setPerformanceLevels(mapPerformanceLevel(testPackageValues));
+        }
+
         return builder.build();
     }
 
-    private static PerformanceLevel mapPerformanceLevel(final List<Pair<String, String>> column) {
-        final PerformanceLevel.Builder builder = PerformanceLevel.builder();
+    private static List<PerformanceLevel> mapPerformanceLevel(final Map<String, String> testPackageValues) {
+        final List<PerformanceLevel> performanceLevels = new ArrayList<>();
+        final double scaledLo = Double.parseDouble(testPackageValues.get("ScaledLo"));
+        final double scaledPart1 = Double.parseDouble(testPackageValues.get("ScaledPartition1"));
+        final double scaledPart2 = Double.parseDouble(testPackageValues.get("ScaledPartition2"));
+        final double scaledPart3 = Double.parseDouble(testPackageValues.get("ScaledPartition3"));
+        final double scaledHi = Double.parseDouble(testPackageValues.get("ScaledHi"));
 
-        return builder.build();
+        performanceLevels.add(PerformanceLevel.builder()
+                .setScaledLo(scaledLo)
+                .setScaledHi(scaledPart1)
+                .setPLevel(1)
+                .build());
+
+        performanceLevels.add(PerformanceLevel.builder()
+                .setScaledLo(scaledPart1)
+                .setScaledHi(scaledPart2)
+                .setPLevel(2)
+                .build());
+
+        performanceLevels.add(PerformanceLevel.builder()
+                .setScaledLo(scaledPart2)
+                .setScaledHi(scaledPart3)
+                .setPLevel(3)
+                .build());
+
+        performanceLevels.add(PerformanceLevel.builder()
+                .setScaledLo(scaledPart3)
+                .setScaledHi(scaledHi)
+                .setPLevel(4)
+                .build());
+
+        return performanceLevels;
     }
 
     private static Rule mapRule(final List<Pair<String, String>> column) {
