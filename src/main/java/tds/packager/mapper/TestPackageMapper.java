@@ -13,9 +13,10 @@ public class TestPackageMapper {
     public static TestPackage map(final TestPackageWorkbook workbook, final Map<String, GitLabItemMetaData> itemMetaData) {
         final TestPackageSheet sheet = workbook.getSheet(TestPackageSheetNames.PACKAGE);
         final Map<String, String> valuesMap = sheet.getInputVariableValuesMap(0);
+        final String testPackageId = valuesMap.get("PackageId");
 
         final TestPackage.Builder testPackageBuilder = TestPackage.builder()
-                .setId(valuesMap.get("PackageId"))
+                .setId(testPackageId)
                 .setBankKey(Integer.parseInt(valuesMap.get("BankKey")))
                 .setAcademicYear(valuesMap.get("AcademicYear"))
                 .setVersion(valuesMap.get("Version"))
@@ -24,7 +25,7 @@ public class TestPackageMapper {
                 .setSubject(valuesMap.get("Subject"))
                 .setType(valuesMap.get("AssessmentType"))
                 .setSubType(valuesMap.containsKey("AssessmentSubType") ? Optional.of(valuesMap.get("AssessmentSubType")) : Optional.empty())
-                .setBlueprint(BlueprintMapper.map(workbook, valuesMap))
+                .setBlueprint(BlueprintMapper.map(testPackageId, workbook, valuesMap, itemMetaData))
                 .setAssessments(AssessmentMapper.map(workbook, parseGrades(valuesMap.get("Grade")), itemMetaData));
 
         return testPackageBuilder.build();

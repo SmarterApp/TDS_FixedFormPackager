@@ -1,5 +1,7 @@
 package tds.packager.mapper;
 
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.google.common.collect.ImmutableMap;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.Before;
@@ -13,8 +15,13 @@ public class MapperBaseTest {
 
     protected Map<String, GitLabItemMetaData> itemMetadata;
 
+    protected XmlMapper xmlMapper;
+
     @Before
     public void setup() throws Exception {
+        xmlMapper = new XmlMapper();
+        xmlMapper.registerModule(new Jdk8Module());
+
         mockWorkbook = new TestPackageWorkbook(new XSSFWorkbook(
                 this.getClass().getResourceAsStream("/SBAC-IAB-FIXED-G11M-Winter-2017-2018.xlsx")));
 

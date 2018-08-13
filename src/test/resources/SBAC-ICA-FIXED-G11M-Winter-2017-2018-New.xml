@@ -1,0 +1,2083 @@
+<TestPackage id="SBAC-ICA-FIXED-G11M-Winter-2017-2018-New" publisher="SBAC" publishDate="2017-06-14T18:55:00Z" subject="MATH" type="interim" version="12093" bankKey="200" academicYear="2018">
+  <Blueprint>
+    <BlueprintElement id="SBAC-ICA-FIXED-G11M-COMBINED-2017" type="package">
+      <Scoring>
+        <PerformanceLevels>
+          <PerformanceLevel pLevel="1" scaledLo="2280.0" scaledHi="2543.0"/>
+          <PerformanceLevel pLevel="2" scaledLo="2543.0" scaledHi="2628.0"/>
+          <PerformanceLevel pLevel="3" scaledLo="2628.0" scaledHi="2718.0"/>
+          <PerformanceLevel pLevel="4" scaledLo="2718.0" scaledHi="2862.0"/>
+        </PerformanceLevels>
+        <Rules>
+          <Rule name="ScaleScore" computationOrder="30"/>
+          <Rule name="SBACAccommodationUseCodes" measure="AccommodationCodes" computationOrder="300">
+            <Parameter name="accomNoCodes" id="A04CEA62-7A8C-4C39-859D-CEDA15FAA0AA" type="string" position="1">
+              <Property name="indextype" value="string"/>
+              <Value value="TDS_PS_L0" index="Print Size"/>
+            </Parameter>
+          </Rule>
+          <Rule name="TestPerformanceLevel" measure="PerformanceLevel" computationOrder="35"/>
+          <Rule name="ItemCount" computationOrder="90"/>
+          <Rule name="RawScore" computationOrder="110"/>
+          <Rule name="SBACTheta" measure="ThetaScore" computationOrder="20">
+            <Parameter name="LOT" id="933D98F3-34BC-4957-8FAE-0B66CB0AB41E" type="double" position="1">
+              <Value value="-2.9564"/>
+            </Parameter>
+            <Parameter name="HOT" id="11D307FC-7B83-4ECC-AAF8-C5E1445897C8" type="double" position="2">
+              <Value value="4.3804"/>
+            </Parameter>
+            <Parameter name="seLimit" id="E766945F-93FF-4671-B21D-ADCEFDB02AF3" type="double" position="3">
+              <Value value="2.5"/>
+            </Parameter>
+          </Rule>
+          <Rule name="SBACAttemptedness" measure="Attempted" computationOrder="10">
+            <Parameter name="testPart" id="1511FAA2-FB95-4E48-ACA9-7E73AB947D33" type="int" position="1">
+              <Property name="indextype" value="string"/>
+              <Value value="1" index="SBAC-ICA-FIXED-G11M-Calc-COMBINED-MATH-11"/>
+              <Value value="1" index="SBAC-ICA-FIXED-G11M-NoCalc-COMBINED-MATH-11"/>
+              <Value value="2" index="SBAC-ICA-FIXED-G11M-Perf-TeenDrivingRest-COMBINED-MATH-11"/>
+            </Parameter>
+          </Rule>
+          <Rule name="ItemCountScored" computationOrder="100"/>
+        </Rules>
+      </Scoring>
+      <BlueprintElement id="SBAC-ICA-FIXED-G11M-Perf-TeenDrivingRestricitons-MATH-11" type="test"/>
+      <BlueprintElement id="SBAC-ICA-FIXED-G11M" type="test">
+        <BlueprintElement id="SBAC-ICA-FIXED-G11M-NoCalc-MATH-11" type="segment"/>
+        <BlueprintElement id="SBAC-ICA-FIXED-G11M-Calc-MATH-11" type="segment"/>
+      </BlueprintElement>
+    </BlueprintElement>
+    <BlueprintElement id="SOCK_2" type="sock">
+      <Scoring>
+        <Rules>
+          <Rule name="SEBasedPLWithRounding" measure="PerformanceLevel" computationOrder="85">
+            <Parameter name="seMultiple" id="7B19E304-3863-4F12-9A75-E311DD578EC1" type="double" position="1">
+              <Value value="1.5"/>
+            </Parameter>
+            <Parameter name="proficientPerformanceLevel" id="2EE0DDB3-7AD5-495E-B1CE-72D4C2BB1AAC" type="int" position="2">
+              <Value value="3"/>
+            </Parameter>
+            <Parameter name="LOT" id="4363F62B-647C-4831-B334-DA5A1B5EA596" type="double" position="3">
+              <Value value="-2.9564"/>
+            </Parameter>
+            <Parameter name="HOT" id="8191A641-6455-4AAF-840F-FF13BD6E5747" type="double" position="4">
+              <Value value="4.3804"/>
+            </Parameter>
+          </Rule>
+          <Rule name="MultiStrandRawScore" measure="RawScore" computationOrder="141">
+            <Parameter name="strands" id="76E22FB0-379B-409C-AC58-BAF25E67CCCF" type="string" position="1">
+              <Property name="indextype" value="int"/>
+              <Value value="2" index="1"/>
+              <Value value="4" index="2"/>
+            </Parameter>
+          </Rule>
+          <Rule name="MultipleStrandItemCountScored" measure="ItemCountScored" computationOrder="131">
+            <Parameter name="strands" id="947BBD8B-2C84-451F-A5D9-3CC299310B4F" type="string" position="1">
+              <Property name="indextype" value="int"/>
+              <Value value="2" index="1"/>
+              <Value value="4" index="2"/>
+            </Parameter>
+          </Rule>
+          <Rule name="ScaleScore" computationOrder="71"/>
+          <Rule name="MultipleStrandItemCount" measure="ItemCount" computationOrder="121">
+            <Parameter name="strands" id="A59C4CF5-E430-42B0-BB91-39D06900F466" type="string" position="1">
+              <Property name="indextype" value="int"/>
+              <Value value="2" index="1"/>
+              <Value value="4" index="2"/>
+            </Parameter>
+          </Rule>
+          <Rule name="SBACMultiStrandTheta" measure="ThetaScore" computationOrder="61">
+            <Parameter name="LOT" id="2BA8722F-BA15-42B1-B33B-88BC3578846D" type="double" position="1">
+              <Value value="-2.9564"/>
+            </Parameter>
+            <Parameter name="HOT" id="7BBC58A2-CD87-4543-A9E1-A0EAC9021049" type="double" position="2">
+              <Value value="4.3804"/>
+            </Parameter>
+            <Parameter name="seLimit" id="CD0140A4-FF7F-4B7D-946E-688695B29929" type="double" position="3">
+              <Value value="2.5"/>
+            </Parameter>
+            <Parameter name="strands" id="111B0A47-379F-49B2-B704-6D968C64DDCE" type="string" position="4">
+              <Property name="indextype" value="int"/>
+              <Value value="2" index="1"/>
+              <Value value="4" index="2"/>
+            </Parameter>
+          </Rule>
+        </Rules>
+      </Scoring>
+    </BlueprintElement>
+    <BlueprintElement id="2" type="claim">
+      <BlueprintElement id="2|F" type="target">
+        <BlueprintElement id="2|F|NA" type="target">
+          <BlueprintElement id="2|F|NA|C" type="target"/>
+        </BlueprintElement>
+      </BlueprintElement>
+      <BlueprintElement id="2|A" type="target">
+        <BlueprintElement id="2|A|NA" type="target">
+          <BlueprintElement id="2|A|NA|A" type="target"/>
+        </BlueprintElement>
+      </BlueprintElement>
+    </BlueprintElement>
+    <BlueprintElement id="3" type="claim">
+      <Scoring>
+        <Rules>
+          <Rule name="ScaleScore" computationOrder="72"/>
+          <Rule name="RawScore" computationOrder="142"/>
+          <Rule name="ItemCountScored" computationOrder="132"/>
+          <Rule name="SBACTheta" measure="ThetaScore" computationOrder="62">
+            <Parameter name="LOT" id="933D98F3-34BC-4957-8FAE-0B66CB0AB41E" type="double" position="1">
+              <Value value="-2.9564"/>
+            </Parameter>
+            <Parameter name="HOT" id="11D307FC-7B83-4ECC-AAF8-C5E1445897C8" type="double" position="2">
+              <Value value="4.3804"/>
+            </Parameter>
+            <Parameter name="seLimit" id="E766945F-93FF-4671-B21D-ADCEFDB02AF3" type="double" position="3">
+              <Value value="2.5"/>
+            </Parameter>
+          </Rule>
+          <Rule name="ItemCount" computationOrder="122"/>
+          <Rule name="SEBasedPLWithRounding" measure="PerformanceLevel" computationOrder="86">
+            <Parameter name="seMultiple" id="7B19E304-3863-4F12-9A75-E311DD578EC1" type="double" position="1">
+              <Value value="1.5"/>
+            </Parameter>
+            <Parameter name="proficientPerformanceLevel" id="2EE0DDB3-7AD5-495E-B1CE-72D4C2BB1AAC" type="int" position="2">
+              <Value value="3"/>
+            </Parameter>
+            <Parameter name="LOT" id="4363F62B-647C-4831-B334-DA5A1B5EA596" type="double" position="3">
+              <Value value="-2.9564"/>
+            </Parameter>
+            <Parameter name="HOT" id="8191A641-6455-4AAF-840F-FF13BD6E5747" type="double" position="4">
+              <Value value="4.3804"/>
+            </Parameter>
+          </Rule>
+        </Rules>
+      </Scoring>
+      <BlueprintElement id="3|N" type="target">
+        <BlueprintElement id="3|N|NA" type="target">
+          <BlueprintElement id="3|N|NA|E" type="target"/>
+        </BlueprintElement>
+      </BlueprintElement>
+      <BlueprintElement id="3|A" type="target">
+        <BlueprintElement id="3|A|NA" type="target">
+          <BlueprintElement id="3|A|NA|A" type="target"/>
+        </BlueprintElement>
+      </BlueprintElement>
+      <BlueprintElement id="3|G" type="target">
+        <BlueprintElement id="3|G|NA" type="target">
+          <BlueprintElement id="3|G|NA|A" type="target"/>
+          <BlueprintElement id="3|G|NA|B" type="target"/>
+          <BlueprintElement id="3|G|NA|C" type="target"/>
+          <BlueprintElement id="3|G|NA|F" type="target"/>
+        </BlueprintElement>
+      </BlueprintElement>
+    </BlueprintElement>
+    <BlueprintElement id="4" type="claim">
+      <BlueprintElement id="4|N" type="target">
+        <BlueprintElement id="4|N|NA" type="target">
+          <BlueprintElement id="4|N|NA|A" type="target"/>
+          <BlueprintElement id="4|N|NA|D" type="target"/>
+          <BlueprintElement id="4|N|NA|B" type="target"/>
+          <BlueprintElement id="4|N|NA|C" type="target"/>
+        </BlueprintElement>
+      </BlueprintElement>
+      <BlueprintElement id="4|F" type="target">
+        <BlueprintElement id="4|F|NA" type="target">
+          <BlueprintElement id="4|F|NA|D" type="target"/>
+        </BlueprintElement>
+      </BlueprintElement>
+    </BlueprintElement>
+    <BlueprintElement id="1" type="claim">
+      <Scoring>
+        <Rules>
+          <Rule name="RawScore" computationOrder="140"/>
+          <Rule name="SEBasedPLWithRounding" measure="PerformanceLevel" computationOrder="84">
+            <Parameter name="seMultiple" id="7B19E304-3863-4F12-9A75-E311DD578EC1" type="double" position="1">
+              <Value value="1.5"/>
+            </Parameter>
+            <Parameter name="proficientPerformanceLevel" id="2EE0DDB3-7AD5-495E-B1CE-72D4C2BB1AAC" type="int" position="2">
+              <Value value="3"/>
+            </Parameter>
+            <Parameter name="LOT" id="4363F62B-647C-4831-B334-DA5A1B5EA596" type="double" position="3">
+              <Value value="-2.9564"/>
+            </Parameter>
+            <Parameter name="HOT" id="8191A641-6455-4AAF-840F-FF13BD6E5747" type="double" position="4">
+              <Value value="4.3804"/>
+            </Parameter>
+          </Rule>
+          <Rule name="ItemCountScored" computationOrder="130"/>
+          <Rule name="SBACTheta" measure="ThetaScore" computationOrder="60">
+            <Parameter name="LOT" id="933D98F3-34BC-4957-8FAE-0B66CB0AB41E" type="double" position="1">
+              <Value value="-2.9564"/>
+            </Parameter>
+            <Parameter name="HOT" id="11D307FC-7B83-4ECC-AAF8-C5E1445897C8" type="double" position="2">
+              <Value value="4.3804"/>
+            </Parameter>
+            <Parameter name="seLimit" id="E766945F-93FF-4671-B21D-ADCEFDB02AF3" type="double" position="3">
+              <Value value="2.5"/>
+            </Parameter>
+          </Rule>
+          <Rule name="ScaleScore" computationOrder="70"/>
+          <Rule name="ItemCount" computationOrder="120"/>
+        </Rules>
+      </Scoring>
+      <BlueprintElement id="1|P" type="target">
+        <BlueprintElement id="1|P|TS01" type="target"/>
+        <BlueprintElement id="1|P|TS03" type="target">
+          <BlueprintElement id="1|P|TS03|G" type="target"/>
+        </BlueprintElement>
+        <BlueprintElement id="1|P|TS04" type="target">
+          <BlueprintElement id="1|P|TS04|J" type="target"/>
+        </BlueprintElement>
+        <BlueprintElement id="1|P|TS05" type="target">
+          <BlueprintElement id="1|P|TS05|K" type="target"/>
+        </BlueprintElement>
+        <BlueprintElement id="1|P|TS06" type="target">
+          <BlueprintElement id="1|P|TS06|L" type="target"/>
+          <BlueprintElement id="1|P|TS06|M" type="target"/>
+          <BlueprintElement id="1|P|TS06|N" type="target"/>
+        </BlueprintElement>
+      </BlueprintElement>
+      <BlueprintElement id="1|S" type="target">
+        <BlueprintElement id="1|S|TS07" type="target">
+          <BlueprintElement id="1|S|TS07|O" type="target"/>
+        </BlueprintElement>
+        <BlueprintElement id="1|S|TS08" type="target">
+          <BlueprintElement id="1|S|TS08|P" type="target"/>
+        </BlueprintElement>
+        <BlueprintElement id="1|S|TS10" type="target">
+          <BlueprintElement id="1|S|TS10|C" type="target"/>
+        </BlueprintElement>
+      </BlueprintElement>
+    </BlueprintElement>
+  </Blueprint>
+  <Test id="SBAC-ICA-FIXED-G11M-Perf-TeenDrivingRestricitons-MATH-11" label="High School Math Performance Task - Teen Driving Restrictions (ICA)">
+    <Grades>
+      <Grade value="11" label="grade 11"/>
+    </Grades>
+    <Segments>
+      <Segment exitApproval="false" entryApproval="false" position="1" id="SBAC-ICA-FIXED-G11M-Perf-TeenDrivingRestricitons-MATH-11" label="(SBAC)SBAC-ICA-FIXED-G11M-Perf-TeenDrivingRestricitons-MATH-11-Winter-2017-2018" algorithmImplementation="AIR FIXEDFORM1" algorithmType="fixedform">
+        <SegmentBlueprint>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="2" maxExamItems="4"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="3" maxExamItems="4"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="4" maxExamItems="4"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="2|F" maxExamItems="4"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="3|N" maxExamItems="4"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="4|N" maxExamItems="4"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="2|F|NA" maxExamItems="4"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="3|N|NA" maxExamItems="4"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="4|N|NA" maxExamItems="4"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="2|F|NA|C" maxExamItems="4"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="3|N|NA|E" maxExamItems="4"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="4|N|NA|A" maxExamItems="4"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="4|N|NA|D" maxExamItems="4"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="6" idRef="SBAC-ICA-FIXED-G11M-Perf-TeenDrivingRestricitons-MATH-11" maxExamItems="6">
+            <ItemSelection>
+              <Property name="slope" value="79.3"/>
+              <Property name="intercept" value="2514.9"/>
+            </ItemSelection>
+          </SegmentBlueprintElement>
+        </SegmentBlueprint>
+        <SegmentForms>
+          <SegmentForm id="Math ICA Perf G11 TeenDrivingRestrictions 2018 ENG" cohort="Default">
+            <Presentations>
+              <Presentation label="Braille" code="ENU-Braille"/>
+              <Presentation label="Spanish" code="ESN"/>
+              <Presentation label="English" code="ENU"/>
+            </Presentations>
+            <ItemGroup maxItems="ALL" maxResponses="ALL" id="461">
+              <Stimulus id="461"/>
+              <Item active="true" responseRequired="false" fieldTest="false" handScored="false" doNotScore="false" administrationRequired="false" id="21559" type="MC">
+                <PoolProperties>
+                  <PoolProperty name="Answer Key" value="B"/>
+                  <PoolProperty name="ASL" value="Y"/>
+                  <PoolProperty name="Braille" value="BRF"/>
+                  <PoolProperty name="Depth of Knowledge" value="2"/>
+                  <PoolProperty name="Difficulty Category" value="Overall=Difficult"/>
+                  <PoolProperty name="Glossary" value="Arabic"/>
+                  <PoolProperty name="Glossary" value="Cantonese"/>
+                  <PoolProperty name="Glossary" value="Korean"/>
+                  <PoolProperty name="Glossary" value="Mandarin"/>
+                  <PoolProperty name="Glossary" value="Punjabi"/>
+                  <PoolProperty name="Glossary" value="Russian"/>
+                  <PoolProperty name="Glossary" value="Spanish"/>
+                  <PoolProperty name="Glossary" value="Tagal/Tagalog"/>
+                  <PoolProperty name="Glossary" value="Vietnamese"/>
+                  <PoolProperty name="Grade" value="11"/>
+                  <PoolProperty name="Rubric Source" value="Answer Key"/>
+                  <PoolProperty name="Scoring Engine" value="Automatic with Key"/>
+                  <PoolProperty name="Spanish Translation" value="Y"/>
+                  <PoolProperty name="Test Pool" value="Interim"/>
+                  <PoolProperty name="Answer Key" value="B"/>
+                </PoolProperties>
+                <BlueprintReferences>
+                  <BlueprintReference idRef="SBAC-ICA-FIXED-G11M-Perf-TeenDrivingRestricitons-MATH-11"/>
+                  <BlueprintReference idRef="2"/>
+                  <BlueprintReference idRef="2|F"/>
+                  <BlueprintReference idRef="2|F|NA"/>
+                  <BlueprintReference idRef="2|F|NA|C"/>
+                </BlueprintReferences>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension scorePoints="1" measurementModel="IRT3PLn" weight="1.0">
+                    <ItemScoreParameter value="0.12132000178098679" measurementParameter="a"/>
+                    <ItemScoreParameter value="7.747879981994629" measurementParameter="b"/>
+                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
+                <Presentations>
+                  <Presentation label="Braille" code="ENU-Braille"/>
+                  <Presentation label="Spanish" code="ESN"/>
+                  <Presentation label="English" code="ENU"/>
+                </Presentations>
+              </Item>
+              <Item active="true" responseRequired="false" fieldTest="false" handScored="true" doNotScore="false" administrationRequired="false" id="21560" type="SA">
+                <PoolProperties>
+                  <PoolProperty name="Answer Key" value="SA"/>
+                  <PoolProperty name="ASL" value="Y"/>
+                  <PoolProperty name="Braille" value="BRF"/>
+                  <PoolProperty name="Depth of Knowledge" value="2"/>
+                  <PoolProperty name="Difficulty Category" value="Overall=Difficult"/>
+                  <PoolProperty name="Glossary" value="Arabic"/>
+                  <PoolProperty name="Glossary" value="Cantonese"/>
+                  <PoolProperty name="Glossary" value="Korean"/>
+                  <PoolProperty name="Glossary" value="Mandarin"/>
+                  <PoolProperty name="Glossary" value="Punjabi"/>
+                  <PoolProperty name="Glossary" value="Russian"/>
+                  <PoolProperty name="Glossary" value="Spanish"/>
+                  <PoolProperty name="Glossary" value="Tagal/Tagalog"/>
+                  <PoolProperty name="Glossary" value="Vietnamese"/>
+                  <PoolProperty name="Grade" value="11"/>
+                  <PoolProperty name="Rubric Source" value="Human Rubric"/>
+                  <PoolProperty name="Scoring Engine" value="HandScored"/>
+                  <PoolProperty name="Spanish Translation" value="Y"/>
+                  <PoolProperty name="Test Pool" value="Interim"/>
+                  <PoolProperty name="Answer Key" value="SA"/>
+                </PoolProperties>
+                <BlueprintReferences>
+                  <BlueprintReference idRef="SBAC-ICA-FIXED-G11M-Perf-TeenDrivingRestricitons-MATH-11"/>
+                  <BlueprintReference idRef="3"/>
+                  <BlueprintReference idRef="3|N"/>
+                  <BlueprintReference idRef="3|N|NA"/>
+                  <BlueprintReference idRef="3|N|NA|E"/>
+                </BlueprintReferences>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension scorePoints="2" measurementModel="IRTGPC" weight="1.0">
+                    <ItemScoreParameter value="0.6357100009918213" measurementParameter="a"/>
+                    <ItemScoreParameter value="1.862030029296875" measurementParameter="b0"/>
+                    <ItemScoreParameter value="1.9101899862289429" measurementParameter="b1"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
+                <Presentations>
+                  <Presentation label="Braille" code="ENU-Braille"/>
+                  <Presentation label="Spanish" code="ESN"/>
+                  <Presentation label="English" code="ENU"/>
+                </Presentations>
+              </Item>
+              <Item active="true" responseRequired="false" fieldTest="false" handScored="true" doNotScore="false" administrationRequired="false" id="21561" type="SA">
+                <PoolProperties>
+                  <PoolProperty name="Answer Key" value="SA"/>
+                  <PoolProperty name="ASL" value="Y"/>
+                  <PoolProperty name="Braille" value="BRF"/>
+                  <PoolProperty name="Depth of Knowledge" value="2"/>
+                  <PoolProperty name="Difficulty Category" value="Overall=Difficult"/>
+                  <PoolProperty name="Glossary" value="Arabic"/>
+                  <PoolProperty name="Glossary" value="Cantonese"/>
+                  <PoolProperty name="Glossary" value="Korean"/>
+                  <PoolProperty name="Glossary" value="Mandarin"/>
+                  <PoolProperty name="Glossary" value="Punjabi"/>
+                  <PoolProperty name="Glossary" value="Russian"/>
+                  <PoolProperty name="Glossary" value="Spanish"/>
+                  <PoolProperty name="Glossary" value="Tagal/Tagalog"/>
+                  <PoolProperty name="Glossary" value="Vietnamese"/>
+                  <PoolProperty name="Grade" value="11"/>
+                  <PoolProperty name="Rubric Source" value="Human Rubric"/>
+                  <PoolProperty name="Scoring Engine" value="HandScored"/>
+                  <PoolProperty name="Spanish Translation" value="Y"/>
+                  <PoolProperty name="Test Pool" value="Interim"/>
+                  <PoolProperty name="Answer Key" value="SA"/>
+                </PoolProperties>
+                <BlueprintReferences>
+                  <BlueprintReference idRef="SBAC-ICA-FIXED-G11M-Perf-TeenDrivingRestricitons-MATH-11"/>
+                  <BlueprintReference idRef="4"/>
+                  <BlueprintReference idRef="4|N"/>
+                  <BlueprintReference idRef="4|N|NA"/>
+                  <BlueprintReference idRef="4|N|NA|D"/>
+                </BlueprintReferences>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension scorePoints="2" measurementModel="IRTGPC" weight="1.0">
+                    <ItemScoreParameter value="0.639739990234375" measurementParameter="a"/>
+                    <ItemScoreParameter value="3.1805100440979004" measurementParameter="b0"/>
+                    <ItemScoreParameter value="3.4990499019622803" measurementParameter="b1"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
+                <Presentations>
+                  <Presentation label="Braille" code="ENU-Braille"/>
+                  <Presentation label="Spanish" code="ESN"/>
+                  <Presentation label="English" code="ENU"/>
+                </Presentations>
+              </Item>
+              <Item active="true" responseRequired="false" fieldTest="false" handScored="true" doNotScore="false" administrationRequired="false" id="21562" type="SA">
+                <PoolProperties>
+                  <PoolProperty name="Answer Key" value="SA"/>
+                  <PoolProperty name="ASL" value="Y"/>
+                  <PoolProperty name="Braille" value="BRF"/>
+                  <PoolProperty name="Depth of Knowledge" value="2"/>
+                  <PoolProperty name="Difficulty Category" value="Overall=Difficult"/>
+                  <PoolProperty name="Glossary" value="Arabic"/>
+                  <PoolProperty name="Glossary" value="Cantonese"/>
+                  <PoolProperty name="Glossary" value="Korean"/>
+                  <PoolProperty name="Glossary" value="Mandarin"/>
+                  <PoolProperty name="Glossary" value="Punjabi"/>
+                  <PoolProperty name="Glossary" value="Russian"/>
+                  <PoolProperty name="Glossary" value="Spanish"/>
+                  <PoolProperty name="Glossary" value="Tagal/Tagalog"/>
+                  <PoolProperty name="Glossary" value="Vietnamese"/>
+                  <PoolProperty name="Grade" value="11"/>
+                  <PoolProperty name="Rubric Source" value="Human Rubric"/>
+                  <PoolProperty name="Scoring Engine" value="HandScored"/>
+                  <PoolProperty name="Spanish Translation" value="Y"/>
+                  <PoolProperty name="Test Pool" value="Interim"/>
+                  <PoolProperty name="Answer Key" value="SA"/>
+                </PoolProperties>
+                <BlueprintReferences>
+                  <BlueprintReference idRef="SBAC-ICA-FIXED-G11M-Perf-TeenDrivingRestricitons-MATH-11"/>
+                  <BlueprintReference idRef="3"/>
+                  <BlueprintReference idRef="3|N"/>
+                  <BlueprintReference idRef="3|N|NA"/>
+                  <BlueprintReference idRef="3|N|NA|E"/>
+                </BlueprintReferences>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension scorePoints="2" measurementModel="IRTGPC" weight="1.0">
+                    <ItemScoreParameter value="0.5113400220870972" measurementParameter="a"/>
+                    <ItemScoreParameter value="2.7931199073791504" measurementParameter="b0"/>
+                    <ItemScoreParameter value="1.9484399557113647" measurementParameter="b1"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
+                <Presentations>
+                  <Presentation label="Braille" code="ENU-Braille"/>
+                  <Presentation label="Spanish" code="ESN"/>
+                  <Presentation label="English" code="ENU"/>
+                </Presentations>
+              </Item>
+              <Item active="true" responseRequired="false" fieldTest="false" handScored="false" doNotScore="false" administrationRequired="false" id="21563" type="EQ">
+                <PoolProperties>
+                  <PoolProperty name="Answer Key" value="EQ"/>
+                  <PoolProperty name="ASL" value="Y"/>
+                  <PoolProperty name="Braille" value="BRF"/>
+                  <PoolProperty name="Depth of Knowledge" value="2"/>
+                  <PoolProperty name="Difficulty Category" value="Overall=Difficult"/>
+                  <PoolProperty name="Glossary" value="Arabic"/>
+                  <PoolProperty name="Glossary" value="Cantonese"/>
+                  <PoolProperty name="Glossary" value="Korean"/>
+                  <PoolProperty name="Glossary" value="Mandarin"/>
+                  <PoolProperty name="Glossary" value="Punjabi"/>
+                  <PoolProperty name="Glossary" value="Russian"/>
+                  <PoolProperty name="Glossary" value="Spanish"/>
+                  <PoolProperty name="Glossary" value="Tagal/Tagalog"/>
+                  <PoolProperty name="Glossary" value="Vietnamese"/>
+                  <PoolProperty name="Grade" value="11"/>
+                  <PoolProperty name="Rubric Source" value="Student Xml Proposition"/>
+                  <PoolProperty name="Scoring Engine" value="Automatic with Machine Rubric"/>
+                  <PoolProperty name="Spanish Translation" value="Y"/>
+                  <PoolProperty name="Test Pool" value="Interim"/>
+                  <PoolProperty name="Answer Key" value="EQ"/>
+                </PoolProperties>
+                <BlueprintReferences>
+                  <BlueprintReference idRef="SBAC-ICA-FIXED-G11M-Perf-TeenDrivingRestricitons-MATH-11"/>
+                  <BlueprintReference idRef="4"/>
+                  <BlueprintReference idRef="4|N"/>
+                  <BlueprintReference idRef="4|N|NA"/>
+                  <BlueprintReference idRef="4|N|NA|A"/>
+                </BlueprintReferences>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension scorePoints="1" measurementModel="IRT3PLn" weight="1.0">
+                    <ItemScoreParameter value="0.9969199895858765" measurementParameter="a"/>
+                    <ItemScoreParameter value="3.2279698848724365" measurementParameter="b"/>
+                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
+                <Presentations>
+                  <Presentation label="Braille" code="ENU-Braille"/>
+                  <Presentation label="Spanish" code="ESN"/>
+                  <Presentation label="English" code="ENU"/>
+                </Presentations>
+              </Item>
+              <Item active="true" responseRequired="false" fieldTest="false" handScored="true" doNotScore="false" administrationRequired="false" id="21564" type="SA">
+                <PoolProperties>
+                  <PoolProperty name="Answer Key" value="SA"/>
+                  <PoolProperty name="ASL" value="Y"/>
+                  <PoolProperty name="Braille" value="BRF"/>
+                  <PoolProperty name="Depth of Knowledge" value="3"/>
+                  <PoolProperty name="Difficulty Category" value="Overall=Difficult"/>
+                  <PoolProperty name="Glossary" value="Arabic"/>
+                  <PoolProperty name="Glossary" value="Cantonese"/>
+                  <PoolProperty name="Glossary" value="Korean"/>
+                  <PoolProperty name="Glossary" value="Mandarin"/>
+                  <PoolProperty name="Glossary" value="Punjabi"/>
+                  <PoolProperty name="Glossary" value="Russian"/>
+                  <PoolProperty name="Glossary" value="Spanish"/>
+                  <PoolProperty name="Glossary" value="Tagal/Tagalog"/>
+                  <PoolProperty name="Glossary" value="Vietnamese"/>
+                  <PoolProperty name="Grade" value="11"/>
+                  <PoolProperty name="Rubric Source" value="Human Rubric"/>
+                  <PoolProperty name="Scoring Engine" value="HandScored"/>
+                  <PoolProperty name="Spanish Translation" value="Y"/>
+                  <PoolProperty name="Test Pool" value="Interim"/>
+                  <PoolProperty name="Answer Key" value="SA"/>
+                </PoolProperties>
+                <BlueprintReferences>
+                  <BlueprintReference idRef="SBAC-ICA-FIXED-G11M-Perf-TeenDrivingRestricitons-MATH-11"/>
+                  <BlueprintReference idRef="4"/>
+                  <BlueprintReference idRef="4|N"/>
+                  <BlueprintReference idRef="4|N|NA"/>
+                  <BlueprintReference idRef="4|N|NA|A"/>
+                </BlueprintReferences>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension scorePoints="3" measurementModel="IRTGPC" weight="1.0">
+                    <ItemScoreParameter value="0.3695800006389618" measurementParameter="a"/>
+                    <ItemScoreParameter value="1.6963800191879272" measurementParameter="b0"/>
+                    <ItemScoreParameter value="3.516319990158081" measurementParameter="b1"/>
+                    <ItemScoreParameter value="4.851590156555176" measurementParameter="b2"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
+                <Presentations>
+                  <Presentation label="Braille" code="ENU-Braille"/>
+                  <Presentation label="Spanish" code="ESN"/>
+                  <Presentation label="English" code="ENU"/>
+                </Presentations>
+              </Item>
+            </ItemGroup>
+          </SegmentForm>
+        </SegmentForms>
+      </Segment>
+    </Segments>
+  </Test>
+  <Test id="SBAC-ICA-FIXED-G11M" label="High School Math Interim Test (ICA)">
+    <Grades>
+      <Grade value="11" label="grade 11"/>
+    </Grades>
+    <Segments>
+      <Segment exitApproval="false" entryApproval="false" position="1" id="SBAC-ICA-FIXED-G11M-NoCalc-MATH-11" label="(SBAC)SBAC-ICA-FIXED-G11M-NoCalc-MATH-11-Winter-2017-2018" algorithmImplementation="AIR FIXEDFORM1" algorithmType="fixedform">
+        <SegmentBlueprint>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="1" maxExamItems="6"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="1|P" maxExamItems="6"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="1|S" maxExamItems="6"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="1|P|TS01" maxExamItems="6"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="1|P|TS03" maxExamItems="6"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="1|P|TS05" maxExamItems="6"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="1|P|TS05|K" maxExamItems="6"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="6" idRef="SBAC-ICA-FIXED-G11M-NoCalc-MATH-11" maxExamItems="6">
+            <ItemSelection>
+              <Property name="slope" value="79.3"/>
+              <Property name="intercept" value="2514.9"/>
+            </ItemSelection>
+          </SegmentBlueprintElement>
+        </SegmentBlueprint>
+        <SegmentForms>
+          <SegmentForm id="Math ICA G11 No Calc 2018 ENG" cohort="Default">
+            <Presentations>
+              <Presentation label="Braille" code="ENU-Braille"/>
+              <Presentation label="Spanish" code="ESN"/>
+              <Presentation label="English" code="ENU"/>
+            </Presentations>
+            <ItemGroup maxItems="ALL" maxResponses="0" id="12164">
+              <Item active="true" responseRequired="true" fieldTest="false" handScored="false" doNotScore="false" administrationRequired="true" id="12164" type="MC">
+                <PoolProperties>
+                  <PoolProperty name="Answer Key" value="C"/>
+                  <PoolProperty name="ASL" value="Y"/>
+                  <PoolProperty name="Braille" value="BRF"/>
+                  <PoolProperty name="Depth of Knowledge" value="2"/>
+                  <PoolProperty name="Difficulty Category" value="Overall=Moderate"/>
+                  <PoolProperty name="Glossary" value="Arabic"/>
+                  <PoolProperty name="Glossary" value="Cantonese"/>
+                  <PoolProperty name="Glossary" value="Korean"/>
+                  <PoolProperty name="Glossary" value="Mandarin"/>
+                  <PoolProperty name="Glossary" value="Punjabi"/>
+                  <PoolProperty name="Glossary" value="Russian"/>
+                  <PoolProperty name="Glossary" value="Spanish"/>
+                  <PoolProperty name="Glossary" value="Tagal/Tagalog"/>
+                  <PoolProperty name="Glossary" value="Vietnamese"/>
+                  <PoolProperty name="Grade" value="11"/>
+                  <PoolProperty name="Rubric Source" value="Answer Key"/>
+                  <PoolProperty name="Scoring Engine" value="Automatic with Key"/>
+                  <PoolProperty name="Spanish Translation" value="Y"/>
+                  <PoolProperty name="Test Pool" value="Interim"/>
+                  <PoolProperty name="Answer Key" value="C"/>
+                </PoolProperties>
+                <BlueprintReferences>
+                  <BlueprintReference idRef="SBAC-ICA-FIXED-G11M-NoCalc-MATH-11"/>
+                  <BlueprintReference idRef="1"/>
+                  <BlueprintReference idRef="1|P"/>
+                  <BlueprintReference idRef="1|P|TS03"/>
+                </BlueprintReferences>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension scorePoints="1" measurementModel="IRT3PLn" weight="1.0">
+                    <ItemScoreParameter value="0.2563300132751465" measurementParameter="a"/>
+                    <ItemScoreParameter value="1.2306900024414062" measurementParameter="b"/>
+                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
+                <Presentations>
+                  <Presentation label="Braille" code="ENU-Braille"/>
+                  <Presentation label="Spanish" code="ESN"/>
+                  <Presentation label="English" code="ENU"/>
+                </Presentations>
+              </Item>
+            </ItemGroup>
+            <ItemGroup maxItems="ALL" maxResponses="0" id="14286">
+              <Item active="true" responseRequired="true" fieldTest="false" handScored="false" doNotScore="false" administrationRequired="true" id="14286" type="MI">
+                <PoolProperties>
+                  <PoolProperty name="Answer Key" value="MI"/>
+                  <PoolProperty name="ASL" value="Y"/>
+                  <PoolProperty name="Braille" value="BRF"/>
+                  <PoolProperty name="Depth of Knowledge" value="1"/>
+                  <PoolProperty name="Difficulty Category" value="Overall=Difficult"/>
+                  <PoolProperty name="Glossary" value="Arabic"/>
+                  <PoolProperty name="Glossary" value="Cantonese"/>
+                  <PoolProperty name="Glossary" value="Korean"/>
+                  <PoolProperty name="Glossary" value="Mandarin"/>
+                  <PoolProperty name="Glossary" value="Punjabi"/>
+                  <PoolProperty name="Glossary" value="Russian"/>
+                  <PoolProperty name="Glossary" value="Spanish"/>
+                  <PoolProperty name="Glossary" value="Tagal/Tagalog"/>
+                  <PoolProperty name="Glossary" value="Vietnamese"/>
+                  <PoolProperty name="Grade" value="11"/>
+                  <PoolProperty name="Rubric Source" value="Human Rubric"/>
+                  <PoolProperty name="Scoring Engine" value="Automatic with Machine Rubric"/>
+                  <PoolProperty name="Spanish Translation" value="Y"/>
+                  <PoolProperty name="Test Pool" value="Interim"/>
+                  <PoolProperty name="Answer Key" value="MI"/>
+                </PoolProperties>
+                <BlueprintReferences>
+                  <BlueprintReference idRef="SBAC-ICA-FIXED-G11M-NoCalc-MATH-11"/>
+                  <BlueprintReference idRef="1"/>
+                  <BlueprintReference idRef="1|P"/>
+                  <BlueprintReference idRef="1|P|TS05"/>
+                  <BlueprintReference idRef="1|P|TS05|K"/>
+                </BlueprintReferences>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension scorePoints="1" measurementModel="IRT3PLn" weight="1.0">
+                    <ItemScoreParameter value="0.6092600226402283" measurementParameter="a"/>
+                    <ItemScoreParameter value="2.9309799671173096" measurementParameter="b"/>
+                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
+                <Presentations>
+                  <Presentation label="Braille" code="ENU-Braille"/>
+                  <Presentation label="Spanish" code="ESN"/>
+                  <Presentation label="English" code="ENU"/>
+                </Presentations>
+              </Item>
+            </ItemGroup>
+            <ItemGroup maxItems="ALL" maxResponses="0" id="12585">
+              <Item active="true" responseRequired="true" fieldTest="false" handScored="false" doNotScore="false" administrationRequired="true" id="12585" type="MI">
+                <PoolProperties>
+                  <PoolProperty name="Answer Key" value="MI"/>
+                  <PoolProperty name="ASL" value="Y"/>
+                  <PoolProperty name="Braille" value="BRF"/>
+                  <PoolProperty name="Depth of Knowledge" value="1"/>
+                  <PoolProperty name="Difficulty Category" value="Overall=Difficult"/>
+                  <PoolProperty name="Glossary" value="Arabic"/>
+                  <PoolProperty name="Glossary" value="Cantonese"/>
+                  <PoolProperty name="Glossary" value="Korean"/>
+                  <PoolProperty name="Glossary" value="Mandarin"/>
+                  <PoolProperty name="Glossary" value="Punjabi"/>
+                  <PoolProperty name="Glossary" value="Russian"/>
+                  <PoolProperty name="Glossary" value="Spanish"/>
+                  <PoolProperty name="Glossary" value="Tagal/Tagalog"/>
+                  <PoolProperty name="Glossary" value="Vietnamese"/>
+                  <PoolProperty name="Grade" value="11"/>
+                  <PoolProperty name="Rubric Source" value="Human Rubric"/>
+                  <PoolProperty name="Scoring Engine" value="Automatic with Machine Rubric"/>
+                  <PoolProperty name="Spanish Translation" value="Y"/>
+                  <PoolProperty name="Test Pool" value="Interim"/>
+                  <PoolProperty name="Answer Key" value="MI"/>
+                </PoolProperties>
+                <BlueprintReferences>
+                  <BlueprintReference idRef="SBAC-ICA-FIXED-G11M-NoCalc-MATH-11"/>
+                  <BlueprintReference idRef="1"/>
+                  <BlueprintReference idRef="1|S"/>
+                </BlueprintReferences>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension scorePoints="1" measurementModel="IRT3PLn" weight="1.0">
+                    <ItemScoreParameter value="0.3815400004386902" measurementParameter="a"/>
+                    <ItemScoreParameter value="1.9914400577545166" measurementParameter="b"/>
+                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
+                <Presentations>
+                  <Presentation label="Braille" code="ENU-Braille"/>
+                  <Presentation label="Spanish" code="ESN"/>
+                  <Presentation label="English" code="ENU"/>
+                </Presentations>
+              </Item>
+            </ItemGroup>
+            <ItemGroup maxItems="ALL" maxResponses="0" id="3453">
+              <Item active="true" responseRequired="true" fieldTest="false" handScored="false" doNotScore="false" administrationRequired="true" id="3453" type="EQ">
+                <PoolProperties>
+                  <PoolProperty name="Answer Key" value="EQ"/>
+                  <PoolProperty name="ASL" value="Y"/>
+                  <PoolProperty name="Braille" value="BRF"/>
+                  <PoolProperty name="Depth of Knowledge" value="2"/>
+                  <PoolProperty name="Difficulty Category" value="Overall=Moderate"/>
+                  <PoolProperty name="Glossary" value="Arabic"/>
+                  <PoolProperty name="Glossary" value="Cantonese"/>
+                  <PoolProperty name="Glossary" value="Korean"/>
+                  <PoolProperty name="Glossary" value="Mandarin"/>
+                  <PoolProperty name="Glossary" value="Punjabi"/>
+                  <PoolProperty name="Glossary" value="Russian"/>
+                  <PoolProperty name="Glossary" value="Spanish"/>
+                  <PoolProperty name="Glossary" value="Tagal/Tagalog"/>
+                  <PoolProperty name="Glossary" value="Vietnamese"/>
+                  <PoolProperty name="Grade" value="11"/>
+                  <PoolProperty name="Rubric Source" value="Student Xml Proposition"/>
+                  <PoolProperty name="Scoring Engine" value="Automatic with Machine Rubric"/>
+                  <PoolProperty name="Spanish Translation" value="Y"/>
+                  <PoolProperty name="Test Pool" value="Interim"/>
+                  <PoolProperty name="Answer Key" value="EQ"/>
+                </PoolProperties>
+                <BlueprintReferences>
+                  <BlueprintReference idRef="SBAC-ICA-FIXED-G11M-NoCalc-MATH-11"/>
+                  <BlueprintReference idRef="1"/>
+                  <BlueprintReference idRef="1|P"/>
+                </BlueprintReferences>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension scorePoints="1" measurementModel="IRT3PLn" weight="1.0">
+                    <ItemScoreParameter value="0.7170900106430054" measurementParameter="a"/>
+                    <ItemScoreParameter value="1.5664399862289429" measurementParameter="b"/>
+                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
+                <Presentations>
+                  <Presentation label="Braille" code="ENU-Braille"/>
+                  <Presentation label="Spanish" code="ESN"/>
+                  <Presentation label="English" code="ENU"/>
+                </Presentations>
+              </Item>
+            </ItemGroup>
+            <ItemGroup maxItems="ALL" maxResponses="0" id="14426">
+              <Item active="true" responseRequired="true" fieldTest="false" handScored="false" doNotScore="false" administrationRequired="true" id="14426" type="MC">
+                <PoolProperties>
+                  <PoolProperty name="Answer Key" value="A"/>
+                  <PoolProperty name="ASL" value="Y"/>
+                  <PoolProperty name="Braille" value="BRF"/>
+                  <PoolProperty name="Depth of Knowledge" value="2"/>
+                  <PoolProperty name="Difficulty Category" value="Overall=Difficult"/>
+                  <PoolProperty name="Glossary" value="Arabic"/>
+                  <PoolProperty name="Glossary" value="Cantonese"/>
+                  <PoolProperty name="Glossary" value="Korean"/>
+                  <PoolProperty name="Glossary" value="Mandarin"/>
+                  <PoolProperty name="Glossary" value="Punjabi"/>
+                  <PoolProperty name="Glossary" value="Russian"/>
+                  <PoolProperty name="Glossary" value="Spanish"/>
+                  <PoolProperty name="Glossary" value="Tagal/Tagalog"/>
+                  <PoolProperty name="Glossary" value="Vietnamese"/>
+                  <PoolProperty name="Grade" value="11"/>
+                  <PoolProperty name="Rubric Source" value="Answer Key"/>
+                  <PoolProperty name="Scoring Engine" value="Automatic with Key"/>
+                  <PoolProperty name="Spanish Translation" value="Y"/>
+                  <PoolProperty name="Test Pool" value="Interim"/>
+                  <PoolProperty name="Answer Key" value="A"/>
+                </PoolProperties>
+                <BlueprintReferences>
+                  <BlueprintReference idRef="SBAC-ICA-FIXED-G11M-NoCalc-MATH-11"/>
+                  <BlueprintReference idRef="1"/>
+                  <BlueprintReference idRef="1|P"/>
+                  <BlueprintReference idRef="1|P|TS03"/>
+                </BlueprintReferences>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension scorePoints="1" measurementModel="IRT3PLn" weight="1.0">
+                    <ItemScoreParameter value="0.2144400030374527" measurementParameter="a"/>
+                    <ItemScoreParameter value="1.7758599519729614" measurementParameter="b"/>
+                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
+                <Presentations>
+                  <Presentation label="Braille" code="ENU-Braille"/>
+                  <Presentation label="Spanish" code="ESN"/>
+                  <Presentation label="English" code="ENU"/>
+                </Presentations>
+              </Item>
+            </ItemGroup>
+            <ItemGroup maxItems="ALL" maxResponses="0" id="16433">
+              <Item active="true" responseRequired="true" fieldTest="false" handScored="false" doNotScore="false" administrationRequired="true" id="16433" type="MC">
+                <PoolProperties>
+                  <PoolProperty name="Answer Key" value="D"/>
+                  <PoolProperty name="ASL" value="Y"/>
+                  <PoolProperty name="Braille" value="BRF"/>
+                  <PoolProperty name="Depth of Knowledge" value="2"/>
+                  <PoolProperty name="Difficulty Category" value="Overall=Difficult"/>
+                  <PoolProperty name="Glossary" value="Arabic"/>
+                  <PoolProperty name="Glossary" value="Cantonese"/>
+                  <PoolProperty name="Glossary" value="Korean"/>
+                  <PoolProperty name="Glossary" value="Mandarin"/>
+                  <PoolProperty name="Glossary" value="Punjabi"/>
+                  <PoolProperty name="Glossary" value="Russian"/>
+                  <PoolProperty name="Glossary" value="Spanish"/>
+                  <PoolProperty name="Glossary" value="Tagal/Tagalog"/>
+                  <PoolProperty name="Glossary" value="Vietnamese"/>
+                  <PoolProperty name="Grade" value="11"/>
+                  <PoolProperty name="Rubric Source" value="Answer Key"/>
+                  <PoolProperty name="Scoring Engine" value="Automatic with Key"/>
+                  <PoolProperty name="Spanish Translation" value="Y"/>
+                  <PoolProperty name="Test Pool" value="Interim"/>
+                  <PoolProperty name="Answer Key" value="D"/>
+                </PoolProperties>
+                <BlueprintReferences>
+                  <BlueprintReference idRef="SBAC-ICA-FIXED-G11M-NoCalc-MATH-11"/>
+                  <BlueprintReference idRef="1"/>
+                  <BlueprintReference idRef="1|P"/>
+                  <BlueprintReference idRef="1|P|TS01"/>
+                </BlueprintReferences>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension scorePoints="1" measurementModel="IRT3PLn" weight="1.0">
+                    <ItemScoreParameter value="0.20625999569892883" measurementParameter="a"/>
+                    <ItemScoreParameter value="2.3090200424194336" measurementParameter="b"/>
+                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
+                <Presentations>
+                  <Presentation label="Braille" code="ENU-Braille"/>
+                  <Presentation label="Spanish" code="ESN"/>
+                  <Presentation label="English" code="ENU"/>
+                </Presentations>
+              </Item>
+            </ItemGroup>
+          </SegmentForm>
+        </SegmentForms>
+      </Segment>
+      <Segment exitApproval="false" entryApproval="false" position="2" id="SBAC-ICA-FIXED-G11M-Calc-MATH-11" label="(SBAC)SBAC-ICA-FIXED-G11M-Calc-MATH-11-Winter-2017-2018" algorithmImplementation="AIR FIXEDFORM1" algorithmType="fixedform">
+        <SegmentBlueprint>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="1" maxExamItems="27"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="2" maxExamItems="27"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="3" maxExamItems="27"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="4" maxExamItems="27"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="1|P" maxExamItems="27"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="1|S" maxExamItems="27"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="2|A" maxExamItems="27"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="2|F" maxExamItems="27"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="3|A" maxExamItems="27"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="3|G" maxExamItems="27"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="4|F" maxExamItems="27"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="4|N" maxExamItems="27"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="1|P|TS03" maxExamItems="27"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="1|P|TS04" maxExamItems="27"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="1|P|TS06" maxExamItems="27"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="1|S|TS07" maxExamItems="27"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="1|S|TS08" maxExamItems="27"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="1|S|TS10" maxExamItems="27"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="2|A|NA" maxExamItems="27"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="2|F|NA" maxExamItems="27"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="3|A|NA" maxExamItems="27"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="3|G|NA" maxExamItems="27"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="4|F|NA" maxExamItems="27"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="4|N|NA" maxExamItems="27"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="1|P|TS03|G" maxExamItems="27"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="1|P|TS04|J" maxExamItems="27"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="1|P|TS06|L" maxExamItems="27"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="1|P|TS06|M" maxExamItems="27"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="1|P|TS06|N" maxExamItems="27"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="1|S|TS07|O" maxExamItems="27"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="1|S|TS08|P" maxExamItems="27"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="1|S|TS10|C" maxExamItems="27"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="2|A|NA|A" maxExamItems="27"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="2|F|NA|C" maxExamItems="27"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="3|A|NA|A" maxExamItems="27"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="3|G|NA|A" maxExamItems="27"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="3|G|NA|B" maxExamItems="27"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="3|G|NA|C" maxExamItems="27"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="3|G|NA|F" maxExamItems="27"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="4|F|NA|D" maxExamItems="27"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="4|N|NA|B" maxExamItems="27"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="4|N|NA|C" maxExamItems="27"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="26" idRef="SBAC-ICA-FIXED-G11M-Calc-MATH-11" maxExamItems="26">
+            <ItemSelection>
+              <Property name="slope" value="79.3"/>
+              <Property name="intercept" value="2514.9"/>
+            </ItemSelection>
+          </SegmentBlueprintElement>
+        </SegmentBlueprint>
+        <SegmentForms>
+          <SegmentForm id="Math ICA G11 Calc 2018 ENG" cohort="Default">
+            <Presentations>
+              <Presentation label="Braille" code="ENU-Braille"/>
+              <Presentation label="Spanish" code="ESN"/>
+              <Presentation label="English" code="ENU"/>
+            </Presentations>
+            <ItemGroup maxItems="ALL" maxResponses="0" id="13888">
+              <Item active="true" responseRequired="true" fieldTest="false" handScored="false" doNotScore="false" administrationRequired="true" id="13888" type="MC">
+                <PoolProperties>
+                  <PoolProperty name="Answer Key" value="C"/>
+                  <PoolProperty name="Answer Key (Part II)" value="NA"/>
+                  <PoolProperty name="ASL" value="Y"/>
+                  <PoolProperty name="Braille" value="PRN"/>
+                  <PoolProperty name="Depth of Knowledge" value="2"/>
+                  <PoolProperty name="Difficulty Category" value="Overall=Easy"/>
+                  <PoolProperty name="Glossary" value="Arabic"/>
+                  <PoolProperty name="Glossary" value="Cantonese"/>
+                  <PoolProperty name="Glossary" value="Korean"/>
+                  <PoolProperty name="Glossary" value="Mandarin"/>
+                  <PoolProperty name="Glossary" value="Punjabi"/>
+                  <PoolProperty name="Glossary" value="Russian"/>
+                  <PoolProperty name="Glossary" value="Spanish"/>
+                  <PoolProperty name="Glossary" value="Tagal/Tagalog"/>
+                  <PoolProperty name="Glossary" value="Vietnamese"/>
+                  <PoolProperty name="Grade" value="11"/>
+                  <PoolProperty name="Rubric Source" value="Answer Key"/>
+                  <PoolProperty name="Scoring Engine" value="Automatic with Key"/>
+                  <PoolProperty name="Spanish Translation" value="Y"/>
+                  <PoolProperty name="Test Pool" value="Interim"/>
+                  <PoolProperty name="Answer Key" value="C"/>
+                </PoolProperties>
+                <BlueprintReferences>
+                  <BlueprintReference idRef="SBAC-ICA-FIXED-G11M-Calc-MATH-11"/>
+                  <BlueprintReference idRef="1"/>
+                  <BlueprintReference idRef="1|S"/>
+                  <BlueprintReference idRef="1|S|TS08"/>
+                  <BlueprintReference idRef="1|S|TS08|P"/>
+                </BlueprintReferences>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension scorePoints="1" measurementModel="IRT3PLn" weight="1.0">
+                    <ItemScoreParameter value="0.3719100058078766" measurementParameter="a"/>
+                    <ItemScoreParameter value="-1.8428599834442139" measurementParameter="b"/>
+                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
+                <Presentations>
+                  <Presentation label="Braille" code="ENU-Braille"/>
+                  <Presentation label="Spanish" code="ESN"/>
+                  <Presentation label="English" code="ENU"/>
+                </Presentations>
+              </Item>
+            </ItemGroup>
+            <ItemGroup maxItems="ALL" maxResponses="0" id="13923">
+              <Item active="true" responseRequired="true" fieldTest="false" handScored="false" doNotScore="false" administrationRequired="true" id="13923" type="MC">
+                <PoolProperties>
+                  <PoolProperty name="Answer Key" value="C"/>
+                  <PoolProperty name="ASL" value="Y"/>
+                  <PoolProperty name="Braille" value="PRN"/>
+                  <PoolProperty name="Depth of Knowledge" value="2"/>
+                  <PoolProperty name="Difficulty Category" value="Overall=Moderate"/>
+                  <PoolProperty name="Glossary" value="Arabic"/>
+                  <PoolProperty name="Glossary" value="Cantonese"/>
+                  <PoolProperty name="Glossary" value="Korean"/>
+                  <PoolProperty name="Glossary" value="Mandarin"/>
+                  <PoolProperty name="Glossary" value="Punjabi"/>
+                  <PoolProperty name="Glossary" value="Russian"/>
+                  <PoolProperty name="Glossary" value="Spanish"/>
+                  <PoolProperty name="Glossary" value="Tagal/Tagalog"/>
+                  <PoolProperty name="Glossary" value="Vietnamese"/>
+                  <PoolProperty name="Grade" value="11"/>
+                  <PoolProperty name="Rubric Source" value="Answer Key"/>
+                  <PoolProperty name="Scoring Engine" value="Automatic with Key"/>
+                  <PoolProperty name="Spanish Translation" value="Y"/>
+                  <PoolProperty name="Test Pool" value="Interim"/>
+                  <PoolProperty name="Answer Key" value="C"/>
+                </PoolProperties>
+                <BlueprintReferences>
+                  <BlueprintReference idRef="SBAC-ICA-FIXED-G11M-Calc-MATH-11"/>
+                  <BlueprintReference idRef="1"/>
+                  <BlueprintReference idRef="1|P"/>
+                  <BlueprintReference idRef="1|P|TS06"/>
+                  <BlueprintReference idRef="1|P|TS06|L"/>
+                </BlueprintReferences>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension scorePoints="1" measurementModel="IRT3PLn" weight="1.0">
+                    <ItemScoreParameter value="0.40452998876571655" measurementParameter="a"/>
+                    <ItemScoreParameter value="-0.05031999945640564" measurementParameter="b"/>
+                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
+                <Presentations>
+                  <Presentation label="Braille" code="ENU-Braille"/>
+                  <Presentation label="Spanish" code="ESN"/>
+                  <Presentation label="English" code="ENU"/>
+                </Presentations>
+              </Item>
+            </ItemGroup>
+            <ItemGroup maxItems="ALL" maxResponses="0" id="32704">
+              <Item active="true" responseRequired="true" fieldTest="false" handScored="false" doNotScore="false" administrationRequired="true" id="32704" type="MC">
+                <PoolProperties>
+                  <PoolProperty name="Answer Key" value="A"/>
+                  <PoolProperty name="ASL" value="Y"/>
+                  <PoolProperty name="Braille" value="BRF"/>
+                  <PoolProperty name="Depth of Knowledge" value="3"/>
+                  <PoolProperty name="Difficulty Category" value="Overall=Difficult"/>
+                  <PoolProperty name="Glossary" value="Arabic"/>
+                  <PoolProperty name="Glossary" value="Cantonese"/>
+                  <PoolProperty name="Glossary" value="Korean"/>
+                  <PoolProperty name="Glossary" value="Mandarin"/>
+                  <PoolProperty name="Glossary" value="Punjabi"/>
+                  <PoolProperty name="Glossary" value="Russian"/>
+                  <PoolProperty name="Glossary" value="Spanish"/>
+                  <PoolProperty name="Glossary" value="Tagal/Tagalog"/>
+                  <PoolProperty name="Glossary" value="Vietnamese"/>
+                  <PoolProperty name="Grade" value="11"/>
+                  <PoolProperty name="Rubric Source" value="Answer Key"/>
+                  <PoolProperty name="Scoring Engine" value="Automatic with Key"/>
+                  <PoolProperty name="Spanish Translation" value="Y"/>
+                  <PoolProperty name="Test Pool" value="Interim"/>
+                  <PoolProperty name="Answer Key" value="A"/>
+                </PoolProperties>
+                <BlueprintReferences>
+                  <BlueprintReference idRef="SBAC-ICA-FIXED-G11M-Calc-MATH-11"/>
+                  <BlueprintReference idRef="3"/>
+                  <BlueprintReference idRef="3|G"/>
+                  <BlueprintReference idRef="3|G|NA"/>
+                  <BlueprintReference idRef="3|G|NA|F"/>
+                </BlueprintReferences>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension scorePoints="1" measurementModel="IRT3PLn" weight="1.0">
+                    <ItemScoreParameter value="0.287200003862381" measurementParameter="a"/>
+                    <ItemScoreParameter value="2.351409912109375" measurementParameter="b"/>
+                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
+                <Presentations>
+                  <Presentation label="Braille" code="ENU-Braille"/>
+                  <Presentation label="Spanish" code="ESN"/>
+                  <Presentation label="English" code="ENU"/>
+                </Presentations>
+              </Item>
+            </ItemGroup>
+            <ItemGroup maxItems="ALL" maxResponses="0" id="14241">
+              <Item active="true" responseRequired="true" fieldTest="false" handScored="false" doNotScore="false" administrationRequired="true" id="14241" type="MC">
+                <PoolProperties>
+                  <PoolProperty name="Answer Key" value="C"/>
+                  <PoolProperty name="ASL" value="Y"/>
+                  <PoolProperty name="Braille" value="BRF"/>
+                  <PoolProperty name="Depth of Knowledge" value="2"/>
+                  <PoolProperty name="Difficulty Category" value="Overall=Easy"/>
+                  <PoolProperty name="Glossary" value="Arabic"/>
+                  <PoolProperty name="Glossary" value="Cantonese"/>
+                  <PoolProperty name="Glossary" value="Korean"/>
+                  <PoolProperty name="Glossary" value="Mandarin"/>
+                  <PoolProperty name="Glossary" value="Punjabi"/>
+                  <PoolProperty name="Glossary" value="Russian"/>
+                  <PoolProperty name="Glossary" value="Spanish"/>
+                  <PoolProperty name="Glossary" value="Tagal/Tagalog"/>
+                  <PoolProperty name="Glossary" value="Vietnamese"/>
+                  <PoolProperty name="Grade" value="11"/>
+                  <PoolProperty name="Rubric Source" value="Answer Key"/>
+                  <PoolProperty name="Scoring Engine" value="Automatic with Key"/>
+                  <PoolProperty name="Spanish Translation" value="Y"/>
+                  <PoolProperty name="Test Pool" value="Interim"/>
+                  <PoolProperty name="Answer Key" value="C"/>
+                </PoolProperties>
+                <BlueprintReferences>
+                  <BlueprintReference idRef="SBAC-ICA-FIXED-G11M-Calc-MATH-11"/>
+                  <BlueprintReference idRef="1"/>
+                  <BlueprintReference idRef="1|P"/>
+                  <BlueprintReference idRef="1|P|TS06"/>
+                  <BlueprintReference idRef="1|P|TS06|L"/>
+                </BlueprintReferences>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension scorePoints="1" measurementModel="IRT3PLn" weight="1.0">
+                    <ItemScoreParameter value="0.460640013217926" measurementParameter="a"/>
+                    <ItemScoreParameter value="-0.8130599856376648" measurementParameter="b"/>
+                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
+                <Presentations>
+                  <Presentation label="Braille" code="ENU-Braille"/>
+                  <Presentation label="Spanish" code="ESN"/>
+                  <Presentation label="English" code="ENU"/>
+                </Presentations>
+              </Item>
+            </ItemGroup>
+            <ItemGroup maxItems="ALL" maxResponses="0" id="50961">
+              <Item active="true" responseRequired="true" fieldTest="false" handScored="false" doNotScore="false" administrationRequired="true" id="50961" type="MS">
+                <PoolProperties>
+                  <PoolProperty name="Answer Key" value="C"/>
+                  <PoolProperty name="Answer Key" value="D"/>
+                  <PoolProperty name="ASL" value="Y"/>
+                  <PoolProperty name="Braille" value="BRF"/>
+                  <PoolProperty name="Depth of Knowledge" value="2"/>
+                  <PoolProperty name="Difficulty Category" value="Overall=Moderate"/>
+                  <PoolProperty name="Glossary" value="Arabic"/>
+                  <PoolProperty name="Glossary" value="Cantonese"/>
+                  <PoolProperty name="Glossary" value="Korean"/>
+                  <PoolProperty name="Glossary" value="Mandarin"/>
+                  <PoolProperty name="Glossary" value="Punjabi"/>
+                  <PoolProperty name="Glossary" value="Russian"/>
+                  <PoolProperty name="Glossary" value="Spanish"/>
+                  <PoolProperty name="Glossary" value="Tagal/Tagalog"/>
+                  <PoolProperty name="Glossary" value="Vietnamese"/>
+                  <PoolProperty name="Grade" value="11"/>
+                  <PoolProperty name="Rubric Source" value="Answer Key"/>
+                  <PoolProperty name="Scoring Engine" value="Automatic with Key(s)"/>
+                  <PoolProperty name="Spanish Translation" value="Y"/>
+                  <PoolProperty name="Test Pool" value="Interim"/>
+                  <PoolProperty name="Answer Key" value="C,D"/>
+                </PoolProperties>
+                <BlueprintReferences>
+                  <BlueprintReference idRef="SBAC-ICA-FIXED-G11M-Calc-MATH-11"/>
+                  <BlueprintReference idRef="4"/>
+                  <BlueprintReference idRef="4|N"/>
+                  <BlueprintReference idRef="4|N|NA"/>
+                  <BlueprintReference idRef="4|N|NA|C"/>
+                </BlueprintReferences>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension scorePoints="1" measurementModel="IRT3PLn" weight="1.0">
+                    <ItemScoreParameter value="0.5270199775695801" measurementParameter="a"/>
+                    <ItemScoreParameter value="-0.3117400109767914" measurementParameter="b"/>
+                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
+                <Presentations>
+                  <Presentation label="Braille" code="ENU-Braille"/>
+                  <Presentation label="Spanish" code="ESN"/>
+                  <Presentation label="English" code="ENU"/>
+                </Presentations>
+              </Item>
+            </ItemGroup>
+            <ItemGroup maxItems="ALL" maxResponses="0" id="501">
+              <Item active="true" responseRequired="true" fieldTest="false" handScored="false" doNotScore="false" administrationRequired="true" id="501" type="EQ">
+                <PoolProperties>
+                  <PoolProperty name="Answer Key" value="EQ"/>
+                  <PoolProperty name="ASL" value="Y"/>
+                  <PoolProperty name="Braille" value="BRF"/>
+                  <PoolProperty name="Depth of Knowledge" value="2"/>
+                  <PoolProperty name="Difficulty Category" value="Overall=Moderate"/>
+                  <PoolProperty name="Glossary" value="Arabic"/>
+                  <PoolProperty name="Glossary" value="Cantonese"/>
+                  <PoolProperty name="Glossary" value="Korean"/>
+                  <PoolProperty name="Glossary" value="Mandarin"/>
+                  <PoolProperty name="Glossary" value="Punjabi"/>
+                  <PoolProperty name="Glossary" value="Russian"/>
+                  <PoolProperty name="Glossary" value="Spanish"/>
+                  <PoolProperty name="Glossary" value="Tagal/Tagalog"/>
+                  <PoolProperty name="Glossary" value="Vietnamese"/>
+                  <PoolProperty name="Grade" value="11"/>
+                  <PoolProperty name="Rubric Source" value="Student Xml Proposition"/>
+                  <PoolProperty name="Scoring Engine" value="Automatic with Machine Rubric"/>
+                  <PoolProperty name="Spanish Translation" value="Y"/>
+                  <PoolProperty name="Test Pool" value="Interim"/>
+                  <PoolProperty name="Answer Key" value="EQ"/>
+                </PoolProperties>
+                <BlueprintReferences>
+                  <BlueprintReference idRef="SBAC-ICA-FIXED-G11M-Calc-MATH-11"/>
+                  <BlueprintReference idRef="2"/>
+                  <BlueprintReference idRef="2|A"/>
+                  <BlueprintReference idRef="2|A|NA"/>
+                  <BlueprintReference idRef="2|A|NA|A"/>
+                </BlueprintReferences>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension scorePoints="2" measurementModel="IRTGPC" weight="1.0">
+                    <ItemScoreParameter value="0.4402399957180023" measurementParameter="a"/>
+                    <ItemScoreParameter value="0.5853000283241272" measurementParameter="b0"/>
+                    <ItemScoreParameter value="0.4751400053501129" measurementParameter="b1"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
+                <Presentations>
+                  <Presentation label="Braille" code="ENU-Braille"/>
+                  <Presentation label="Spanish" code="ESN"/>
+                  <Presentation label="English" code="ENU"/>
+                </Presentations>
+              </Item>
+            </ItemGroup>
+            <ItemGroup maxItems="ALL" maxResponses="0" id="28171">
+              <Item active="true" responseRequired="true" fieldTest="false" handScored="false" doNotScore="false" administrationRequired="true" id="28171" type="MC">
+                <PoolProperties>
+                  <PoolProperty name="Answer Key" value="C"/>
+                  <PoolProperty name="ASL" value="Y"/>
+                  <PoolProperty name="Braille" value="BRF"/>
+                  <PoolProperty name="Depth of Knowledge" value="3"/>
+                  <PoolProperty name="Difficulty Category" value="Overall=Difficult"/>
+                  <PoolProperty name="Glossary" value="Arabic"/>
+                  <PoolProperty name="Glossary" value="Cantonese"/>
+                  <PoolProperty name="Glossary" value="Korean"/>
+                  <PoolProperty name="Glossary" value="Mandarin"/>
+                  <PoolProperty name="Glossary" value="Punjabi"/>
+                  <PoolProperty name="Glossary" value="Russian"/>
+                  <PoolProperty name="Glossary" value="Spanish"/>
+                  <PoolProperty name="Glossary" value="Tagal/Tagalog"/>
+                  <PoolProperty name="Glossary" value="Vietnamese"/>
+                  <PoolProperty name="Grade" value="11"/>
+                  <PoolProperty name="Rubric Source" value="Answer Key"/>
+                  <PoolProperty name="Scoring Engine" value="Automatic with Key"/>
+                  <PoolProperty name="Spanish Translation" value="Y"/>
+                  <PoolProperty name="Test Pool" value="Interim"/>
+                  <PoolProperty name="Answer Key" value="C"/>
+                </PoolProperties>
+                <BlueprintReferences>
+                  <BlueprintReference idRef="SBAC-ICA-FIXED-G11M-Calc-MATH-11"/>
+                  <BlueprintReference idRef="3"/>
+                  <BlueprintReference idRef="3|A"/>
+                  <BlueprintReference idRef="3|A|NA"/>
+                  <BlueprintReference idRef="3|A|NA|A"/>
+                </BlueprintReferences>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension scorePoints="1" measurementModel="IRT3PLn" weight="1.0">
+                    <ItemScoreParameter value="0.2125599980354309" measurementParameter="a"/>
+                    <ItemScoreParameter value="2.4344100952148438" measurementParameter="b"/>
+                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
+                <Presentations>
+                  <Presentation label="Braille" code="ENU-Braille"/>
+                  <Presentation label="Spanish" code="ESN"/>
+                  <Presentation label="English" code="ENU"/>
+                </Presentations>
+              </Item>
+            </ItemGroup>
+            <ItemGroup maxItems="ALL" maxResponses="0" id="15138">
+              <Item active="true" responseRequired="true" fieldTest="false" handScored="false" doNotScore="false" administrationRequired="true" id="15138" type="EQ">
+                <PoolProperties>
+                  <PoolProperty name="Answer Key" value="EQ"/>
+                  <PoolProperty name="ASL" value="Y"/>
+                  <PoolProperty name="Braille" value="BRF"/>
+                  <PoolProperty name="Depth of Knowledge" value="2"/>
+                  <PoolProperty name="Difficulty Category" value="Overall=Moderate"/>
+                  <PoolProperty name="Glossary" value="Arabic"/>
+                  <PoolProperty name="Glossary" value="Cantonese"/>
+                  <PoolProperty name="Glossary" value="Korean"/>
+                  <PoolProperty name="Glossary" value="Mandarin"/>
+                  <PoolProperty name="Glossary" value="Punjabi"/>
+                  <PoolProperty name="Glossary" value="Russian"/>
+                  <PoolProperty name="Glossary" value="Spanish"/>
+                  <PoolProperty name="Glossary" value="Tagal/Tagalog"/>
+                  <PoolProperty name="Glossary" value="Vietnamese"/>
+                  <PoolProperty name="Grade" value="11"/>
+                  <PoolProperty name="Rubric Source" value="Student Xml Proposition"/>
+                  <PoolProperty name="Scoring Engine" value="Automatic with Machine Rubric"/>
+                  <PoolProperty name="Spanish Translation" value="Y"/>
+                  <PoolProperty name="Test Pool" value="Interim"/>
+                  <PoolProperty name="Answer Key" value="EQ"/>
+                </PoolProperties>
+                <BlueprintReferences>
+                  <BlueprintReference idRef="SBAC-ICA-FIXED-G11M-Calc-MATH-11"/>
+                  <BlueprintReference idRef="1"/>
+                  <BlueprintReference idRef="1|P"/>
+                  <BlueprintReference idRef="1|P|TS03"/>
+                  <BlueprintReference idRef="1|P|TS03|G"/>
+                </BlueprintReferences>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension scorePoints="1" measurementModel="IRT3PLn" weight="1.0">
+                    <ItemScoreParameter value="0.6595100164413452" measurementParameter="a"/>
+                    <ItemScoreParameter value="0.11801999807357788" measurementParameter="b"/>
+                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
+                <Presentations>
+                  <Presentation label="Braille" code="ENU-Braille"/>
+                  <Presentation label="Spanish" code="ESN"/>
+                  <Presentation label="English" code="ENU"/>
+                </Presentations>
+              </Item>
+            </ItemGroup>
+            <ItemGroup maxItems="ALL" maxResponses="0" id="34164">
+              <Item active="true" responseRequired="true" fieldTest="false" handScored="false" doNotScore="false" administrationRequired="true" id="34164" type="MC">
+                <PoolProperties>
+                  <PoolProperty name="Answer Key" value="B"/>
+                  <PoolProperty name="ASL" value="Y"/>
+                  <PoolProperty name="Braille" value="BRF"/>
+                  <PoolProperty name="Depth of Knowledge" value="3"/>
+                  <PoolProperty name="Difficulty Category" value="Overall=Moderate"/>
+                  <PoolProperty name="Glossary" value="Arabic"/>
+                  <PoolProperty name="Glossary" value="Cantonese"/>
+                  <PoolProperty name="Glossary" value="Korean"/>
+                  <PoolProperty name="Glossary" value="Mandarin"/>
+                  <PoolProperty name="Glossary" value="Punjabi"/>
+                  <PoolProperty name="Glossary" value="Russian"/>
+                  <PoolProperty name="Glossary" value="Spanish"/>
+                  <PoolProperty name="Glossary" value="Tagal/Tagalog"/>
+                  <PoolProperty name="Glossary" value="Vietnamese"/>
+                  <PoolProperty name="Grade" value="11"/>
+                  <PoolProperty name="Rubric Source" value="Answer Key"/>
+                  <PoolProperty name="Scoring Engine" value="Automatic with Key"/>
+                  <PoolProperty name="Spanish Translation" value="Y"/>
+                  <PoolProperty name="Test Pool" value="Interim"/>
+                  <PoolProperty name="Answer Key" value="B"/>
+                </PoolProperties>
+                <BlueprintReferences>
+                  <BlueprintReference idRef="SBAC-ICA-FIXED-G11M-Calc-MATH-11"/>
+                  <BlueprintReference idRef="3"/>
+                  <BlueprintReference idRef="3|G"/>
+                  <BlueprintReference idRef="3|G|NA"/>
+                  <BlueprintReference idRef="3|G|NA|A"/>
+                </BlueprintReferences>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension scorePoints="1" measurementModel="IRT3PLn" weight="1.0">
+                    <ItemScoreParameter value="0.3217400014400482" measurementParameter="a"/>
+                    <ItemScoreParameter value="0.09209000319242477" measurementParameter="b"/>
+                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
+                <Presentations>
+                  <Presentation label="Braille" code="ENU-Braille"/>
+                  <Presentation label="Spanish" code="ESN"/>
+                  <Presentation label="English" code="ENU"/>
+                </Presentations>
+              </Item>
+            </ItemGroup>
+            <ItemGroup maxItems="ALL" maxResponses="0" id="31347">
+              <Item active="true" responseRequired="true" fieldTest="false" handScored="false" doNotScore="false" administrationRequired="true" id="31347" type="MC">
+                <PoolProperties>
+                  <PoolProperty name="Answer Key" value="A"/>
+                  <PoolProperty name="ASL" value="Y"/>
+                  <PoolProperty name="Braille" value="PRN"/>
+                  <PoolProperty name="Depth of Knowledge" value="2"/>
+                  <PoolProperty name="Difficulty Category" value="Overall=Moderate"/>
+                  <PoolProperty name="Glossary" value="Arabic"/>
+                  <PoolProperty name="Glossary" value="Cantonese"/>
+                  <PoolProperty name="Glossary" value="Korean"/>
+                  <PoolProperty name="Glossary" value="Mandarin"/>
+                  <PoolProperty name="Glossary" value="Punjabi"/>
+                  <PoolProperty name="Glossary" value="Russian"/>
+                  <PoolProperty name="Glossary" value="Spanish"/>
+                  <PoolProperty name="Glossary" value="Tagal/Tagalog"/>
+                  <PoolProperty name="Glossary" value="Vietnamese"/>
+                  <PoolProperty name="Grade" value="11"/>
+                  <PoolProperty name="Rubric Source" value="Answer Key"/>
+                  <PoolProperty name="Scoring Engine" value="Automatic with Key"/>
+                  <PoolProperty name="Spanish Translation" value="Y"/>
+                  <PoolProperty name="Test Pool" value="Interim"/>
+                  <PoolProperty name="Answer Key" value="A"/>
+                </PoolProperties>
+                <BlueprintReferences>
+                  <BlueprintReference idRef="SBAC-ICA-FIXED-G11M-Calc-MATH-11"/>
+                  <BlueprintReference idRef="1"/>
+                  <BlueprintReference idRef="1|P"/>
+                  <BlueprintReference idRef="1|P|TS04"/>
+                  <BlueprintReference idRef="1|P|TS04|J"/>
+                </BlueprintReferences>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension scorePoints="1" measurementModel="IRT3PLn" weight="1.0">
+                    <ItemScoreParameter value="0.6332200169563293" measurementParameter="a"/>
+                    <ItemScoreParameter value="0.16808000206947327" measurementParameter="b"/>
+                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
+                <Presentations>
+                  <Presentation label="Braille" code="ENU-Braille"/>
+                  <Presentation label="Spanish" code="ESN"/>
+                  <Presentation label="English" code="ENU"/>
+                </Presentations>
+              </Item>
+            </ItemGroup>
+            <ItemGroup maxItems="ALL" maxResponses="0" id="35799">
+              <Item active="true" responseRequired="true" fieldTest="false" handScored="false" doNotScore="false" administrationRequired="true" id="35799" type="MC">
+                <PoolProperties>
+                  <PoolProperty name="Answer Key" value="B"/>
+                  <PoolProperty name="ASL" value="Y"/>
+                  <PoolProperty name="Braille" value="BRF"/>
+                  <PoolProperty name="Depth of Knowledge" value="1"/>
+                  <PoolProperty name="Difficulty Category" value="Overall=Moderate"/>
+                  <PoolProperty name="Glossary" value="Arabic"/>
+                  <PoolProperty name="Glossary" value="Cantonese"/>
+                  <PoolProperty name="Glossary" value="Korean"/>
+                  <PoolProperty name="Glossary" value="Mandarin"/>
+                  <PoolProperty name="Glossary" value="Punjabi"/>
+                  <PoolProperty name="Glossary" value="Russian"/>
+                  <PoolProperty name="Glossary" value="Spanish"/>
+                  <PoolProperty name="Glossary" value="Tagal/Tagalog"/>
+                  <PoolProperty name="Glossary" value="Vietnamese"/>
+                  <PoolProperty name="Grade" value="11"/>
+                  <PoolProperty name="Rubric Source" value="Answer Key"/>
+                  <PoolProperty name="Scoring Engine" value="Automatic with Key"/>
+                  <PoolProperty name="Spanish Translation" value="Y"/>
+                  <PoolProperty name="Test Pool" value="Interim"/>
+                  <PoolProperty name="Answer Key" value="B"/>
+                </PoolProperties>
+                <BlueprintReferences>
+                  <BlueprintReference idRef="SBAC-ICA-FIXED-G11M-Calc-MATH-11"/>
+                  <BlueprintReference idRef="1"/>
+                  <BlueprintReference idRef="1|S"/>
+                  <BlueprintReference idRef="1|S|TS10"/>
+                  <BlueprintReference idRef="1|S|TS10|C"/>
+                </BlueprintReferences>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension scorePoints="1" measurementModel="IRT3PLn" weight="1.0">
+                    <ItemScoreParameter value="0.521369993686676" measurementParameter="a"/>
+                    <ItemScoreParameter value="0.2310599982738495" measurementParameter="b"/>
+                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
+                <Presentations>
+                  <Presentation label="Braille" code="ENU-Braille"/>
+                  <Presentation label="Spanish" code="ESN"/>
+                  <Presentation label="English" code="ENU"/>
+                </Presentations>
+              </Item>
+            </ItemGroup>
+            <ItemGroup maxItems="ALL" maxResponses="0" id="18746">
+              <Item active="true" responseRequired="true" fieldTest="false" handScored="false" doNotScore="false" administrationRequired="true" id="18746" type="EQ">
+                <PoolProperties>
+                  <PoolProperty name="Answer Key" value="EQ"/>
+                  <PoolProperty name="ASL" value="Y"/>
+                  <PoolProperty name="Braille" value="BRF"/>
+                  <PoolProperty name="Depth of Knowledge" value="2"/>
+                  <PoolProperty name="Difficulty Category" value="Overall=Moderate"/>
+                  <PoolProperty name="Glossary" value="Arabic"/>
+                  <PoolProperty name="Glossary" value="Cantonese"/>
+                  <PoolProperty name="Glossary" value="Korean"/>
+                  <PoolProperty name="Glossary" value="Mandarin"/>
+                  <PoolProperty name="Glossary" value="Punjabi"/>
+                  <PoolProperty name="Glossary" value="Russian"/>
+                  <PoolProperty name="Glossary" value="Spanish"/>
+                  <PoolProperty name="Glossary" value="Tagal/Tagalog"/>
+                  <PoolProperty name="Glossary" value="Vietnamese"/>
+                  <PoolProperty name="Grade" value="11"/>
+                  <PoolProperty name="Rubric Source" value="Student Xml Proposition"/>
+                  <PoolProperty name="Scoring Engine" value="Automatic with Machine Rubric"/>
+                  <PoolProperty name="Spanish Translation" value="Y"/>
+                  <PoolProperty name="Test Pool" value="Interim"/>
+                  <PoolProperty name="Answer Key" value="EQ"/>
+                </PoolProperties>
+                <BlueprintReferences>
+                  <BlueprintReference idRef="SBAC-ICA-FIXED-G11M-Calc-MATH-11"/>
+                  <BlueprintReference idRef="1"/>
+                  <BlueprintReference idRef="1|P"/>
+                  <BlueprintReference idRef="1|P|TS03"/>
+                  <BlueprintReference idRef="1|P|TS03|G"/>
+                </BlueprintReferences>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension scorePoints="1" measurementModel="IRT3PLn" weight="1.0">
+                    <ItemScoreParameter value="0.628600001335144" measurementParameter="a"/>
+                    <ItemScoreParameter value="0.6695600152015686" measurementParameter="b"/>
+                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
+                <Presentations>
+                  <Presentation label="Braille" code="ENU-Braille"/>
+                  <Presentation label="Spanish" code="ESN"/>
+                  <Presentation label="English" code="ENU"/>
+                </Presentations>
+              </Item>
+            </ItemGroup>
+            <ItemGroup maxItems="ALL" maxResponses="0" id="13927">
+              <Item active="true" responseRequired="true" fieldTest="false" handScored="false" doNotScore="false" administrationRequired="true" id="13927" type="MC">
+                <PoolProperties>
+                  <PoolProperty name="Answer Key" value="A"/>
+                  <PoolProperty name="ASL" value="Y"/>
+                  <PoolProperty name="Braille" value="PRN"/>
+                  <PoolProperty name="Depth of Knowledge" value="2"/>
+                  <PoolProperty name="Difficulty Category" value="Overall=Easy"/>
+                  <PoolProperty name="Glossary" value="Arabic"/>
+                  <PoolProperty name="Glossary" value="Cantonese"/>
+                  <PoolProperty name="Glossary" value="Korean"/>
+                  <PoolProperty name="Glossary" value="Mandarin"/>
+                  <PoolProperty name="Glossary" value="Punjabi"/>
+                  <PoolProperty name="Glossary" value="Russian"/>
+                  <PoolProperty name="Glossary" value="Spanish"/>
+                  <PoolProperty name="Glossary" value="Tagal/Tagalog"/>
+                  <PoolProperty name="Glossary" value="Vietnamese"/>
+                  <PoolProperty name="Grade" value="11"/>
+                  <PoolProperty name="Rubric Source" value="Answer Key"/>
+                  <PoolProperty name="Scoring Engine" value="Automatic with Key"/>
+                  <PoolProperty name="Spanish Translation" value="Y"/>
+                  <PoolProperty name="Test Pool" value="Interim"/>
+                  <PoolProperty name="Answer Key" value="A"/>
+                </PoolProperties>
+                <BlueprintReferences>
+                  <BlueprintReference idRef="SBAC-ICA-FIXED-G11M-Calc-MATH-11"/>
+                  <BlueprintReference idRef="1"/>
+                  <BlueprintReference idRef="1|S"/>
+                  <BlueprintReference idRef="1|S|TS08"/>
+                  <BlueprintReference idRef="1|S|TS08|P"/>
+                </BlueprintReferences>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension scorePoints="1" measurementModel="IRT3PLn" weight="1.0">
+                    <ItemScoreParameter value="0.4800400137901306" measurementParameter="a"/>
+                    <ItemScoreParameter value="-2.363409996032715" measurementParameter="b"/>
+                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
+                <Presentations>
+                  <Presentation label="Braille" code="ENU-Braille"/>
+                  <Presentation label="Spanish" code="ESN"/>
+                  <Presentation label="English" code="ENU"/>
+                </Presentations>
+              </Item>
+            </ItemGroup>
+            <ItemGroup maxItems="ALL" maxResponses="0" id="34158">
+              <Item active="true" responseRequired="true" fieldTest="false" handScored="false" doNotScore="false" administrationRequired="true" id="34158" type="MC">
+                <PoolProperties>
+                  <PoolProperty name="Answer Key" value="C"/>
+                  <PoolProperty name="ASL" value="Y"/>
+                  <PoolProperty name="Braille" value="BRF"/>
+                  <PoolProperty name="Depth of Knowledge" value="3"/>
+                  <PoolProperty name="Difficulty Category" value="Overall=Moderate"/>
+                  <PoolProperty name="Glossary" value="Arabic"/>
+                  <PoolProperty name="Glossary" value="Cantonese"/>
+                  <PoolProperty name="Glossary" value="Korean"/>
+                  <PoolProperty name="Glossary" value="Mandarin"/>
+                  <PoolProperty name="Glossary" value="Punjabi"/>
+                  <PoolProperty name="Glossary" value="Russian"/>
+                  <PoolProperty name="Glossary" value="Spanish"/>
+                  <PoolProperty name="Glossary" value="Tagal/Tagalog"/>
+                  <PoolProperty name="Glossary" value="Vietnamese"/>
+                  <PoolProperty name="Grade" value="11"/>
+                  <PoolProperty name="Rubric Source" value="Answer Key"/>
+                  <PoolProperty name="Scoring Engine" value="Automatic with Key"/>
+                  <PoolProperty name="Spanish Translation" value="Y"/>
+                  <PoolProperty name="Test Pool" value="Interim"/>
+                  <PoolProperty name="Answer Key" value="C"/>
+                </PoolProperties>
+                <BlueprintReferences>
+                  <BlueprintReference idRef="SBAC-ICA-FIXED-G11M-Calc-MATH-11"/>
+                  <BlueprintReference idRef="3"/>
+                  <BlueprintReference idRef="3|G"/>
+                  <BlueprintReference idRef="3|G|NA"/>
+                  <BlueprintReference idRef="3|G|NA|C"/>
+                </BlueprintReferences>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension scorePoints="1" measurementModel="IRT3PLn" weight="1.0">
+                    <ItemScoreParameter value="0.44387000799179077" measurementParameter="a"/>
+                    <ItemScoreParameter value="0.9355999827384949" measurementParameter="b"/>
+                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
+                <Presentations>
+                  <Presentation label="Braille" code="ENU-Braille"/>
+                  <Presentation label="Spanish" code="ESN"/>
+                  <Presentation label="English" code="ENU"/>
+                </Presentations>
+              </Item>
+            </ItemGroup>
+            <ItemGroup maxItems="ALL" maxResponses="0" id="19513">
+              <Item active="true" responseRequired="true" fieldTest="false" handScored="false" doNotScore="false" administrationRequired="true" id="19513" type="MI">
+                <PoolProperties>
+                  <PoolProperty name="Answer Key" value="MI"/>
+                  <PoolProperty name="ASL" value="Y"/>
+                  <PoolProperty name="Braille" value="PRN"/>
+                  <PoolProperty name="Depth of Knowledge" value="1"/>
+                  <PoolProperty name="Difficulty Category" value="Overall=Moderate"/>
+                  <PoolProperty name="Glossary" value="Arabic"/>
+                  <PoolProperty name="Glossary" value="Cantonese"/>
+                  <PoolProperty name="Glossary" value="Korean"/>
+                  <PoolProperty name="Glossary" value="Mandarin"/>
+                  <PoolProperty name="Glossary" value="Punjabi"/>
+                  <PoolProperty name="Glossary" value="Russian"/>
+                  <PoolProperty name="Glossary" value="Spanish"/>
+                  <PoolProperty name="Glossary" value="Tagal/Tagalog"/>
+                  <PoolProperty name="Glossary" value="Vietnamese"/>
+                  <PoolProperty name="Grade" value="11"/>
+                  <PoolProperty name="Rubric Source" value="Human Rubric"/>
+                  <PoolProperty name="Scoring Engine" value="Automatic with Machine Rubric"/>
+                  <PoolProperty name="Spanish Translation" value="Y"/>
+                  <PoolProperty name="Test Pool" value="Interim"/>
+                  <PoolProperty name="Answer Key" value="MI"/>
+                </PoolProperties>
+                <BlueprintReferences>
+                  <BlueprintReference idRef="SBAC-ICA-FIXED-G11M-Calc-MATH-11"/>
+                  <BlueprintReference idRef="1"/>
+                  <BlueprintReference idRef="1|P"/>
+                  <BlueprintReference idRef="1|P|TS06"/>
+                  <BlueprintReference idRef="1|P|TS06|L"/>
+                </BlueprintReferences>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension scorePoints="1" measurementModel="IRT3PLn" weight="1.0">
+                    <ItemScoreParameter value="0.5890399813652039" measurementParameter="a"/>
+                    <ItemScoreParameter value="0.9945899844169617" measurementParameter="b"/>
+                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
+                <Presentations>
+                  <Presentation label="Braille" code="ENU-Braille"/>
+                  <Presentation label="Spanish" code="ESN"/>
+                  <Presentation label="English" code="ENU"/>
+                </Presentations>
+              </Item>
+            </ItemGroup>
+            <ItemGroup maxItems="ALL" maxResponses="0" id="13678">
+              <Item active="true" responseRequired="true" fieldTest="false" handScored="false" doNotScore="false" administrationRequired="true" id="13678" type="EQ">
+                <PoolProperties>
+                  <PoolProperty name="Answer Key" value="EQ"/>
+                  <PoolProperty name="ASL" value="Y"/>
+                  <PoolProperty name="Braille" value="PRN"/>
+                  <PoolProperty name="Depth of Knowledge" value="2"/>
+                  <PoolProperty name="Difficulty Category" value="Overall=Moderate"/>
+                  <PoolProperty name="Glossary" value="Arabic"/>
+                  <PoolProperty name="Glossary" value="Cantonese"/>
+                  <PoolProperty name="Glossary" value="Korean"/>
+                  <PoolProperty name="Glossary" value="Mandarin"/>
+                  <PoolProperty name="Glossary" value="Punjabi"/>
+                  <PoolProperty name="Glossary" value="Russian"/>
+                  <PoolProperty name="Glossary" value="Spanish"/>
+                  <PoolProperty name="Glossary" value="Tagal/Tagalog"/>
+                  <PoolProperty name="Glossary" value="Vietnamese"/>
+                  <PoolProperty name="Grade" value="11"/>
+                  <PoolProperty name="Rubric Source" value="Student Xml Proposition"/>
+                  <PoolProperty name="Scoring Engine" value="Automatic with Machine Rubric"/>
+                  <PoolProperty name="Spanish Translation" value="Y"/>
+                  <PoolProperty name="Test Pool" value="Interim"/>
+                  <PoolProperty name="Answer Key" value="EQ"/>
+                </PoolProperties>
+                <BlueprintReferences>
+                  <BlueprintReference idRef="SBAC-ICA-FIXED-G11M-Calc-MATH-11"/>
+                  <BlueprintReference idRef="2"/>
+                  <BlueprintReference idRef="2|F"/>
+                  <BlueprintReference idRef="2|F|NA"/>
+                  <BlueprintReference idRef="2|F|NA|C"/>
+                </BlueprintReferences>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension scorePoints="1" measurementModel="IRT3PLn" weight="1.0">
+                    <ItemScoreParameter value="0.37836000323295593" measurementParameter="a"/>
+                    <ItemScoreParameter value="1.1114000082015991" measurementParameter="b"/>
+                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
+                <Presentations>
+                  <Presentation label="Braille" code="ENU-Braille"/>
+                  <Presentation label="Spanish" code="ESN"/>
+                  <Presentation label="English" code="ENU"/>
+                </Presentations>
+              </Item>
+            </ItemGroup>
+            <ItemGroup maxItems="ALL" maxResponses="0" id="19459">
+              <Item active="true" responseRequired="true" fieldTest="false" handScored="false" doNotScore="false" administrationRequired="true" id="19459" type="MC">
+                <PoolProperties>
+                  <PoolProperty name="Answer Key" value="B"/>
+                  <PoolProperty name="ASL" value="Y"/>
+                  <PoolProperty name="Braille" value="PRN"/>
+                  <PoolProperty name="Depth of Knowledge" value="2"/>
+                  <PoolProperty name="Difficulty Category" value="Overall=Moderate"/>
+                  <PoolProperty name="Glossary" value="Arabic"/>
+                  <PoolProperty name="Glossary" value="Cantonese"/>
+                  <PoolProperty name="Glossary" value="Korean"/>
+                  <PoolProperty name="Glossary" value="Mandarin"/>
+                  <PoolProperty name="Glossary" value="Punjabi"/>
+                  <PoolProperty name="Glossary" value="Russian"/>
+                  <PoolProperty name="Glossary" value="Spanish"/>
+                  <PoolProperty name="Glossary" value="Tagal/Tagalog"/>
+                  <PoolProperty name="Glossary" value="Vietnamese"/>
+                  <PoolProperty name="Grade" value="11"/>
+                  <PoolProperty name="Rubric Source" value="Answer Key"/>
+                  <PoolProperty name="Scoring Engine" value="Automatic with Key"/>
+                  <PoolProperty name="Spanish Translation" value="Y"/>
+                  <PoolProperty name="Test Pool" value="Interim"/>
+                  <PoolProperty name="Answer Key" value="B"/>
+                </PoolProperties>
+                <BlueprintReferences>
+                  <BlueprintReference idRef="SBAC-ICA-FIXED-G11M-Calc-MATH-11"/>
+                  <BlueprintReference idRef="1"/>
+                  <BlueprintReference idRef="1|P"/>
+                  <BlueprintReference idRef="1|P|TS04"/>
+                  <BlueprintReference idRef="1|P|TS04|J"/>
+                </BlueprintReferences>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension scorePoints="1" measurementModel="IRT3PLn" weight="1.0">
+                    <ItemScoreParameter value="0.24039000272750854" measurementParameter="a"/>
+                    <ItemScoreParameter value="1.2155799865722656" measurementParameter="b"/>
+                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
+                <Presentations>
+                  <Presentation label="Braille" code="ENU-Braille"/>
+                  <Presentation label="Spanish" code="ESN"/>
+                  <Presentation label="English" code="ENU"/>
+                </Presentations>
+              </Item>
+            </ItemGroup>
+            <ItemGroup maxItems="ALL" maxResponses="0" id="25734">
+              <Item active="true" responseRequired="true" fieldTest="false" handScored="false" doNotScore="false" administrationRequired="true" id="25734" type="MI">
+                <PoolProperties>
+                  <PoolProperty name="Answer Key" value="MI"/>
+                  <PoolProperty name="ASL" value="Y"/>
+                  <PoolProperty name="Braille" value="PRN"/>
+                  <PoolProperty name="Depth of Knowledge" value="1"/>
+                  <PoolProperty name="Difficulty Category" value="Overall=Moderate"/>
+                  <PoolProperty name="Glossary" value="Arabic"/>
+                  <PoolProperty name="Glossary" value="Cantonese"/>
+                  <PoolProperty name="Glossary" value="Korean"/>
+                  <PoolProperty name="Glossary" value="Mandarin"/>
+                  <PoolProperty name="Glossary" value="Punjabi"/>
+                  <PoolProperty name="Glossary" value="Russian"/>
+                  <PoolProperty name="Glossary" value="Spanish"/>
+                  <PoolProperty name="Glossary" value="Tagal/Tagalog"/>
+                  <PoolProperty name="Glossary" value="Vietnamese"/>
+                  <PoolProperty name="Grade" value="11"/>
+                  <PoolProperty name="Rubric Source" value="Human Rubric"/>
+                  <PoolProperty name="Scoring Engine" value="Automatic with Machine Rubric"/>
+                  <PoolProperty name="Spanish Translation" value="Y"/>
+                  <PoolProperty name="Test Pool" value="Interim"/>
+                  <PoolProperty name="Answer Key" value="MI"/>
+                </PoolProperties>
+                <BlueprintReferences>
+                  <BlueprintReference idRef="SBAC-ICA-FIXED-G11M-Calc-MATH-11"/>
+                  <BlueprintReference idRef="1"/>
+                  <BlueprintReference idRef="1|S"/>
+                  <BlueprintReference idRef="1|S|TS07"/>
+                  <BlueprintReference idRef="1|S|TS07|O"/>
+                </BlueprintReferences>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension scorePoints="1" measurementModel="IRT3PLn" weight="1.0">
+                    <ItemScoreParameter value="0.8111000061035156" measurementParameter="a"/>
+                    <ItemScoreParameter value="1.288830041885376" measurementParameter="b"/>
+                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
+                <Presentations>
+                  <Presentation label="Braille" code="ENU-Braille"/>
+                  <Presentation label="Spanish" code="ESN"/>
+                  <Presentation label="English" code="ENU"/>
+                </Presentations>
+              </Item>
+            </ItemGroup>
+            <ItemGroup maxItems="ALL" maxResponses="0" id="25798">
+              <Item active="true" responseRequired="true" fieldTest="false" handScored="false" doNotScore="false" administrationRequired="true" id="25798" type="MI">
+                <PoolProperties>
+                  <PoolProperty name="Answer Key" value="MI"/>
+                  <PoolProperty name="ASL" value="Y"/>
+                  <PoolProperty name="Braille" value="BRF"/>
+                  <PoolProperty name="Depth of Knowledge" value="2"/>
+                  <PoolProperty name="Difficulty Category" value="Overall=Moderate"/>
+                  <PoolProperty name="Glossary" value="Arabic"/>
+                  <PoolProperty name="Glossary" value="Cantonese"/>
+                  <PoolProperty name="Glossary" value="Korean"/>
+                  <PoolProperty name="Glossary" value="Mandarin"/>
+                  <PoolProperty name="Glossary" value="Punjabi"/>
+                  <PoolProperty name="Glossary" value="Russian"/>
+                  <PoolProperty name="Glossary" value="Spanish"/>
+                  <PoolProperty name="Glossary" value="Tagal/Tagalog"/>
+                  <PoolProperty name="Glossary" value="Vietnamese"/>
+                  <PoolProperty name="Grade" value="11"/>
+                  <PoolProperty name="Rubric Source" value="Human Rubric"/>
+                  <PoolProperty name="Scoring Engine" value="Automatic with Machine Rubric"/>
+                  <PoolProperty name="Spanish Translation" value="Y"/>
+                  <PoolProperty name="Test Pool" value="Interim"/>
+                  <PoolProperty name="Answer Key" value="MI"/>
+                </PoolProperties>
+                <BlueprintReferences>
+                  <BlueprintReference idRef="SBAC-ICA-FIXED-G11M-Calc-MATH-11"/>
+                  <BlueprintReference idRef="4"/>
+                  <BlueprintReference idRef="4|F"/>
+                  <BlueprintReference idRef="4|F|NA"/>
+                  <BlueprintReference idRef="4|F|NA|D"/>
+                </BlueprintReferences>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension scorePoints="1" measurementModel="IRT3PLn" weight="1.0">
+                    <ItemScoreParameter value="0.47262999415397644" measurementParameter="a"/>
+                    <ItemScoreParameter value="1.2051299810409546" measurementParameter="b"/>
+                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
+                <Presentations>
+                  <Presentation label="Braille" code="ENU-Braille"/>
+                  <Presentation label="Spanish" code="ESN"/>
+                  <Presentation label="English" code="ENU"/>
+                </Presentations>
+              </Item>
+            </ItemGroup>
+            <ItemGroup maxItems="ALL" maxResponses="0" id="31399">
+              <Item active="true" responseRequired="true" fieldTest="false" handScored="false" doNotScore="false" administrationRequired="true" id="31399" type="MC">
+                <PoolProperties>
+                  <PoolProperty name="Answer Key" value="D"/>
+                  <PoolProperty name="ASL" value="Y"/>
+                  <PoolProperty name="Braille" value="BRF"/>
+                  <PoolProperty name="Depth of Knowledge" value="3"/>
+                  <PoolProperty name="Difficulty Category" value="Overall=Moderate"/>
+                  <PoolProperty name="Glossary" value="Arabic"/>
+                  <PoolProperty name="Glossary" value="Cantonese"/>
+                  <PoolProperty name="Glossary" value="Korean"/>
+                  <PoolProperty name="Glossary" value="Mandarin"/>
+                  <PoolProperty name="Glossary" value="Punjabi"/>
+                  <PoolProperty name="Glossary" value="Russian"/>
+                  <PoolProperty name="Glossary" value="Spanish"/>
+                  <PoolProperty name="Glossary" value="Tagal/Tagalog"/>
+                  <PoolProperty name="Glossary" value="Vietnamese"/>
+                  <PoolProperty name="Grade" value="11"/>
+                  <PoolProperty name="Rubric Source" value="Answer Key"/>
+                  <PoolProperty name="Scoring Engine" value="Automatic with Key"/>
+                  <PoolProperty name="Spanish Translation" value="Y"/>
+                  <PoolProperty name="Test Pool" value="Interim"/>
+                  <PoolProperty name="Answer Key" value="D"/>
+                </PoolProperties>
+                <BlueprintReferences>
+                  <BlueprintReference idRef="SBAC-ICA-FIXED-G11M-Calc-MATH-11"/>
+                  <BlueprintReference idRef="3"/>
+                  <BlueprintReference idRef="3|G"/>
+                  <BlueprintReference idRef="3|G|NA"/>
+                  <BlueprintReference idRef="3|G|NA|C"/>
+                </BlueprintReferences>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension scorePoints="1" measurementModel="IRT3PLn" weight="1.0">
+                    <ItemScoreParameter value="0.48205000162124634" measurementParameter="a"/>
+                    <ItemScoreParameter value="1.4139000177383423" measurementParameter="b"/>
+                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
+                <Presentations>
+                  <Presentation label="Braille" code="ENU-Braille"/>
+                  <Presentation label="Spanish" code="ESN"/>
+                  <Presentation label="English" code="ENU"/>
+                </Presentations>
+              </Item>
+            </ItemGroup>
+            <ItemGroup maxItems="ALL" maxResponses="0" id="26972">
+              <Item active="true" responseRequired="true" fieldTest="false" handScored="true" doNotScore="false" administrationRequired="true" id="26972" type="SA">
+                <PoolProperties>
+                  <PoolProperty name="Answer Key" value="SA"/>
+                  <PoolProperty name="ASL" value="Y"/>
+                  <PoolProperty name="Braille" value="BRF"/>
+                  <PoolProperty name="Depth of Knowledge" value="3"/>
+                  <PoolProperty name="Difficulty Category" value="Overall=Difficult"/>
+                  <PoolProperty name="Glossary" value="Arabic"/>
+                  <PoolProperty name="Glossary" value="Cantonese"/>
+                  <PoolProperty name="Glossary" value="Korean"/>
+                  <PoolProperty name="Glossary" value="Mandarin"/>
+                  <PoolProperty name="Glossary" value="Punjabi"/>
+                  <PoolProperty name="Glossary" value="Russian"/>
+                  <PoolProperty name="Glossary" value="Spanish"/>
+                  <PoolProperty name="Glossary" value="Tagal/Tagalog"/>
+                  <PoolProperty name="Glossary" value="Vietnamese"/>
+                  <PoolProperty name="Grade" value="11"/>
+                  <PoolProperty name="Rubric Source" value="Human Rubric"/>
+                  <PoolProperty name="Scoring Engine" value="HandScored"/>
+                  <PoolProperty name="Spanish Translation" value="Y"/>
+                  <PoolProperty name="Test Pool" value="Interim"/>
+                  <PoolProperty name="Answer Key" value="SA"/>
+                </PoolProperties>
+                <BlueprintReferences>
+                  <BlueprintReference idRef="SBAC-ICA-FIXED-G11M-Calc-MATH-11"/>
+                  <BlueprintReference idRef="4"/>
+                  <BlueprintReference idRef="4|N"/>
+                  <BlueprintReference idRef="4|N|NA"/>
+                  <BlueprintReference idRef="4|N|NA|B"/>
+                </BlueprintReferences>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension scorePoints="2" measurementModel="IRTGPC" weight="1.0">
+                    <ItemScoreParameter value="0.3114199936389923" measurementParameter="a"/>
+                    <ItemScoreParameter value="2.6206700801849365" measurementParameter="b0"/>
+                    <ItemScoreParameter value="2.720289945602417" measurementParameter="b1"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
+                <Presentations>
+                  <Presentation label="Braille" code="ENU-Braille"/>
+                  <Presentation label="Spanish" code="ESN"/>
+                  <Presentation label="English" code="ENU"/>
+                </Presentations>
+              </Item>
+            </ItemGroup>
+            <ItemGroup maxItems="ALL" maxResponses="0" id="6724">
+              <Item active="true" responseRequired="true" fieldTest="false" handScored="false" doNotScore="false" administrationRequired="true" id="6724" type="EQ">
+                <PoolProperties>
+                  <PoolProperty name="Answer Key" value="EQ"/>
+                  <PoolProperty name="ASL" value="Y"/>
+                  <PoolProperty name="Braille" value="PRN"/>
+                  <PoolProperty name="Depth of Knowledge" value="2"/>
+                  <PoolProperty name="Difficulty Category" value="Overall=Difficult"/>
+                  <PoolProperty name="Glossary" value="Arabic"/>
+                  <PoolProperty name="Glossary" value="Cantonese"/>
+                  <PoolProperty name="Glossary" value="Korean"/>
+                  <PoolProperty name="Glossary" value="Mandarin"/>
+                  <PoolProperty name="Glossary" value="Punjabi"/>
+                  <PoolProperty name="Glossary" value="Russian"/>
+                  <PoolProperty name="Glossary" value="Spanish"/>
+                  <PoolProperty name="Glossary" value="Tagal/Tagalog"/>
+                  <PoolProperty name="Glossary" value="Vietnamese"/>
+                  <PoolProperty name="Grade" value="11"/>
+                  <PoolProperty name="Rubric Source" value="Student Xml Proposition"/>
+                  <PoolProperty name="Scoring Engine" value="Automatic with Machine Rubric"/>
+                  <PoolProperty name="Spanish Translation" value="Y"/>
+                  <PoolProperty name="Test Pool" value="Interim"/>
+                  <PoolProperty name="Answer Key" value="EQ"/>
+                </PoolProperties>
+                <BlueprintReferences>
+                  <BlueprintReference idRef="SBAC-ICA-FIXED-G11M-Calc-MATH-11"/>
+                  <BlueprintReference idRef="1"/>
+                  <BlueprintReference idRef="1|S"/>
+                  <BlueprintReference idRef="1|S|TS07"/>
+                  <BlueprintReference idRef="1|S|TS07|O"/>
+                </BlueprintReferences>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension scorePoints="1" measurementModel="IRT3PLn" weight="1.0">
+                    <ItemScoreParameter value="0.7456899881362915" measurementParameter="a"/>
+                    <ItemScoreParameter value="1.897279977798462" measurementParameter="b"/>
+                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
+                <Presentations>
+                  <Presentation label="Braille" code="ENU-Braille"/>
+                  <Presentation label="Spanish" code="ESN"/>
+                  <Presentation label="English" code="ENU"/>
+                </Presentations>
+              </Item>
+            </ItemGroup>
+            <ItemGroup maxItems="ALL" maxResponses="0" id="11984">
+              <Item active="true" responseRequired="true" fieldTest="false" handScored="false" doNotScore="false" administrationRequired="true" id="11984" type="EQ">
+                <PoolProperties>
+                  <PoolProperty name="Answer Key" value="EQ"/>
+                  <PoolProperty name="ASL" value="Y"/>
+                  <PoolProperty name="Braille" value="BRF"/>
+                  <PoolProperty name="Depth of Knowledge" value="2"/>
+                  <PoolProperty name="Difficulty Category" value="Overall=Difficult"/>
+                  <PoolProperty name="Glossary" value="Arabic"/>
+                  <PoolProperty name="Glossary" value="Cantonese"/>
+                  <PoolProperty name="Glossary" value="Korean"/>
+                  <PoolProperty name="Glossary" value="Mandarin"/>
+                  <PoolProperty name="Glossary" value="Punjabi"/>
+                  <PoolProperty name="Glossary" value="Russian"/>
+                  <PoolProperty name="Glossary" value="Spanish"/>
+                  <PoolProperty name="Glossary" value="Tagal/Tagalog"/>
+                  <PoolProperty name="Glossary" value="Vietnamese"/>
+                  <PoolProperty name="Grade" value="11"/>
+                  <PoolProperty name="Rubric Source" value="Student Xml Proposition"/>
+                  <PoolProperty name="Scoring Engine" value="Automatic with Machine Rubric"/>
+                  <PoolProperty name="Spanish Translation" value="Y"/>
+                  <PoolProperty name="Test Pool" value="Interim"/>
+                  <PoolProperty name="Answer Key" value="EQ"/>
+                </PoolProperties>
+                <BlueprintReferences>
+                  <BlueprintReference idRef="SBAC-ICA-FIXED-G11M-Calc-MATH-11"/>
+                  <BlueprintReference idRef="1"/>
+                  <BlueprintReference idRef="1|P"/>
+                  <BlueprintReference idRef="1|P|TS03"/>
+                  <BlueprintReference idRef="1|P|TS03|G"/>
+                </BlueprintReferences>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension scorePoints="1" measurementModel="IRT3PLn" weight="1.0">
+                    <ItemScoreParameter value="0.7490299940109253" measurementParameter="a"/>
+                    <ItemScoreParameter value="1.8384699821472168" measurementParameter="b"/>
+                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
+                <Presentations>
+                  <Presentation label="Braille" code="ENU-Braille"/>
+                  <Presentation label="Spanish" code="ESN"/>
+                  <Presentation label="English" code="ENU"/>
+                </Presentations>
+              </Item>
+            </ItemGroup>
+            <ItemGroup maxItems="ALL" maxResponses="0" id="11429">
+              <Item active="true" responseRequired="true" fieldTest="false" handScored="false" doNotScore="false" administrationRequired="true" id="11429" type="MC">
+                <PoolProperties>
+                  <PoolProperty name="Answer Key" value="C"/>
+                  <PoolProperty name="ASL" value="Y"/>
+                  <PoolProperty name="Braille" value="BRF"/>
+                  <PoolProperty name="Depth of Knowledge" value="2"/>
+                  <PoolProperty name="Difficulty Category" value="Overall=Difficult"/>
+                  <PoolProperty name="Glossary" value="Arabic"/>
+                  <PoolProperty name="Glossary" value="Cantonese"/>
+                  <PoolProperty name="Glossary" value="Korean"/>
+                  <PoolProperty name="Glossary" value="Mandarin"/>
+                  <PoolProperty name="Glossary" value="Punjabi"/>
+                  <PoolProperty name="Glossary" value="Russian"/>
+                  <PoolProperty name="Glossary" value="Spanish"/>
+                  <PoolProperty name="Glossary" value="Tagal/Tagalog"/>
+                  <PoolProperty name="Glossary" value="Vietnamese"/>
+                  <PoolProperty name="Grade" value="11"/>
+                  <PoolProperty name="Rubric Source" value="Answer Key"/>
+                  <PoolProperty name="Scoring Engine" value="Automatic with Key"/>
+                  <PoolProperty name="Spanish Translation" value="Y"/>
+                  <PoolProperty name="Test Pool" value="Interim"/>
+                  <PoolProperty name="Answer Key" value="C"/>
+                </PoolProperties>
+                <BlueprintReferences>
+                  <BlueprintReference idRef="SBAC-ICA-FIXED-G11M-Calc-MATH-11"/>
+                  <BlueprintReference idRef="1"/>
+                  <BlueprintReference idRef="1|P"/>
+                  <BlueprintReference idRef="1|P|TS06"/>
+                  <BlueprintReference idRef="1|P|TS06|N"/>
+                </BlueprintReferences>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension scorePoints="1" measurementModel="IRT3PLn" weight="1.0">
+                    <ItemScoreParameter value="0.16655999422073364" measurementParameter="a"/>
+                    <ItemScoreParameter value="2.4555399417877197" measurementParameter="b"/>
+                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
+                <Presentations>
+                  <Presentation label="Braille" code="ENU-Braille"/>
+                  <Presentation label="Spanish" code="ESN"/>
+                  <Presentation label="English" code="ENU"/>
+                </Presentations>
+              </Item>
+            </ItemGroup>
+            <ItemGroup maxItems="ALL" maxResponses="0" id="33948">
+              <Item active="true" responseRequired="true" fieldTest="false" handScored="false" doNotScore="false" administrationRequired="true" id="33948" type="MI">
+                <PoolProperties>
+                  <PoolProperty name="Answer Key" value="MI"/>
+                  <PoolProperty name="ASL" value="Y"/>
+                  <PoolProperty name="Braille" value="PRN"/>
+                  <PoolProperty name="Depth of Knowledge" value="2"/>
+                  <PoolProperty name="Difficulty Category" value="Overall=Difficult"/>
+                  <PoolProperty name="Glossary" value="Arabic"/>
+                  <PoolProperty name="Glossary" value="Cantonese"/>
+                  <PoolProperty name="Glossary" value="Korean"/>
+                  <PoolProperty name="Glossary" value="Mandarin"/>
+                  <PoolProperty name="Glossary" value="Punjabi"/>
+                  <PoolProperty name="Glossary" value="Russian"/>
+                  <PoolProperty name="Glossary" value="Spanish"/>
+                  <PoolProperty name="Glossary" value="Tagal/Tagalog"/>
+                  <PoolProperty name="Glossary" value="Vietnamese"/>
+                  <PoolProperty name="Grade" value="11"/>
+                  <PoolProperty name="Rubric Source" value="Human Rubric"/>
+                  <PoolProperty name="Scoring Engine" value="Automatic with Machine Rubric"/>
+                  <PoolProperty name="Spanish Translation" value="Y"/>
+                  <PoolProperty name="Test Pool" value="Interim"/>
+                  <PoolProperty name="Answer Key" value="MI"/>
+                </PoolProperties>
+                <BlueprintReferences>
+                  <BlueprintReference idRef="SBAC-ICA-FIXED-G11M-Calc-MATH-11"/>
+                  <BlueprintReference idRef="1"/>
+                  <BlueprintReference idRef="1|P"/>
+                  <BlueprintReference idRef="1|P|TS06"/>
+                  <BlueprintReference idRef="1|P|TS06|M"/>
+                </BlueprintReferences>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension scorePoints="1" measurementModel="IRT3PLn" weight="1.0">
+                    <ItemScoreParameter value="0.376910001039505" measurementParameter="a"/>
+                    <ItemScoreParameter value="2.3397300243377686" measurementParameter="b"/>
+                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
+                <Presentations>
+                  <Presentation label="Braille" code="ENU-Braille"/>
+                  <Presentation label="Spanish" code="ESN"/>
+                  <Presentation label="English" code="ENU"/>
+                </Presentations>
+              </Item>
+            </ItemGroup>
+            <ItemGroup maxItems="ALL" maxResponses="0" id="32692">
+              <Item active="true" responseRequired="true" fieldTest="false" handScored="false" doNotScore="false" administrationRequired="true" id="32692" type="MS">
+                <PoolProperties>
+                  <PoolProperty name="Answer Key" value="A"/>
+                  <PoolProperty name="Answer Key" value="D"/>
+                  <PoolProperty name="ASL" value="Y"/>
+                  <PoolProperty name="Braille" value="PRN"/>
+                  <PoolProperty name="Depth of Knowledge" value="3"/>
+                  <PoolProperty name="Difficulty Category" value="Overall=Difficult"/>
+                  <PoolProperty name="Glossary" value="Arabic"/>
+                  <PoolProperty name="Glossary" value="Cantonese"/>
+                  <PoolProperty name="Glossary" value="Korean"/>
+                  <PoolProperty name="Glossary" value="Mandarin"/>
+                  <PoolProperty name="Glossary" value="Punjabi"/>
+                  <PoolProperty name="Glossary" value="Russian"/>
+                  <PoolProperty name="Glossary" value="Spanish"/>
+                  <PoolProperty name="Glossary" value="Tagal/Tagalog"/>
+                  <PoolProperty name="Glossary" value="Vietnamese"/>
+                  <PoolProperty name="Grade" value="11"/>
+                  <PoolProperty name="Rubric Source" value="Answer Key"/>
+                  <PoolProperty name="Scoring Engine" value="Automatic with Key(s)"/>
+                  <PoolProperty name="Spanish Translation" value="Y"/>
+                  <PoolProperty name="Test Pool" value="Interim"/>
+                  <PoolProperty name="Answer Key" value="A,D"/>
+                </PoolProperties>
+                <BlueprintReferences>
+                  <BlueprintReference idRef="SBAC-ICA-FIXED-G11M-Calc-MATH-11"/>
+                  <BlueprintReference idRef="3"/>
+                  <BlueprintReference idRef="3|G"/>
+                  <BlueprintReference idRef="3|G|NA"/>
+                  <BlueprintReference idRef="3|G|NA|B"/>
+                </BlueprintReferences>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension scorePoints="1" measurementModel="IRT3PLn" weight="1.0">
+                    <ItemScoreParameter value="0.4441399872303009" measurementParameter="a"/>
+                    <ItemScoreParameter value="2.45878005027771" measurementParameter="b"/>
+                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
+                <Presentations>
+                  <Presentation label="Braille" code="ENU-Braille"/>
+                  <Presentation label="Spanish" code="ESN"/>
+                  <Presentation label="English" code="ENU"/>
+                </Presentations>
+              </Item>
+            </ItemGroup>
+          </SegmentForm>
+        </SegmentForms>
+      </Segment>
+    </Segments>
+  </Test>
+</TestPackage>

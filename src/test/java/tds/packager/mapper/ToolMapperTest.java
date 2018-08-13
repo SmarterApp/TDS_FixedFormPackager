@@ -15,7 +15,7 @@ public class ToolMapperTest extends MapperBaseTest {
 
     @Test
     public void shouldMapTools() {
-        List<Tool> tools = ToolMapper.map(mockWorkbook, "SBAC-IAB-FIXED-G11M-AlgLin");
+        List<Tool> tools = ToolMapper.map(mockWorkbook, "SBAC-IAB-FIXED-G11M");
         assertThat(tools).hasSize(11);
 
         Tool maskingTool = tools.stream()
