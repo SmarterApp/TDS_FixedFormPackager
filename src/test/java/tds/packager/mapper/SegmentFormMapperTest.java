@@ -10,7 +10,7 @@ public class SegmentFormMapperTest extends MapperBaseTest {
     @Test
     public void shouldMapSegmentsForAssessment() {
 
-        List<Segment> segments = SegmentMapper.map(mockWorkbook, "SBAC-IAB-FIXED-G11M-AlgLin", this.itemMetadata);
+        List<Segment> segments = SegmentMapper.map(mockWorkbook, "SBAC-IAB-FIXED-G11M", this.itemMetadata);
         assertThat(segments).hasSize(2);
 
         List<SegmentForm> segmentForms1 = SegmentFormMapper.map(mockWorkbook, segments.get(0).getId(), this.itemMetadata, "SBAC-IAB-FIXED-G11M-AlgLin");
