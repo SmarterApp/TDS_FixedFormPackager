@@ -13,10 +13,13 @@ public class SegmentFormMapperTest extends MapperBaseTest {
         List<Segment> segments = SegmentMapper.map(mockWorkbook, "SBAC-IAB-FIXED-G11M-AlgLin", this.itemMetadata);
         assertThat(segments).hasSize(2);
 
+        // 1st Segment / SegmentForm
         List<SegmentForm> segmentForms1 = SegmentFormMapper.map(mockWorkbook, segments.get(0).getId(), this.itemMetadata, "SBAC-IAB-FIXED-G11M-AlgLin");
         assertThat(segmentForms1).hasSize(1);
         SegmentForm segmentForm1 = segmentForms1.get(0);
         assertThat(segmentForm1.getId()).isEqualTo("SBAC-IAB-FIXED-G11M-AlgLinearFun-NoCalc");
+
+
 
         List <Presentation> sf1Presentations = segmentForm1.getPresentations();
         assertThat(sf1Presentations).hasSize(3);
@@ -43,6 +46,14 @@ public class SegmentFormMapperTest extends MapperBaseTest {
         assertThat(ig1Item1.getId()).isEqualTo("83834");
         assertThat(ig1.getId()).isEqualTo(ig1Item1.getId());
         assertThat(ig1Item1.getType()).isEqualTo("EQ");
+
+        List<PoolProperty> poolProperties1 = ig1Item1.poolProperties();
+        assertThat(poolProperties1).contains(PoolProperty.builder().setName("Answer Key").setValue("EQ").build());
+        assertThat(poolProperties1).contains(PoolProperty.builder().setName("Answer Key (Part II)").setValue("NA").build());
+        assertThat(poolProperties1).contains(PoolProperty.builder().setName("ASL").setValue("Y").build());
+        assertThat(poolProperties1).contains(PoolProperty.builder().setName("Braille").setValue("BRF").build());
+        assertThat(poolProperties1).contains(PoolProperty.builder().setName("Grade").setValue("11").build());
+        assertThat(poolProperties1).contains(PoolProperty.builder().setName("Scoring Engine").setValue("Automatic with Machine Rubric").build());
 
         List <ItemScoreDimension> itemScoreDimensions1 = ig1Item1.getItemScoreDimensions();
         assertThat(itemScoreDimensions1).hasSize(1);
@@ -76,6 +87,8 @@ public class SegmentFormMapperTest extends MapperBaseTest {
         ItemGroup ig3 = itemGroups1.get(2);
         assertThat(ig3.getId()).isEqualTo("12164");
 
+        // 2nd segment (Only contains 1 SegmentForm
+
         List<SegmentForm> segmentForms2 = SegmentFormMapper.map(mockWorkbook, segments.get(1).getId(), this.itemMetadata, "SBAC-IAB-FIXED-G11M-AlgLin");
         assertThat(segmentForms2).hasSize(1);
         SegmentForm segmentForm2 = segmentForms2.get(0);
@@ -84,9 +97,34 @@ public class SegmentFormMapperTest extends MapperBaseTest {
 
 
         assertThat(segmentForm2.getPresentations()).hasSize(3);
+        assertThat(segmentForm2.getPresentations()).contains(Presentation.builder().setCode("ENU").setLabel("English").build());
+        assertThat(segmentForm2.getPresentations()).contains(Presentation.builder().setCode("ENU-Braille").setLabel("Braille").build());
+        assertThat(segmentForm2.getPresentations()).contains(Presentation.builder().setCode("ESN").setLabel("Spanish").build());
         assertThat(segmentForm2.itemGroups()).hasSize(12);
+        //full proper ordering of the ItemGroups / Items and that ItemGroup Id is the same as the Item Id (because single item itemgroups)
         assertThat(segmentForm2.itemGroups().get(0).getId()).isEqualTo("501");
+        assertThat(segmentForm2.itemGroups().get(0).getId()).isEqualTo(segmentForm2.itemGroups().get(0).items().get(0).getId());
+        assertThat(segmentForm2.itemGroups().get(1).getId()).isEqualTo("35334");
+        assertThat(segmentForm2.itemGroups().get(1).getId()).isEqualTo(segmentForm2.itemGroups().get(1).items().get(0).getId());
+        assertThat(segmentForm2.itemGroups().get(2).getId()).isEqualTo("33727");
+        assertThat(segmentForm2.itemGroups().get(2).getId()).isEqualTo(segmentForm2.itemGroups().get(2).items().get(0).getId());
+        assertThat(segmentForm2.itemGroups().get(3).getId()).isEqualTo("12327");
+        assertThat(segmentForm2.itemGroups().get(3).getId()).isEqualTo(segmentForm2.itemGroups().get(3).items().get(0).getId());
+        assertThat(segmentForm2.itemGroups().get(4).getId()).isEqualTo("19513");
+        assertThat(segmentForm2.itemGroups().get(4).getId()).isEqualTo(segmentForm2.itemGroups().get(4).items().get(0).getId());
+        assertThat(segmentForm2.itemGroups().get(5).getId()).isEqualTo("20702");
+        assertThat(segmentForm2.itemGroups().get(5).getId()).isEqualTo(segmentForm2.itemGroups().get(5).items().get(0).getId());
+        assertThat(segmentForm2.itemGroups().get(6).getId()).isEqualTo("50197");
+        assertThat(segmentForm2.itemGroups().get(6).getId()).isEqualTo(segmentForm2.itemGroups().get(6).items().get(0).getId());
+        assertThat(segmentForm2.itemGroups().get(7).getId()).isEqualTo("32678");
+        assertThat(segmentForm2.itemGroups().get(7).getId()).isEqualTo(segmentForm2.itemGroups().get(7).items().get(0).getId());
+        assertThat(segmentForm2.itemGroups().get(8).getId()).isEqualTo("31336");
+        assertThat(segmentForm2.itemGroups().get(8).getId()).isEqualTo(segmentForm2.itemGroups().get(8).items().get(0).getId());
+        assertThat(segmentForm2.itemGroups().get(9).getId()).isEqualTo("11984");
+        assertThat(segmentForm2.itemGroups().get(9).getId()).isEqualTo(segmentForm2.itemGroups().get(9).items().get(0).getId());
+        assertThat(segmentForm2.itemGroups().get(10).getId()).isEqualTo("31344");
+        assertThat(segmentForm2.itemGroups().get(10).getId()).isEqualTo(segmentForm2.itemGroups().get(10).items().get(0).getId());
         assertThat(segmentForm2.itemGroups().get(11).getId()).isEqualTo("30309");
-
+        assertThat(segmentForm2.itemGroups().get(11).getId()).isEqualTo(segmentForm2.itemGroups().get(11).items().get(0).getId());
     }
 }
