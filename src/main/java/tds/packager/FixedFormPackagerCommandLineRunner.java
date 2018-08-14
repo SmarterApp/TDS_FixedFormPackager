@@ -17,7 +17,6 @@ public class FixedFormPackagerCommandLineRunner implements CommandLineRunner {
     private static final String GIT_URL = "u";
     private static final String OUTPUT_PATH = "o";
     private static final String DEBUG_FLAG = "d";
-    private static final String HELP_FLAG = "h";
 
     private Options options;
     private CommandLineParser parser;
@@ -84,20 +83,11 @@ public class FixedFormPackagerCommandLineRunner implements CommandLineRunner {
                 .required(false)
                 .build();
 
-        final Option helpOption = Option.builder(HELP_FLAG)
-                .argName("help")
-                .longOpt("help")
-                .hasArg(false)
-                .desc("Prints help statement and exits")
-                .required(false)
-                .build();
-
         options.addOption(tokenOption);
         options.addOption(groupOption);
         options.addOption(urlOption);
         options.addOption(outputPathOption);
         options.addOption(debugOption);
-        options.addOption(helpOption);
     }
 
     @Override
@@ -117,11 +107,6 @@ public class FixedFormPackagerCommandLineRunner implements CommandLineRunner {
 
             // Get the input filename (first arg)
             final String inputFilePath = cmd.getArgList().get(0);
-
-            if(cmd != null && cmd.hasOption(HELP_FLAG)) {
-                printHelpAndExit();
-                return;
-            }
 
             if (!inputFilePath.endsWith(".xlsx")) {
                 System.out.println("No arguments were provided to the fixed form packager. Aborting...");
