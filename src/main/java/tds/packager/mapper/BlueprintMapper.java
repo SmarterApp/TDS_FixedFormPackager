@@ -133,7 +133,7 @@ public class BlueprintMapper {
 
     private static List<BlueprintElement> mapMiscellaneousElements(final TestPackageWorkbook workbook, final Map<String, Scoring> scoringMap) {
         final TestPackageSheet sheet = workbook.getSheet(TestPackageSheetNames.SCORING);
-        final List<BlueprintElement> miscBpElements = new ArrayList<>();
+        final Map<String, BlueprintElement> miscBpMap = new HashMap<>();
 
         for (int i = 0; i < sheet.getTotalNumberOfInputColumns(); i++) {
             final Map<String, String> values = sheet.getInputVariableValuesMap(i);
@@ -141,15 +141,18 @@ public class BlueprintMapper {
 
             if (bpType.equalsIgnoreCase(BlueprintElementTypes.SOCK) || bpType.equalsIgnoreCase(BlueprintElementTypes.AFFINITY_GROUP)) {
                 final String bpElementId = values.get("BlueprintElementId");
-                miscBpElements.add(BlueprintElement.builder()
-                        .setId(bpElementId)
-                        .setType(bpType)
-                        .setScoring(Optional.ofNullable(scoringMap.get(bpElementId)))
-                        .build());
+
+                if (!miscBpMap.containsKey(bpElementId)) {
+                    miscBpMap.put(bpElementId, BlueprintElement.builder()
+                            .setId(bpElementId)
+                            .setType(bpType)
+                            .setScoring(Optional.ofNullable(scoringMap.get(bpElementId)))
+                            .build());
+                }
             }
         }
 
-        return miscBpElements;
+        return new ArrayList<>(miscBpMap.values());
     }
 
     public static Map<String, Scoring> mapBlueprintScoring(final TestPackageWorkbook workbook, final Map<String, String> testPackageValues) {
