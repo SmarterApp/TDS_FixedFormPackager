@@ -67,8 +67,8 @@ This value is the required `-t` option required by the Fixed Form Packager in or
 ### GitLab Group
 You must be a member of the GitLab group you are attempting to access at least the Guest level. 
 The group can be determined by browsing an Item's metadata and copying the URL segment between the base GitLab URL and the Item directory. 
-For example, if you were browing the Item metadata at 
-https://gitlab-dev.smarterbalanced.org/ffp-development/item-200-21564 
+For example, if you were browsing the Item metadata at 
+https://gitlab-dev.smarterbalanced.org/ffp-development/item-XXX-YYYYY 
 then the GitLab Group would be "ffp-development".
 
 ## Note
