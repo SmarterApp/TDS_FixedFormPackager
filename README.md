@@ -1,5 +1,4 @@
 # TDS_FixedFormPackager
-Repository containing code for the fixed form packager. 
 
 The Fixed Form Packager ingests test package information from an Excel (.xlsx) document with multiple worksheets as well as ingests Item metadata from GitLab using the GitLab API and generates a fixed form test package in the 2nd generation (new) format.
 
