@@ -25,7 +25,7 @@ Once you see that jar you can execute it with by:
 This will run and present an error message that you need to provide more information.  The sections below cover the required commands and the optional flags that can be provided:
 <pre>
 No arguments were provided to the fixed form packager. Aborting...
- usage: Sample usage: <INPUT XLSX> [OPTIONS]
+ usage: Sample usage: INPUT_XLSX [OPTIONS]
   -d,--debug             Prints more verbose debug output in case of errors
   -g,--group <group>     *REQUIRED* GitLab Group
   -o,--output <output>   Output path of the generated test package file
@@ -38,7 +38,7 @@ No arguments were provided to the fixed form packager. Aborting...
 
 | Argument | Long Option | Required | Description | Example |
 | -------- | ----------- | -------- | ----------- | ------- |
-| <INPUT XLSX> | NA | Yes | The input Excel file containing the test package information | ` ./SBAC-IAB-FIXED-G11M-Winter-2017-2018.xlsx`
+| XLSX_Filename | NA | Yes | The input Excel file containing the test package information. Must be in .XLSX format and not in .XLS format. | ` ./SBAC-IAB-FIXED-G11M-Winter-2017-2018.xlsx`
 | `-g` | `--group` | Yes | GitLab Group containing the Item metadata | `-g ffp-development`|
 | `-o` | `--output` | No | Output path of the generated test package file. (current directory by default) | `-o ffp-output-directory`|
 | `-t` | `--token` | Yes | GitLab token | `-t YOUR_GITLAB_TOKEN`|
@@ -47,8 +47,11 @@ No arguments were provided to the fixed form packager. Aborting...
 
 
 ### Example
+The example below leverages all the commands listed above. 
 
 `java -jar target/tds-fixed-form-packager-081320182115.jar SBAC-IAB-FIXED-G11M-Winter-2017-2018.xlsx -g ffp-development -o ffp-output-directory -t YOUR_GITLAB_TOKEN -u https://gitlab-dev.smarterbalanced.org/ -d`
+
+The above command will take the Excel document, SBAC-IAB-FIXED-G11M-Winter-2017-2018.xlsx, as input and generate the file ffp-output-directory/SBAC-IAB-FIXED-G11M.xml assuming that the output directory `ffp-output-directory` previously exists.
 
 ## GitLab Options
 
