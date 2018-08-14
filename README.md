@@ -27,6 +27,7 @@ No arguments were provided to the fixed form packager. Aborting...
  usage: Sample usage: &lt;INPUT_XLSX&gt; [OPTIONS]
   -d,--debug             Prints more verbose debug output in case of errors
   -g,--group <group>     *REQUIRED* GitLab Group
+  -h,--help              Prints help statement and exits
   -o,--output <output>   Output path of the generated test package file
                          (current directory by default)
   -t,--token <token>     *REQUIRED* GitLab Token
@@ -40,7 +41,8 @@ The sections below cover the required commands and the optional flags that can b
 | Argument | Long Option | Required | Description | Example |
 | -------- | ----------- | -------- | ----------- | ------- |
 | XLSX_Filename | NA | Yes | The input Excel file containing the test package information. Must be in .XLSX format and not in .XLS format. | ` ./SBAC-IAB-FIXED-G11M-Winter-2017-2018.xlsx`
-| `-g` | `--group` | Yes | GitLab Group containing the Item metadata | `-g ffp-development`|
+| `-g` | `--group` | Yes | GitLab Group containing the Item metadata. | `-g ffp-development`|
+| `-h` | `--help` | No | Prints out the help/usage statement and exits. | `-h`|
 | `-o` | `--output` | No | Output path of the generated test package file. (current directory by default) | `-o ffp-output-directory`|
 | `-t` | `--token` | Yes | GitLab token | `-t YOUR_GITLAB_TOKEN`|
 | `-u` | `--url` | Yes | GitLab URL | `-u https://gitlab-dev.smarterbalanced.org/`|
