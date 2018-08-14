@@ -10,7 +10,7 @@ This project uses the following tools
 * Maven 3
 
 ## Building and Running the project
-Once you have Java 1.8 and Maven 3 install you can build the project using the following command (in the projects root directory).
+Once you have Java 1.8 and Maven 3 installed you can build the project using the following command (in the projects root directory).
 
 `mvn clean install`
 
@@ -18,11 +18,11 @@ This will build the project creating a `target` directory.  Once the project is 
 
 `target/tds-fixed-form-packager-081320182115.jar`
 
-Once you see that jar you can execute it with by:
+Once you see that jar you can execute it with:
 
-`java -jar target/tds-fixed-form-packager-081320182115.jar`
+`java -jar target/tds-fixed-form-packager-081320182115.jar -h`
 
-This will run and present an error message that you need to provide more information.  The sections below cover the required commands and the optional flags that can be provided:
+This will run and present a usage message with the available options.  
 <pre>
 No arguments were provided to the fixed form packager. Aborting...
  usage: Sample usage: &lt;INPUT_XLSX&gt; [OPTIONS]
@@ -33,6 +33,8 @@ No arguments were provided to the fixed form packager. Aborting...
   -t,--token <token>     *REQUIRED* GitLab Token
   -u,--url <url>         *REQUIRED* GitLab URL
 </pre>
+
+The sections below cover the required commands and the optional flags that can be provided:
 
 ### Options
 
