@@ -65,7 +65,7 @@ If you do not already have a token fill out the form to create one and copy the 
 This value is the required `-t` option required by the Fixed Form Packager in order for it to read the Item metadata and Item release files from the GitLab API.
 
 ### GitLab Group
-You must be a member of the GitLab group you are attempting to access at at least the Guest level. 
+You must be a member of the GitLab group you are attempting to access at least the Guest level. 
 The group can be determined by browsing an Item's metadata and copying the URL segment between the base GitLab URL and the Item directory. 
 For example, if you were browing the Item metadata at 
 https://gitlab-dev.smarterbalanced.org/ffp-development/item-200-21564 
