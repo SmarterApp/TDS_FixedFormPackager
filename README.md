@@ -23,7 +23,7 @@ Once you see that jar you can execute it with:
 
 This will run and present a usage message with the available options.  
 <pre>
-No arguments were provided to the fixed form packager. Aborting...
+Error message: Missing required options: t, g, u
  usage: Sample usage: &lt;INPUT_XLSX&gt; [OPTIONS]
   -d,--debug             Prints more verbose debug output in case of errors
   -g,--group <group>     *REQUIRED* GitLab Group
