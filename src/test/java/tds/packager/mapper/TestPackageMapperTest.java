@@ -19,6 +19,7 @@ public class TestPackageMapperTest extends MapperBaseTest {
         assertThat(testPackage.getSubType()).isEmpty();
         assertThat(testPackage.getAcademicYear()).isEqualTo("Winter-2017-2018");
         assertThat(testPackage.getBankKey()).isEqualTo(200);
+        assertThat(testPackage.getVersion()).isEqualTo("2");
     }
 
     @Test
@@ -32,5 +33,6 @@ public class TestPackageMapperTest extends MapperBaseTest {
         assertThat(testPackage.getSubType()).isEmpty();
         assertThat(testPackage.getAcademicYear()).isEqualTo("Winter-2017-2018");
         assertThat(testPackage.getBankKey()).isEqualTo(200);
+        assertThat(testPackage.getVersion()).isEqualTo("2");
     }
 }
