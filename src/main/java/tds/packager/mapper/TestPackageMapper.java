@@ -1,5 +1,7 @@
 package tds.packager.mapper;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import tds.packager.model.gitlab.GitLabItemMetaData;
 import tds.packager.model.xlsx.TestPackageSheet;
 import tds.packager.model.xlsx.TestPackageSheetNames;
@@ -19,7 +21,7 @@ public class TestPackageMapper {
                 .setId(testPackageId)
                 .setBankKey(Integer.parseInt(valuesMap.get("BankKey")))
                 .setAcademicYear(valuesMap.get("AcademicYear"))
-                .setVersion(valuesMap.get("Version"))
+                .setVersion(convertVersion(valuesMap.get("Version")))
                 .setPublisher(valuesMap.get("Publisher"))
                 .setPublishDate(Instant.now().toString())
                 .setSubject(valuesMap.get("Subject"))
@@ -29,6 +31,20 @@ public class TestPackageMapper {
                 .setAssessments(AssessmentMapper.map(workbook, parseGrades(valuesMap.get("Grade")), itemMetaData));
 
         return testPackageBuilder.build();
+    }
+
+    private static String convertVersion(final String version) {
+        if (!NumberUtils.isCreatable(version)) {
+            throw new RuntimeException("The test package version must be numeric.");
+        }
+
+        if (version.contains(".")) {
+            System.out.println(String.format("Warning: The current version of TDS does not support decimal values. " +
+                    "The version %s\" will be converted to an integer", version));
+            return version.substring(0, version.indexOf(".")); // ignore the decimal
+        }
+
+        return version;
     }
 
     private static List<String> parseGrades(final String grade) {
