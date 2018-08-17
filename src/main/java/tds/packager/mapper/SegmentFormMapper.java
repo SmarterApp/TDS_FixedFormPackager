@@ -297,9 +297,7 @@ public class SegmentFormMapper {
             }
         }
         refIds.forEach(refId->{
-            if(!refId.contains(".")){
-                blueprintReferences.add(BlueprintReference.builder().setIdRef(refId).build());
-            }
+            blueprintReferences.add(BlueprintReference.builder().setIdRef(refId).build());
         });
         return blueprintReferences;
     }
