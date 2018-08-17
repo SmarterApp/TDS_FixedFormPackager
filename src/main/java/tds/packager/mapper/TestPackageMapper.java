@@ -40,7 +40,7 @@ public class TestPackageMapper {
 
         if (version.contains(".")) {
             System.out.println(String.format("Warning: The current version of TDS does not support decimal values. " +
-                    "The version %s\" will be converted to an integer", version));
+                    "The version %s will be converted to an integer", version));
             return version.substring(0, version.indexOf(".")); // ignore the decimal
         }
 

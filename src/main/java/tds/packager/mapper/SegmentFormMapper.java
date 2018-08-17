@@ -246,7 +246,7 @@ public class SegmentFormMapper {
             int scorePoints = Integer.parseInt(itemMetaDataUtil.getIrtElement("IrtScore"));
             double weight = Double.parseDouble(itemMetaDataUtil.getIrtElement("IrtWeight"));
             NodeList irtParameterNodes = itemMetaDataUtil.getIrtParameters();
-            List<ItemScoreParameter> itemScoreParameters = new ArrayList<>();
+            Set<ItemScoreParameter> itemScoreParameters = new HashSet<>();
             for (int n = 0; n < irtParameterNodes.getLength(); n++) {
                 Element node = (Element) irtParameterNodes.item(n);
                 itemScoreParameters.add(
@@ -259,7 +259,7 @@ public class SegmentFormMapper {
                     .setDimension(Optional.of(dimension))
                     .setMeasurementModel(modelType)
                     .setScorePoints(scorePoints)
-                    .setItemScoreParameters(itemScoreParameters)
+                    .setItemScoreParameters(new ArrayList<>(itemScoreParameters))
                     .setWeight(weight)
                     .build());
             return itemScoreDimensions;
