@@ -111,24 +111,38 @@ public class BlueprintMapper {
                                                                       final Map<String, Scoring> scoringMap) {
         final List<BlueprintElement> segmentBlueprintElements = new ArrayList<>();
 
-        for (int i = 0; i < segmentsSheet.getTotalNumberOfInputColumns(); i++) {
-            final Map<String, String> segmentInputValuesMap = segmentsSheet.getInputVariableValuesMap(i);
+        if (isMultiSegment(segmentsSheet, assessmentId)) {
+            for (int i = 0; i < segmentsSheet.getTotalNumberOfInputColumns(); i++) {
+                final Map<String, String> segmentInputValuesMap = segmentsSheet.getInputVariableValuesMap(i);
 
-            if (!assessmentId.equals(segmentInputValuesMap.get("TestId"))) {
-                // Skip this column if it does not correspond to the assessment ID we are dealing with
-                continue;
+                if (!assessmentId.equals(segmentInputValuesMap.get("TestId"))) {
+                    // Skip this column if it does not correspond to the assessment ID we are dealing with
+                    continue;
+                }
+                final String segmentId = segmentInputValuesMap.get("SegmentId");
+
+                segmentBlueprintElements.add(BlueprintElement.builder()
+                        .setId(segmentId)
+                        .setType(BlueprintElementTypes.SEGMENT)
+                        .setScoring(Optional.ofNullable(scoringMap.get(segmentId)))
+                        .build());
+
             }
-            final String segmentId = segmentInputValuesMap.get("SegmentId");
-
-            segmentBlueprintElements.add(BlueprintElement.builder()
-                    .setId(segmentId)
-                    .setType(BlueprintElementTypes.SEGMENT)
-                    .setScoring(Optional.ofNullable(scoringMap.get(segmentId)))
-                    .build());
-
         }
 
         return segmentBlueprintElements;
+    }
+
+    private static boolean isMultiSegment(final TestPackageSheet segmentsSheet, final String assessmentId) {
+        int count = 0;
+        for (int i = 0; i < segmentsSheet.getTotalNumberOfInputColumns(); i++) {
+
+            if (assessmentId.equals(segmentsSheet.getString("TestId", i) )){
+                // Skip this column if it does not correspond to the assessment ID we are dealing with
+                count++;
+            }
+        }
+        return count > 1;
     }
 
     private static List<BlueprintElement> mapMiscellaneousElements(final TestPackageWorkbook workbook, final Map<String, Scoring> scoringMap) {

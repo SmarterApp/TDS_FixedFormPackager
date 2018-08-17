@@ -140,10 +140,10 @@ public class BlueprintMapperTest extends MapperBaseTest {
         assertThat(test1BpEl.getType()).isEqualTo(BlueprintElementTypes.TEST);
         assertThat(test1BpEl.blueprintElements()).hasSize(2);
 
-        BlueprintElement seg2BpEl = rootPackageBpEl.blueprintElements().get(1);
-        assertThat(seg2BpEl.getId()).isEqualTo("SBAC-ICA-FIXED-G11M-Perf-TeenDrivingRestricitons");
-        assertThat(seg2BpEl.getType()).isEqualTo(BlueprintElementTypes.TEST);
-        assertThat(seg2BpEl.blueprintElements()).hasSize(1);
+        BlueprintElement test2BpEl = rootPackageBpEl.blueprintElements().get(1);
+        assertThat(test2BpEl.getId()).isEqualTo("SBAC-ICA-FIXED-G11M-Perf-TeenDrivingRestricitons");
+        assertThat(test2BpEl.getType()).isEqualTo(BlueprintElementTypes.TEST);
+        assertThat(test2BpEl.blueprintElements()).isEmpty();
 
         BlueprintElement claimBpEl = blueprint.stream()
                 .filter(bpEl -> bpEl.getId().equalsIgnoreCase("1"))
