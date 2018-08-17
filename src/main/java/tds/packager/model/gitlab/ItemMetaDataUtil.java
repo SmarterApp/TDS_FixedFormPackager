@@ -112,8 +112,7 @@ public class ItemMetaDataUtil {
             if(nl.getLength() == 0) {
                 return "N";
             }
-
-            return ((NodeList) this.xPath.compile(expression).evaluate(this.xmlDocument, XPathConstants.NODESET)).item(0).getTextContent();
+            return nl.item(0).getTextContent();
         } catch (XPathExpressionException e) {
             throw new RuntimeException("XPath expression " + expression + " failed. Could not retrieve AccessibilityTagsASLLanguage. ", e);
         }
