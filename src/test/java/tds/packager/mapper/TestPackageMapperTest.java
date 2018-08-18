@@ -12,7 +12,7 @@ public class TestPackageMapperTest extends MapperBaseTest {
     public void shouldMapTestPackageIAB() {
         TestPackage testPackage = TestPackageMapper.map(mockIABWorkbook, itemMetadataIAB);
         assertThat(testPackage).isNotNull();
-        assertThat(testPackage.getId()).isEqualTo("SBAC-IAB-FIXED-G11M");
+        assertThat(testPackage.getId()).isEqualTo("SBAC-IAB-FIXED-G11M-AlgLin");
         assertThat(testPackage.getPublisher()).isEqualTo("SBAC");
         assertThat(testPackage.getSubject()).isEqualTo("MATH");
         assertThat(testPackage.getType()).isEqualTo("interim");

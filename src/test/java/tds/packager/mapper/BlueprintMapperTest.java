@@ -13,9 +13,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class BlueprintMapperTest extends MapperBaseTest {
     @Test
     public void shouldMapBlueprintForIAB() {
-        final String testPackageId = "SBAC-IAB-FIXED-G11M";
+        final String testPackageId = "SBAC-IAB-FIXED-G11M-AlgLin";
         final Map<String, String> mockPerformanceLevelsMap = ImmutableMap.<String, String>builder()
-                .put("PackageId", "SBAC-IAB-FIXED-G11M")
+                .put("PackageId", "SBAC-IAB-FIXED-G11M-AlgLin")
                 .put("ScaledLo", "2.280000E+03")
                 .put("ScaledPartition1", "2.543000E+03")
                 .put("ScaledPartition2", "2.628000E+03")
@@ -60,12 +60,12 @@ public class BlueprintMapperTest extends MapperBaseTest {
         assertThat(pl1.getScaledHi()).isEqualTo(2543D);
 
         BlueprintElement seg1BpEl = testBpEl.blueprintElements().get(0);
-        assertThat(seg1BpEl.getId()).isEqualTo("SBAC-IAB-FIXED-G11M-AlgLinearFun-NoCalc");
+        assertThat(seg1BpEl.getId()).isEqualTo("SBAC-IAB-FIXED-G11M-AlgLinearFun-NoCalc-MATH-11");
         assertThat(seg1BpEl.getType()).isEqualTo(BlueprintElementTypes.SEGMENT);
         assertThat(seg1BpEl.blueprintElements()).isEmpty();
 
         BlueprintElement seg2BpEl = testBpEl.blueprintElements().get(1);
-        assertThat(seg2BpEl.getId()).isEqualTo("SBAC-IAB-FIXED-G11M-AlgLinearFun-Calc");
+        assertThat(seg2BpEl.getId()).isEqualTo("SBAC-IAB-FIXED-G11M-AlgLinearFun-Calc-MATH-11");
         assertThat(seg2BpEl.getType()).isEqualTo(BlueprintElementTypes.SEGMENT);
         assertThat(seg2BpEl.blueprintElements()).isEmpty();
 

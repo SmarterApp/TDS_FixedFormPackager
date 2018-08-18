@@ -54,32 +54,32 @@ public class ScoringMapperTest extends MapperBaseTest {
     @Test
     public void shouldMapScores() throws Exception {
         Map<String, Scoring> scores = BlueprintMapper.mapBlueprintScoring(mockIABWorkbook, Collections.emptyMap());
-        Scoring scoring = scores.get("SBAC-IAB-FIXED-G11M");
+        Scoring scoring = scores.get("SBAC-IAB-FIXED-G11M-AlgLin");
         assertThat(scoring.getRules().size(), is(5));
     }
 
     @Test
     public void shouldMapRuleValues() throws Exception {
         Map<String, Scoring> scores = BlueprintMapper.mapBlueprintScoring(mockIABWorkbook, Collections.emptyMap());
-        Scoring scoring = scores.get("SBAC-IAB-FIXED-G11M");
+        Scoring scoring = scores.get("SBAC-IAB-FIXED-G11M-AlgLin");
         assertThat(scoring.getRules().get(1).parameters().get(0).getValues().size(), is(1));
     }
 
     @Test
     public void shouldMapParameters() throws Exception {
         Map<String, Scoring> scores = BlueprintMapper.mapBlueprintScoring(mockIABWorkbook, Collections.emptyMap());
-        Scoring scoring = scores.get("SBAC-IAB-FIXED-G11M");
+        Scoring scoring = scores.get("SBAC-IAB-FIXED-G11M-AlgLin");
         assertThat(scoring.getRules().stream().filter(r -> r.getName().equals("SBACTheta")).findFirst().get().parameters().size(), is(3));
     }
 
     @Test
     public void shouldEqualScoresFromDeserializedTestPackage() throws Exception {
         Map<String, Scoring> scores = BlueprintMapper.mapBlueprintScoring(mockIABWorkbook, Collections.emptyMap());
-        Scoring scoring = scores.get("SBAC-IAB-FIXED-G11M");
+        Scoring scoring = scores.get("SBAC-IAB-FIXED-G11M-AlgLin");
 
         InputStream is = this.getClass().getResourceAsStream("/SBAC-IAB-FIXED-G11M-Winter-2017-2018-New.xml");
         TestPackage testPackage = this.xmlMapper.readValue(is, TestPackage.class);
-        Scoring expectedScoring = testPackage.getBlueprintElement("SBAC-IAB-FIXED-G11M").orElseThrow(IllegalStateException::new).getScoring().orElseThrow(()-> new IllegalStateException());
+        Scoring expectedScoring = testPackage.getBlueprintElement("SBAC-IAB-FIXED-G11M-AlgLin").orElseThrow(IllegalStateException::new).getScoring().orElseThrow(()-> new IllegalStateException());
 
         scoresEqual(expectedScoring, scoring);
     }
