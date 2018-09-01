@@ -1,16 +1,16 @@
-<TestPackage id="SBAC-IAB-FIXED-G11M" publisher="SBAC" publishDate="2017-06-16T20:51:00Z" subject="MATH" type="interim" version="12101" bankKey="200" academicYear="2018">
+<TestPackage id="SBAC-IAB-FIXED-G11M-AlgLin" publisher="SBAC" publishDate="2017-06-16T20:51:00Z" subject="MATH" type="interim" version="12101" bankKey="200" academicYear="2018">
   <Blueprint>
-    <BlueprintElement id="SBAC-IAB-FIXED-G11M" type="test">
+    <BlueprintElement id="SBAC-IAB-FIXED-G11M-AlgLin" type="test">
       <Scoring>
         <PerformanceLevels>
-          <PerformanceLevel pLevel="1" scaledLo="2280.0" scaledHi="2543.0"/>
-          <PerformanceLevel pLevel="2" scaledLo="2543.0" scaledHi="2628.0"/>
-          <PerformanceLevel pLevel="3" scaledLo="2628.0" scaledHi="2718.0"/>
-          <PerformanceLevel pLevel="4" scaledLo="2718.0" scaledHi="2862.0"/>
+          <PerformanceLevel pLevel="1" scaledHi="2543.0" scaledLo="2280.0"/>
+          <PerformanceLevel pLevel="2" scaledHi="2628.0" scaledLo="2543.0"/>
+          <PerformanceLevel pLevel="3" scaledHi="2718.0" scaledLo="2628.0"/>
+          <PerformanceLevel pLevel="4" scaledHi="2862.0" scaledLo="2718.0"/>
         </PerformanceLevels>
         <Rules>
           <Rule name="ScaleScore" computationOrder="30"/>
-          <Rule name="SBACTheta" measure="ThetaScore" computationOrder="20">
+          <Rule name="SBACTheta" computationOrder="20" measure="ThetaScore">
             <Parameter name="LOT" id="933D98F3-34BC-4957-8FAE-0B66CB0AB41E" type="double" position="1">
               <Value value="-2.9564"/>
             </Parameter>
@@ -21,14 +21,14 @@
               <Value value="2.5"/>
             </Parameter>
           </Rule>
-          <Rule name="SBACIABAttemptedness" measure="Attempted" computationOrder="10"/>
-          <Rule name="SBACAccommodationUseCodes" measure="AccommodationCodes" computationOrder="50">
+          <Rule name="SBACIABAttemptedness" computationOrder="10" measure="Attempted"/>
+          <Rule name="SBACAccommodationUseCodes" computationOrder="50" measure="AccommodationCodes">
             <Parameter name="accomNoCodes" id="A04CEA62-7A8C-4C39-859D-CEDA15FAA0AA" type="string" position="1">
               <Property name="indextype" value="string"/>
               <Value value="TDS_PS_L0" index="Print Size"/>
             </Parameter>
           </Rule>
-          <Rule name="SEBasedPLWithRounding" measure="PerformanceLevel" computationOrder="40">
+          <Rule name="SEBasedPLWithRounding" computationOrder="40" measure="PerformanceLevel">
             <Parameter name="seMultiple" id="7B19E304-3863-4F12-9A75-E311DD578EC1" type="double" position="1">
               <Value value="1.5"/>
             </Parameter>
@@ -85,18 +85,18 @@
       </BlueprintElement>
     </BlueprintElement>
   </Blueprint>
-  <Test id="SBAC-IAB-FIXED-G11M" label="High School Math - Algebra and Functions I (IAB)">
+  <Test id="SBAC-IAB-FIXED-G11M-AlgLin" label="High School Math - Algebra and Functions I (IAB)">
     <Grades>
       <Grade value="11" label="grade 11"/>
     </Grades>
     <Segments>
-      <Segment entryApproval="false" exitApproval="false" position="1" id="SBAC-IAB-FIXED-G11M-AlgLinearFun-NoCalc-MATH-11" label="(SBAC)SBAC-IAB-FIXED-G11M-AlgLinearFun-NoCalc-MATH-11-Winter-2017-2018" algorithmType="fixedform" algorithmImplementation="AIR FIXEDFORM1">
+      <Segment entryApproval="false" exitApproval="false" position="1" id="SBAC-IAB-FIXED-G11M-AlgLinearFun-NoCalc-MATH-11" label="(SBAC)SBAC-IAB-FIXED-G11M-AlgLinearFun-NoCalc-MATH-11-Winter-2017-2018" algorithmImplementation="AIR FIXEDFORM1" algorithmType="fixedform">
         <SegmentBlueprint>
-          <SegmentBlueprintElement maxFieldTestItems="0" minFieldTestItems="0" minExamItems="0" idRef="1" maxExamItems="1"/>
-          <SegmentBlueprintElement maxFieldTestItems="0" minFieldTestItems="0" minExamItems="0" idRef="1|P" maxExamItems="1"/>
-          <SegmentBlueprintElement maxFieldTestItems="0" minFieldTestItems="0" minExamItems="0" idRef="1|P|TS03" maxExamItems="1"/>
-          <SegmentBlueprintElement maxFieldTestItems="0" minFieldTestItems="0" minExamItems="0" idRef="1|P|TS03|I" maxExamItems="1"/>
-          <SegmentBlueprintElement maxFieldTestItems="0" minFieldTestItems="0" minExamItems="3" idRef="SBAC-IAB-FIXED-G11M-AlgLinearFun-NoCalc-MATH-11" maxExamItems="3">
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="1" maxExamItems="1"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="1|P" maxExamItems="1"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="1|P|TS03" maxExamItems="1"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="1|P|TS03|I" maxExamItems="1"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="3" idRef="SBAC-IAB-FIXED-G11M-AlgLinearFun-NoCalc-MATH-11" maxExamItems="3">
             <ItemSelection>
               <Property name="slope" value="79.3"/>
               <Property name="intercept" value="2514.9"/>
@@ -111,7 +111,7 @@
               <Presentation label="English" code="ENU"/>
             </Presentations>
             <ItemGroup maxItems="ALL" maxResponses="0" id="83834">
-              <Item active="true" doNotScore="false" fieldTest="false" responseRequired="true" handScored="false" administrationRequired="true" id="83834" type="EQ">
+              <Item active="true" doNotScore="false" administrationRequired="true" responseRequired="true" fieldTest="false" handScored="false" id="83834" type="EQ">
                 <PoolProperties>
                   <PoolProperty name="Answer Key" value="EQ"/>
                   <PoolProperty name="Answer Key (Part II)" value="NA"/>
@@ -142,6 +142,13 @@
                   <Presentation label="Spanish" code="ESN"/>
                   <Presentation label="English" code="ENU"/>
                 </Presentations>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension weight="1.0" measurementModel="IRT3PLn" scorePoints="1">
+                    <ItemScoreParameter value="0.9329000115394592" measurementParameter="a"/>
+                    <ItemScoreParameter value="0.5231000185012817" measurementParameter="b"/>
+                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
                 <BlueprintReferences>
                   <BlueprintReference idRef="SBAC-IAB-FIXED-G11M-AlgLinearFun-NoCalc-MATH-11"/>
                   <BlueprintReference idRef="1"/>
@@ -149,17 +156,10 @@
                   <BlueprintReference idRef="1|P|TS03"/>
                   <BlueprintReference idRef="1|P|TS03|I"/>
                 </BlueprintReferences>
-                <ItemScoreDimensions>
-                  <ItemScoreDimension weight="1.0" scorePoints="1" measurementModel="IRT3PLn">
-                    <ItemScoreParameter value="0.9329000115394592" measurementParameter="a"/>
-                    <ItemScoreParameter value="0.5231000185012817" measurementParameter="b"/>
-                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
-                  </ItemScoreDimension>
-                </ItemScoreDimensions>
               </Item>
             </ItemGroup>
             <ItemGroup maxItems="ALL" maxResponses="0" id="83838">
-              <Item active="true" doNotScore="false" fieldTest="false" responseRequired="true" handScored="false" administrationRequired="true" id="83838" type="EQ">
+              <Item active="true" doNotScore="false" administrationRequired="true" responseRequired="true" fieldTest="false" handScored="false" id="83838" type="EQ">
                 <PoolProperties>
                   <PoolProperty name="Answer Key" value="EQ"/>
                   <PoolProperty name="Answer Key (Part II)" value="NA"/>
@@ -181,6 +181,13 @@
                   <Presentation label="Spanish" code="ESN"/>
                   <Presentation label="English" code="ENU"/>
                 </Presentations>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension weight="1.0" measurementModel="IRT3PLn" scorePoints="1">
+                    <ItemScoreParameter value="0.5831000208854675" measurementParameter="a"/>
+                    <ItemScoreParameter value="-0.004600000102072954" measurementParameter="b"/>
+                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
                 <BlueprintReferences>
                   <BlueprintReference idRef="SBAC-IAB-FIXED-G11M-AlgLinearFun-NoCalc-MATH-11"/>
                   <BlueprintReference idRef="1"/>
@@ -188,17 +195,10 @@
                   <BlueprintReference idRef="1|P|TS03"/>
                   <BlueprintReference idRef="1|P|TS03|I"/>
                 </BlueprintReferences>
-                <ItemScoreDimensions>
-                  <ItemScoreDimension weight="1.0" scorePoints="1" measurementModel="IRT3PLn">
-                    <ItemScoreParameter value="0.5831000208854675" measurementParameter="a"/>
-                    <ItemScoreParameter value="-0.004600000102072954" measurementParameter="b"/>
-                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
-                  </ItemScoreDimension>
-                </ItemScoreDimensions>
               </Item>
             </ItemGroup>
             <ItemGroup maxItems="ALL" maxResponses="0" id="12164">
-              <Item active="true" doNotScore="false" fieldTest="false" responseRequired="true" handScored="false" administrationRequired="true" id="12164" type="MC">
+              <Item active="true" doNotScore="false" administrationRequired="true" responseRequired="true" fieldTest="false" handScored="false" id="12164" type="MC">
                 <PoolProperties>
                   <PoolProperty name="Answer Key" value="C"/>
                   <PoolProperty name="ASL" value="Y"/>
@@ -227,6 +227,13 @@
                   <Presentation label="Spanish" code="ESN"/>
                   <Presentation label="English" code="ENU"/>
                 </Presentations>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension weight="1.0" measurementModel="IRT3PLn" scorePoints="1">
+                    <ItemScoreParameter value="0.2563300132751465" measurementParameter="a"/>
+                    <ItemScoreParameter value="1.2306900024414062" measurementParameter="b"/>
+                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
                 <BlueprintReferences>
                   <BlueprintReference idRef="SBAC-IAB-FIXED-G11M-AlgLinearFun-NoCalc-MATH-11"/>
                   <BlueprintReference idRef="1"/>
@@ -234,43 +241,36 @@
                   <BlueprintReference idRef="1|P|TS03"/>
                   <BlueprintReference idRef="1|P|TS03|I"/>
                 </BlueprintReferences>
-                <ItemScoreDimensions>
-                  <ItemScoreDimension weight="1.0" scorePoints="1" measurementModel="IRT3PLn">
-                    <ItemScoreParameter value="0.2563300132751465" measurementParameter="a"/>
-                    <ItemScoreParameter value="1.2306900024414062" measurementParameter="b"/>
-                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
-                  </ItemScoreDimension>
-                </ItemScoreDimensions>
               </Item>
             </ItemGroup>
           </SegmentForm>
         </SegmentForms>
       </Segment>
-      <Segment entryApproval="false" exitApproval="false" position="2" id="SBAC-IAB-FIXED-G11M-AlgLinearFun-Calc-MATH-11" label="(SBAC)SBAC-IAB-FIXED-G11M-AlgLinearFun-Calc-MATH-11-Winter-2017-2018" algorithmType="fixedform" algorithmImplementation="AIR FIXEDFORM1">
+      <Segment entryApproval="false" exitApproval="false" position="2" id="SBAC-IAB-FIXED-G11M-AlgLinearFun-Calc-MATH-11" label="(SBAC)SBAC-IAB-FIXED-G11M-AlgLinearFun-Calc-MATH-11-Winter-2017-2018" algorithmImplementation="AIR FIXEDFORM1" algorithmType="fixedform">
         <SegmentBlueprint>
-          <SegmentBlueprintElement maxFieldTestItems="0" minFieldTestItems="0" minExamItems="0" idRef="1" maxExamItems="14"/>
-          <SegmentBlueprintElement maxFieldTestItems="0" minFieldTestItems="0" minExamItems="0" idRef="2" maxExamItems="14"/>
-          <SegmentBlueprintElement maxFieldTestItems="0" minFieldTestItems="0" minExamItems="0" idRef="3" maxExamItems="14"/>
-          <SegmentBlueprintElement maxFieldTestItems="0" minFieldTestItems="0" minExamItems="0" idRef="4" maxExamItems="14"/>
-          <SegmentBlueprintElement maxFieldTestItems="0" minFieldTestItems="0" minExamItems="0" idRef="1|P" maxExamItems="14"/>
-          <SegmentBlueprintElement maxFieldTestItems="0" minFieldTestItems="0" minExamItems="0" idRef="2|A" maxExamItems="14"/>
-          <SegmentBlueprintElement maxFieldTestItems="0" minFieldTestItems="0" minExamItems="0" idRef="3|A" maxExamItems="14"/>
-          <SegmentBlueprintElement maxFieldTestItems="0" minFieldTestItems="0" minExamItems="0" idRef="4|F" maxExamItems="14"/>
-          <SegmentBlueprintElement maxFieldTestItems="0" minFieldTestItems="0" minExamItems="0" idRef="1|P|TS03" maxExamItems="14"/>
-          <SegmentBlueprintElement maxFieldTestItems="0" minFieldTestItems="0" minExamItems="0" idRef="1|P|TS04" maxExamItems="14"/>
-          <SegmentBlueprintElement maxFieldTestItems="0" minFieldTestItems="0" minExamItems="0" idRef="1|P|TS06" maxExamItems="14"/>
-          <SegmentBlueprintElement maxFieldTestItems="0" minFieldTestItems="0" minExamItems="0" idRef="2|A|NA" maxExamItems="14"/>
-          <SegmentBlueprintElement maxFieldTestItems="0" minFieldTestItems="0" minExamItems="0" idRef="3|A|NA" maxExamItems="14"/>
-          <SegmentBlueprintElement maxFieldTestItems="0" minFieldTestItems="0" minExamItems="0" idRef="4|F|NA" maxExamItems="14"/>
-          <SegmentBlueprintElement maxFieldTestItems="0" minFieldTestItems="0" minExamItems="0" idRef="1|P|TS03|G" maxExamItems="14"/>
-          <SegmentBlueprintElement maxFieldTestItems="0" minFieldTestItems="0" minExamItems="0" idRef="1|P|TS04|J" maxExamItems="14"/>
-          <SegmentBlueprintElement maxFieldTestItems="0" minFieldTestItems="0" minExamItems="0" idRef="1|P|TS06|L" maxExamItems="14"/>
-          <SegmentBlueprintElement maxFieldTestItems="0" minFieldTestItems="0" minExamItems="0" idRef="1|P|TS06|M" maxExamItems="14"/>
-          <SegmentBlueprintElement maxFieldTestItems="0" minFieldTestItems="0" minExamItems="0" idRef="1|P|TS06|N" maxExamItems="14"/>
-          <SegmentBlueprintElement maxFieldTestItems="0" minFieldTestItems="0" minExamItems="0" idRef="2|A|NA|A" maxExamItems="14"/>
-          <SegmentBlueprintElement maxFieldTestItems="0" minFieldTestItems="0" minExamItems="0" idRef="3|A|NA|E" maxExamItems="14"/>
-          <SegmentBlueprintElement maxFieldTestItems="0" minFieldTestItems="0" minExamItems="0" idRef="4|F|NA|E" maxExamItems="14"/>
-          <SegmentBlueprintElement maxFieldTestItems="0" minFieldTestItems="0" minExamItems="12" idRef="SBAC-IAB-FIXED-G11M-AlgLinearFun-Calc-MATH-11" maxExamItems="12">
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="1" maxExamItems="14"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="2" maxExamItems="14"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="3" maxExamItems="14"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="4" maxExamItems="14"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="1|P" maxExamItems="14"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="2|A" maxExamItems="14"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="3|A" maxExamItems="14"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="4|F" maxExamItems="14"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="1|P|TS03" maxExamItems="14"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="1|P|TS04" maxExamItems="14"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="1|P|TS06" maxExamItems="14"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="2|A|NA" maxExamItems="14"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="3|A|NA" maxExamItems="14"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="4|F|NA" maxExamItems="14"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="1|P|TS03|G" maxExamItems="14"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="1|P|TS04|J" maxExamItems="14"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="1|P|TS06|L" maxExamItems="14"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="1|P|TS06|M" maxExamItems="14"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="1|P|TS06|N" maxExamItems="14"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="2|A|NA|A" maxExamItems="14"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="3|A|NA|E" maxExamItems="14"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="0" idRef="4|F|NA|E" maxExamItems="14"/>
+          <SegmentBlueprintElement minFieldTestItems="0" maxFieldTestItems="0" minExamItems="12" idRef="SBAC-IAB-FIXED-G11M-AlgLinearFun-Calc-MATH-11" maxExamItems="12">
             <ItemSelection>
               <Property name="slope" value="79.3"/>
               <Property name="intercept" value="2514.9"/>
@@ -285,7 +285,7 @@
               <Presentation label="English" code="ENU"/>
             </Presentations>
             <ItemGroup maxItems="ALL" maxResponses="0" id="501">
-              <Item active="true" doNotScore="false" fieldTest="false" responseRequired="true" handScored="false" administrationRequired="true" id="501" type="EQ">
+              <Item active="true" doNotScore="false" administrationRequired="true" responseRequired="true" fieldTest="false" handScored="false" id="501" type="EQ">
                 <PoolProperties>
                   <PoolProperty name="Answer Key" value="EQ"/>
                   <PoolProperty name="ASL" value="Y"/>
@@ -314,6 +314,13 @@
                   <Presentation label="Spanish" code="ESN"/>
                   <Presentation label="English" code="ENU"/>
                 </Presentations>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension weight="1.0" measurementModel="IRTGPC" scorePoints="2">
+                    <ItemScoreParameter value="0.4402399957180023" measurementParameter="a"/>
+                    <ItemScoreParameter value="0.5853000283241272" measurementParameter="b0"/>
+                    <ItemScoreParameter value="0.4751400053501129" measurementParameter="b1"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
                 <BlueprintReferences>
                   <BlueprintReference idRef="SBAC-IAB-FIXED-G11M-AlgLinearFun-Calc-MATH-11"/>
                   <BlueprintReference idRef="2"/>
@@ -321,17 +328,10 @@
                   <BlueprintReference idRef="2|A|NA"/>
                   <BlueprintReference idRef="2|A|NA|A"/>
                 </BlueprintReferences>
-                <ItemScoreDimensions>
-                  <ItemScoreDimension weight="1.0" scorePoints="2" measurementModel="IRTGPC">
-                    <ItemScoreParameter value="0.4402399957180023" measurementParameter="a"/>
-                    <ItemScoreParameter value="0.5853000283241272" measurementParameter="b0"/>
-                    <ItemScoreParameter value="0.4751400053501129" measurementParameter="b1"/>
-                  </ItemScoreDimension>
-                </ItemScoreDimensions>
               </Item>
             </ItemGroup>
             <ItemGroup maxItems="ALL" maxResponses="0" id="35334">
-              <Item active="true" doNotScore="false" fieldTest="false" responseRequired="true" handScored="false" administrationRequired="true" id="35334" type="MC">
+              <Item active="true" doNotScore="false" administrationRequired="true" responseRequired="true" fieldTest="false" handScored="false" id="35334" type="MC">
                 <PoolProperties>
                   <PoolProperty name="Answer Key" value="B"/>
                   <PoolProperty name="ASL" value="Y"/>
@@ -360,6 +360,13 @@
                   <Presentation label="Spanish" code="ESN"/>
                   <Presentation label="English" code="ENU"/>
                 </Presentations>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension weight="1.0" measurementModel="IRT3PLn" scorePoints="1">
+                    <ItemScoreParameter value="0.27483999729156494" measurementParameter="a"/>
+                    <ItemScoreParameter value="0.6125100255012512" measurementParameter="b"/>
+                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
                 <BlueprintReferences>
                   <BlueprintReference idRef="SBAC-IAB-FIXED-G11M-AlgLinearFun-Calc-MATH-11"/>
                   <BlueprintReference idRef="1"/>
@@ -367,17 +374,10 @@
                   <BlueprintReference idRef="1|P|TS04"/>
                   <BlueprintReference idRef="1|P|TS04|J"/>
                 </BlueprintReferences>
-                <ItemScoreDimensions>
-                  <ItemScoreDimension weight="1.0" scorePoints="1" measurementModel="IRT3PLn">
-                    <ItemScoreParameter value="0.27483999729156494" measurementParameter="a"/>
-                    <ItemScoreParameter value="0.6125100255012512" measurementParameter="b"/>
-                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
-                  </ItemScoreDimension>
-                </ItemScoreDimensions>
               </Item>
             </ItemGroup>
             <ItemGroup maxItems="ALL" maxResponses="0" id="33727">
-              <Item active="true" doNotScore="false" fieldTest="false" responseRequired="true" handScored="false" administrationRequired="true" id="33727" type="MC">
+              <Item active="true" doNotScore="false" administrationRequired="true" responseRequired="true" fieldTest="false" handScored="false" id="33727" type="MC">
                 <PoolProperties>
                   <PoolProperty name="Answer Key" value="A"/>
                   <PoolProperty name="ASL" value="Y"/>
@@ -406,6 +406,13 @@
                   <Presentation label="Spanish" code="ESN"/>
                   <Presentation label="English" code="ENU"/>
                 </Presentations>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension weight="1.0" measurementModel="IRT3PLn" scorePoints="1">
+                    <ItemScoreParameter value="0.38809001445770264" measurementParameter="a"/>
+                    <ItemScoreParameter value="-0.8714200258255005" measurementParameter="b"/>
+                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
                 <BlueprintReferences>
                   <BlueprintReference idRef="SBAC-IAB-FIXED-G11M-AlgLinearFun-Calc-MATH-11"/>
                   <BlueprintReference idRef="1"/>
@@ -413,17 +420,10 @@
                   <BlueprintReference idRef="1|P|TS04"/>
                   <BlueprintReference idRef="1|P|TS04|J"/>
                 </BlueprintReferences>
-                <ItemScoreDimensions>
-                  <ItemScoreDimension weight="1.0" scorePoints="1" measurementModel="IRT3PLn">
-                    <ItemScoreParameter value="0.38809001445770264" measurementParameter="a"/>
-                    <ItemScoreParameter value="-0.8714200258255005" measurementParameter="b"/>
-                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
-                  </ItemScoreDimension>
-                </ItemScoreDimensions>
               </Item>
             </ItemGroup>
             <ItemGroup maxItems="ALL" maxResponses="0" id="12327">
-              <Item active="true" doNotScore="false" fieldTest="false" responseRequired="true" handScored="false" administrationRequired="true" id="12327" type="MC">
+              <Item active="true" doNotScore="false" administrationRequired="true" responseRequired="true" fieldTest="false" handScored="false" id="12327" type="MC">
                 <PoolProperties>
                   <PoolProperty name="Answer Key" value="A"/>
                   <PoolProperty name="Answer Key (Part II)" value="NA"/>
@@ -454,6 +454,13 @@
                   <Presentation label="Spanish" code="ESN"/>
                   <Presentation label="English" code="ENU"/>
                 </Presentations>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension weight="1.0" measurementModel="IRT3PLn" scorePoints="1">
+                    <ItemScoreParameter value="0.28119000792503357" measurementParameter="a"/>
+                    <ItemScoreParameter value="1.2071499824523926" measurementParameter="b"/>
+                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
                 <BlueprintReferences>
                   <BlueprintReference idRef="SBAC-IAB-FIXED-G11M-AlgLinearFun-Calc-MATH-11"/>
                   <BlueprintReference idRef="1"/>
@@ -461,17 +468,10 @@
                   <BlueprintReference idRef="1|P|TS04"/>
                   <BlueprintReference idRef="1|P|TS04|J"/>
                 </BlueprintReferences>
-                <ItemScoreDimensions>
-                  <ItemScoreDimension weight="1.0" scorePoints="1" measurementModel="IRT3PLn">
-                    <ItemScoreParameter value="0.28119000792503357" measurementParameter="a"/>
-                    <ItemScoreParameter value="1.2071499824523926" measurementParameter="b"/>
-                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
-                  </ItemScoreDimension>
-                </ItemScoreDimensions>
               </Item>
             </ItemGroup>
             <ItemGroup maxItems="ALL" maxResponses="0" id="19513">
-              <Item active="true" doNotScore="false" fieldTest="false" responseRequired="true" handScored="false" administrationRequired="true" id="19513" type="MI">
+              <Item active="true" doNotScore="false" administrationRequired="true" responseRequired="true" fieldTest="false" handScored="false" id="19513" type="MI">
                 <PoolProperties>
                   <PoolProperty name="Answer Key" value="MI"/>
                   <PoolProperty name="ASL" value="Y"/>
@@ -500,6 +500,13 @@
                   <Presentation label="Spanish" code="ESN"/>
                   <Presentation label="English" code="ENU"/>
                 </Presentations>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension weight="1.0" measurementModel="IRT3PLn" scorePoints="1">
+                    <ItemScoreParameter value="0.5890399813652039" measurementParameter="a"/>
+                    <ItemScoreParameter value="0.9945899844169617" measurementParameter="b"/>
+                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
                 <BlueprintReferences>
                   <BlueprintReference idRef="SBAC-IAB-FIXED-G11M-AlgLinearFun-Calc-MATH-11"/>
                   <BlueprintReference idRef="1"/>
@@ -507,17 +514,10 @@
                   <BlueprintReference idRef="1|P|TS06"/>
                   <BlueprintReference idRef="1|P|TS06|L"/>
                 </BlueprintReferences>
-                <ItemScoreDimensions>
-                  <ItemScoreDimension weight="1.0" scorePoints="1" measurementModel="IRT3PLn">
-                    <ItemScoreParameter value="0.5890399813652039" measurementParameter="a"/>
-                    <ItemScoreParameter value="0.9945899844169617" measurementParameter="b"/>
-                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
-                  </ItemScoreDimension>
-                </ItemScoreDimensions>
               </Item>
             </ItemGroup>
             <ItemGroup maxItems="ALL" maxResponses="0" id="20702">
-              <Item active="true" doNotScore="false" fieldTest="false" responseRequired="true" handScored="false" administrationRequired="true" id="20702" type="EQ">
+              <Item active="true" doNotScore="false" administrationRequired="true" responseRequired="true" fieldTest="false" handScored="false" id="20702" type="EQ">
                 <PoolProperties>
                   <PoolProperty name="Answer Key" value="EQ"/>
                   <PoolProperty name="ASL" value="Y"/>
@@ -537,6 +537,13 @@
                   <Presentation label="Spanish" code="ESN"/>
                   <Presentation label="English" code="ENU"/>
                 </Presentations>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension weight="1.0" measurementModel="IRTGPC" scorePoints="2">
+                    <ItemScoreParameter value="0.467960000038147" measurementParameter="a"/>
+                    <ItemScoreParameter value="2.653249979019165" measurementParameter="b0"/>
+                    <ItemScoreParameter value="1.8361300230026245" measurementParameter="b1"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
                 <BlueprintReferences>
                   <BlueprintReference idRef="SBAC-IAB-FIXED-G11M-AlgLinearFun-Calc-MATH-11"/>
                   <BlueprintReference idRef="2"/>
@@ -544,17 +551,10 @@
                   <BlueprintReference idRef="2|A|NA"/>
                   <BlueprintReference idRef="2|A|NA|A"/>
                 </BlueprintReferences>
-                <ItemScoreDimensions>
-                  <ItemScoreDimension weight="1.0" scorePoints="2" measurementModel="IRTGPC">
-                    <ItemScoreParameter value="0.467960000038147" measurementParameter="a"/>
-                    <ItemScoreParameter value="2.653249979019165" measurementParameter="b0"/>
-                    <ItemScoreParameter value="1.8361300230026245" measurementParameter="b1"/>
-                  </ItemScoreDimension>
-                </ItemScoreDimensions>
               </Item>
             </ItemGroup>
             <ItemGroup maxItems="ALL" maxResponses="0" id="50197">
-              <Item active="true" doNotScore="false" fieldTest="false" responseRequired="true" handScored="false" administrationRequired="true" id="50197" type="MI">
+              <Item active="true" doNotScore="false" administrationRequired="true" responseRequired="true" fieldTest="false" handScored="false" id="50197" type="MI">
                 <PoolProperties>
                   <PoolProperty name="Answer Key" value="MI"/>
                   <PoolProperty name="Answer Key (Part II)" value="NA"/>
@@ -575,6 +575,13 @@
                   <Presentation label="Spanish" code="ESN"/>
                   <Presentation label="English" code="ENU"/>
                 </Presentations>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension weight="1.0" measurementModel="IRT3PLn" scorePoints="1">
+                    <ItemScoreParameter value="0.734790027141571" measurementParameter="a"/>
+                    <ItemScoreParameter value="1.1230900287628174" measurementParameter="b"/>
+                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
                 <BlueprintReferences>
                   <BlueprintReference idRef="SBAC-IAB-FIXED-G11M-AlgLinearFun-Calc-MATH-11"/>
                   <BlueprintReference idRef="1"/>
@@ -582,17 +589,10 @@
                   <BlueprintReference idRef="1|P|TS06"/>
                   <BlueprintReference idRef="1|P|TS06|M"/>
                 </BlueprintReferences>
-                <ItemScoreDimensions>
-                  <ItemScoreDimension weight="1.0" scorePoints="1" measurementModel="IRT3PLn">
-                    <ItemScoreParameter value="0.734790027141571" measurementParameter="a"/>
-                    <ItemScoreParameter value="1.1230900287628174" measurementParameter="b"/>
-                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
-                  </ItemScoreDimension>
-                </ItemScoreDimensions>
               </Item>
             </ItemGroup>
             <ItemGroup maxItems="ALL" maxResponses="0" id="32678">
-              <Item active="true" doNotScore="false" fieldTest="false" responseRequired="true" handScored="false" administrationRequired="true" id="32678" type="MC">
+              <Item active="true" doNotScore="false" administrationRequired="true" responseRequired="true" fieldTest="false" handScored="false" id="32678" type="MC">
                 <PoolProperties>
                   <PoolProperty name="Answer Key" value="C"/>
                   <PoolProperty name="ASL" value="Y"/>
@@ -612,6 +612,13 @@
                   <Presentation label="Spanish" code="ESN"/>
                   <Presentation label="English" code="ENU"/>
                 </Presentations>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension weight="1.0" measurementModel="IRT3PLn" scorePoints="1">
+                    <ItemScoreParameter value="0.3404400050640106" measurementParameter="a"/>
+                    <ItemScoreParameter value="2.0712599754333496" measurementParameter="b"/>
+                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
                 <BlueprintReferences>
                   <BlueprintReference idRef="SBAC-IAB-FIXED-G11M-AlgLinearFun-Calc-MATH-11"/>
                   <BlueprintReference idRef="3"/>
@@ -619,17 +626,10 @@
                   <BlueprintReference idRef="3|A|NA"/>
                   <BlueprintReference idRef="3|A|NA|E"/>
                 </BlueprintReferences>
-                <ItemScoreDimensions>
-                  <ItemScoreDimension weight="1.0" scorePoints="1" measurementModel="IRT3PLn">
-                    <ItemScoreParameter value="0.3404400050640106" measurementParameter="a"/>
-                    <ItemScoreParameter value="2.0712599754333496" measurementParameter="b"/>
-                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
-                  </ItemScoreDimension>
-                </ItemScoreDimensions>
               </Item>
             </ItemGroup>
             <ItemGroup maxItems="ALL" maxResponses="0" id="31336">
-              <Item active="true" doNotScore="false" fieldTest="false" responseRequired="true" handScored="false" administrationRequired="true" id="31336" type="MI">
+              <Item active="true" doNotScore="false" administrationRequired="true" responseRequired="true" fieldTest="false" handScored="false" id="31336" type="MI">
                 <PoolProperties>
                   <PoolProperty name="Answer Key" value="MI"/>
                   <PoolProperty name="ASL" value="Y"/>
@@ -658,6 +658,13 @@
                   <Presentation label="Spanish" code="ESN"/>
                   <Presentation label="English" code="ENU"/>
                 </Presentations>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension weight="1.0" measurementModel="IRT3PLn" scorePoints="1">
+                    <ItemScoreParameter value="0.27156999707221985" measurementParameter="a"/>
+                    <ItemScoreParameter value="2.687040090560913" measurementParameter="b"/>
+                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
                 <BlueprintReferences>
                   <BlueprintReference idRef="SBAC-IAB-FIXED-G11M-AlgLinearFun-Calc-MATH-11"/>
                   <BlueprintReference idRef="1"/>
@@ -665,17 +672,10 @@
                   <BlueprintReference idRef="1|P|TS06"/>
                   <BlueprintReference idRef="1|P|TS06|N"/>
                 </BlueprintReferences>
-                <ItemScoreDimensions>
-                  <ItemScoreDimension weight="1.0" scorePoints="1" measurementModel="IRT3PLn">
-                    <ItemScoreParameter value="0.27156999707221985" measurementParameter="a"/>
-                    <ItemScoreParameter value="2.687040090560913" measurementParameter="b"/>
-                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
-                  </ItemScoreDimension>
-                </ItemScoreDimensions>
               </Item>
             </ItemGroup>
             <ItemGroup maxItems="ALL" maxResponses="0" id="11984">
-              <Item active="true" doNotScore="false" fieldTest="false" responseRequired="true" handScored="false" administrationRequired="true" id="11984" type="EQ">
+              <Item active="true" doNotScore="false" administrationRequired="true" responseRequired="true" fieldTest="false" handScored="false" id="11984" type="EQ">
                 <PoolProperties>
                   <PoolProperty name="Answer Key" value="EQ"/>
                   <PoolProperty name="ASL" value="Y"/>
@@ -704,6 +704,13 @@
                   <Presentation label="Spanish" code="ESN"/>
                   <Presentation label="English" code="ENU"/>
                 </Presentations>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension weight="1.0" measurementModel="IRT3PLn" scorePoints="1">
+                    <ItemScoreParameter value="0.7490299940109253" measurementParameter="a"/>
+                    <ItemScoreParameter value="1.8384699821472168" measurementParameter="b"/>
+                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
                 <BlueprintReferences>
                   <BlueprintReference idRef="SBAC-IAB-FIXED-G11M-AlgLinearFun-Calc-MATH-11"/>
                   <BlueprintReference idRef="1"/>
@@ -711,17 +718,10 @@
                   <BlueprintReference idRef="1|P|TS03"/>
                   <BlueprintReference idRef="1|P|TS03|G"/>
                 </BlueprintReferences>
-                <ItemScoreDimensions>
-                  <ItemScoreDimension weight="1.0" scorePoints="1" measurementModel="IRT3PLn">
-                    <ItemScoreParameter value="0.7490299940109253" measurementParameter="a"/>
-                    <ItemScoreParameter value="1.8384699821472168" measurementParameter="b"/>
-                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
-                  </ItemScoreDimension>
-                </ItemScoreDimensions>
               </Item>
             </ItemGroup>
             <ItemGroup maxItems="ALL" maxResponses="0" id="31344">
-              <Item active="true" doNotScore="false" fieldTest="false" responseRequired="true" handScored="false" administrationRequired="true" id="31344" type="MC">
+              <Item active="true" doNotScore="false" administrationRequired="true" responseRequired="true" fieldTest="false" handScored="false" id="31344" type="MC">
                 <PoolProperties>
                   <PoolProperty name="Answer Key" value="B"/>
                   <PoolProperty name="Answer Key (Part II)" value="NA"/>
@@ -752,6 +752,13 @@
                   <Presentation label="Spanish" code="ESN"/>
                   <Presentation label="English" code="ENU"/>
                 </Presentations>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension weight="1.0" measurementModel="IRT3PLn" scorePoints="1">
+                    <ItemScoreParameter value="0.6424800157546997" measurementParameter="a"/>
+                    <ItemScoreParameter value="0.7954199910163879" measurementParameter="b"/>
+                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
                 <BlueprintReferences>
                   <BlueprintReference idRef="SBAC-IAB-FIXED-G11M-AlgLinearFun-Calc-MATH-11"/>
                   <BlueprintReference idRef="1"/>
@@ -759,17 +766,10 @@
                   <BlueprintReference idRef="1|P|TS04"/>
                   <BlueprintReference idRef="1|P|TS04|J"/>
                 </BlueprintReferences>
-                <ItemScoreDimensions>
-                  <ItemScoreDimension weight="1.0" scorePoints="1" measurementModel="IRT3PLn">
-                    <ItemScoreParameter value="0.6424800157546997" measurementParameter="a"/>
-                    <ItemScoreParameter value="0.7954199910163879" measurementParameter="b"/>
-                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
-                  </ItemScoreDimension>
-                </ItemScoreDimensions>
               </Item>
             </ItemGroup>
             <ItemGroup maxItems="ALL" maxResponses="0" id="30309">
-              <Item active="true" doNotScore="false" fieldTest="false" responseRequired="true" handScored="false" administrationRequired="true" id="30309" type="MC">
+              <Item active="true" doNotScore="false" administrationRequired="true" responseRequired="true" fieldTest="false" handScored="false" id="30309" type="MC">
                 <PoolProperties>
                   <PoolProperty name="Answer Key" value="D"/>
                   <PoolProperty name="ASL" value="Y"/>
@@ -798,6 +798,13 @@
                   <Presentation label="Spanish" code="ESN"/>
                   <Presentation label="English" code="ENU"/>
                 </Presentations>
+                <ItemScoreDimensions>
+                  <ItemScoreDimension weight="1.0" measurementModel="IRT3PLn" scorePoints="1">
+                    <ItemScoreParameter value="0.30647000670433044" measurementParameter="a"/>
+                    <ItemScoreParameter value="4.09345006942749" measurementParameter="b"/>
+                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
+                  </ItemScoreDimension>
+                </ItemScoreDimensions>
                 <BlueprintReferences>
                   <BlueprintReference idRef="SBAC-IAB-FIXED-G11M-AlgLinearFun-Calc-MATH-11"/>
                   <BlueprintReference idRef="4"/>
@@ -805,13 +812,6 @@
                   <BlueprintReference idRef="4|F|NA"/>
                   <BlueprintReference idRef="4|F|NA|E"/>
                 </BlueprintReferences>
-                <ItemScoreDimensions>
-                  <ItemScoreDimension weight="1.0" scorePoints="1" measurementModel="IRT3PLn">
-                    <ItemScoreParameter value="0.30647000670433044" measurementParameter="a"/>
-                    <ItemScoreParameter value="4.09345006942749" measurementParameter="b"/>
-                    <ItemScoreParameter value="0.0" measurementParameter="c"/>
-                  </ItemScoreDimension>
-                </ItemScoreDimensions>
               </Item>
             </ItemGroup>
           </SegmentForm>

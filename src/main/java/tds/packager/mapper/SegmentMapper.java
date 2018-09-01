@@ -45,7 +45,7 @@ public class SegmentMapper {
                     .setAlgorithmType(Algorithm.FIXED_FORM.getType())
                     .setAlgorithmImplementation("FAIRWAY FIXEDFORM")
                     .setSegmentForms(SegmentFormMapper.map(workbook, segmentId, itemMetaData, assessmentId))
-                    .setTools(ToolMapper.map(workbook, segmentId))
+                    .setTools(!segmentId.equalsIgnoreCase(assessmentId) ? ToolMapper.map(workbook, segmentId) : new ArrayList<>())
                     .setSegmentBlueprint(mapSegmentBlueprint(segmentId, segmentInputValuesMap, itemMetaData, findItemIdsForSegment(segmentId, segmentFormsSheet)))
                     .build());
         }
