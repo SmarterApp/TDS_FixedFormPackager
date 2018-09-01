@@ -15,7 +15,7 @@ public class AssessmentMapperTest extends MapperBaseTest {
         List<Assessment> assessments = AssessmentMapper.map(mockIABWorkbook, Arrays.asList("05", "06"), itemMetadataIAB);
         assertThat(assessments).hasSize(1);
         Assessment assessment = assessments.get(0);
-        assertThat(assessment.getId()).isEqualTo("SBAC-IAB-FIXED-G11M");
+        assertThat(assessment.getId()).isEqualTo("SBAC-IAB-FIXED-G11M-AlgLin");
         assertThat(assessment.getLabel()).isEqualTo("High School Math - Algebra and Functions I (IAB)");
         assertThat(assessment.getGrades()).hasSize(2);
     }

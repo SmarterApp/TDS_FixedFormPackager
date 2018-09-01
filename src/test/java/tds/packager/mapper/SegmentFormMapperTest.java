@@ -10,13 +10,13 @@ public class SegmentFormMapperTest extends MapperBaseTest {
     @Test
     public void shouldMapSegmentsForAssessment() {
 
-        List<Segment> segments = SegmentMapper.map(mockIABWorkbook, "SBAC-IAB-FIXED-G11M", itemMetadataIAB);
+        List<Segment> segments = SegmentMapper.map(mockIABWorkbook, "SBAC-IAB-FIXED-G11M-AlgLin", itemMetadataIAB);
         assertThat(segments).hasSize(2);
 
         List<SegmentForm> segmentForms1 = SegmentFormMapper.map(mockIABWorkbook, segments.get(0).getId(), itemMetadataIAB, "SBAC-IAB-FIXED-G11M-AlgLin");
         assertThat(segmentForms1).hasSize(1);
         SegmentForm segmentForm1 = segmentForms1.get(0);
-        assertThat(segmentForm1.getId()).isEqualTo("SBAC-IAB-FIXED-G11M-AlgLinearFun-NoCalc");
+        assertThat(segmentForm1.getId()).isEqualTo("IAB-G11M-AlgLin-NoCalc-2018 ENG");
 
 
 
@@ -88,10 +88,10 @@ public class SegmentFormMapperTest extends MapperBaseTest {
 
         // 2nd segment (Only contains 1 SegmentForm
 
-        List<SegmentForm> segmentForms2 = SegmentFormMapper.map(mockIABWorkbook, segments.get(1).getId(), itemMetadataIAB, "SBAC-IAB-FIXED-G11M-AlgLin");
+        List<SegmentForm> segmentForms2 = SegmentFormMapper.map(mockIABWorkbook, segments.get(1).getId(), itemMetadataIAB, "SBAC-IAB-FIXED-G11M-AlgLin-MATH-11");
         assertThat(segmentForms2).hasSize(1);
         SegmentForm segmentForm2 = segmentForms2.get(0);
-        assertThat(segmentForm2.getId()).isEqualTo("SBAC-IAB-FIXED-G11M-AlgLinearFun-Calc");
+        assertThat(segmentForm2.getId()).isEqualTo("IAB-G11M-AlgLin-Calc-2018 ENG");
         assertThat(segmentForm2.getCohort()).isEqualTo("Default");
 
 
