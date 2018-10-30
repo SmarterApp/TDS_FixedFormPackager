@@ -36,28 +36,24 @@ public class ItemreleaseUnmarshaller {
   */
     private StringReader removeBomIfPresent(final String itemXml) {
         final String UTF8_BOM = "\uFEFF";
+        final String UTF8_BOM_FIRST_HEX_CHAR = "\u00EF";
 
-        // This character sometimes appears as the first character in an XML file that was created/saved in a Windows
-        // text editor (e.g. Notepad++).  This character is the first of three characters in a sequence that occurs
-        // before the first character of the itemXml.  This character sequence could not be detected during debugging in
-        // IntelliJ on Windows - it was only found by building this jar on a Windows machine and running the jar on
-        // Windows.
-        final String INITIAL_SPECIAL_CHARACTER = "\u00EF";
-        for (int i = 0; i < 10; i++) {
-            log.trace("hex code of first character in itemXml: " + itemXml.codePointAt(i));
-        }
-
+        // Look for the UTF8_BOM as the first character in the itemXml string.  In the event the UTF8_BOM is not
+        // detected, look for the first character of the UTF-8 hex representation.  This issue was only exposed by
+        // building the jar and running it in a Windows command prompt.
         if (itemXml.startsWith(UTF8_BOM)) {
             log.debug("STARTS WITH SPECIAL CHAR: itemXml starts with the UTF8_BOM ({}) pattern.", UTF8_BOM);
             return new StringReader(itemXml.substring(1));
-        } else if (itemXml.startsWith(INITIAL_SPECIAL_CHARACTER)) {
-            // If the itemXml starts with the INITIAL_SPECIAL_CHARACTER, skip the first three characters in the string
-            // to get at the actual XML.
-            log.debug("STARTS WITH SPECIAL CHAR: itemXml starts with a special character: ({}).  Will skip the first three characters in the string.", INITIAL_SPECIAL_CHARACTER);
+        } else if (itemXml.startsWith(UTF8_BOM_FIRST_HEX_CHAR)) {
+            // If the itemXml starts with the UTF8_BOM_FIRST_HEX_CHAR, skip the first three characters in the string
+            // to get at the actual XML.  The first three characters should be 0xEF, 0xBB and 0xBEF (decimal
+            // representation is 239, 187, 191).  From here:
+            // https://en.wikipedia.org/wiki/Byte_order_mark#Byte_order_marks_by_encoding
+            log.debug("STARTS WITH SPECIAL CHAR: itemXml starts with 0xEF: ({}).  Will skip the first three characters in the string.", UTF8_BOM_FIRST_HEX_CHAR);
             return new StringReader(itemXml.substring(3));
         }
 
-        log.debug("OUTSIDE IF: did not find UTF8_BOM ({}) or INITIAL_SPECIAL_CHARACTER ({}) pattern at start of itemXml.", UTF8_BOM, INITIAL_SPECIAL_CHARACTER);
+        log.debug("OUTSIDE IF: did not find UTF8_BOM ({}) or UTF8_BOM_FIRST_HEX_CHAR ({}) pattern at start of itemXml.", UTF8_BOM, UTF8_BOM_FIRST_HEX_CHAR);
         return new StringReader(itemXml);
     }
 
