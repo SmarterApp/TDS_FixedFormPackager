@@ -21,6 +21,8 @@ public class BlueprintMapperTest extends MapperBaseTest {
                 .put("ScaledPartition2", "2.628000E+03")
                 .put("ScaledPartition3", "2.718000E+03")
                 .put("ScaledHi", "2.862000E+03")
+                .put("Subject", "Math")
+                .put("Grade", "11")
                 .build();
 
         List<BlueprintElement> blueprint = BlueprintMapper.map(testPackageId, mockIABWorkbook, mockPerformanceLevelsMap, itemMetadataIAB);
@@ -75,11 +77,34 @@ public class BlueprintMapperTest extends MapperBaseTest {
                 .get();
 
         assertThat(claimBpEl.getType()).isEqualTo(BlueprintElementTypes.CLAIM);
+        assertThat(claimBpEl.getLabel().isPresent());
+        assertThat(claimBpEl.getLabel().get()).isEqualTo("M.GHS.C1");
         assertThat(claimBpEl.blueprintElements()).hasSize(1);
 
         assertThat(claimBpEl.blueprintElements().get(0).getId()).isEqualTo("1|P");
+        assertThat(claimBpEl.blueprintElements().get(0).getLabel().isPresent());
+        assertThat(claimBpEl.blueprintElements().get(0).getLabel().get()).isEqualTo("M.GHS.C1");
         assertThat(claimBpEl.blueprintElements().get(0).getType()).isEqualTo(BlueprintElementTypes.TARGET);
         assertThat(claimBpEl.blueprintElements().get(0).blueprintElements()).hasSize(3);
+
+        // Get the child whose metadata contains enhanced format standard publication.
+        // (See def in BlueprintMapperTest)
+        BlueprintElement childBpEl = claimBpEl.blueprintElements().get(0).blueprintElements().stream()
+                .filter(bpEl -> bpEl.getId().contains("TS03"))
+                .findFirst()
+                .get();
+
+        assertThat(childBpEl.getLabel().isPresent());
+        assertThat(childBpEl.getLabel().get()).isEqualTo("M.GHS.C1");
+
+        // Go all the way down to the level including Target I.
+        childBpEl = childBpEl.blueprintElements().stream()
+                .filter(bpEl -> bpEl.getId().endsWith("I") || bpEl.getId().endsWith("I-11"))
+                .findFirst()
+                .get();
+
+        assertThat(childBpEl.getLabel().isPresent());
+        assertThat(childBpEl.getLabel().get()).isEqualTo("M.GHS.C1A.TI");
     }
 
     @Test
@@ -92,6 +117,8 @@ public class BlueprintMapperTest extends MapperBaseTest {
                 .put("ScaledPartition2", "2.628000E+03")
                 .put("ScaledPartition3", "2.718000E+03")
                 .put("ScaledHi", "2.862000E+03")
+                .put("Subject", "Math")
+                .put("Grade", "11")
                 .build();
 
         List<BlueprintElement> blueprint = BlueprintMapper.map(testPackageId, mockICAWorkbook, mockPerformanceLevelsMap, itemMetadataICA);
@@ -151,11 +178,20 @@ public class BlueprintMapperTest extends MapperBaseTest {
                 .get();
 
         assertThat(claimBpEl.getType()).isEqualTo(BlueprintElementTypes.CLAIM);
+        assertThat(claimBpEl.getLabel().isPresent());
+        assertThat(claimBpEl.getLabel().get()).isEqualTo("M.GHS.C1");
         assertThat(claimBpEl.blueprintElements()).hasSize(2);
 
         assertThat(claimBpEl.blueprintElements().get(0).getId()).isEqualTo("1|S");
+        assertThat(claimBpEl.blueprintElements().get(0).getLabel().isPresent());
+        assertThat(claimBpEl.blueprintElements().get(0).getLabel().get()).isEqualTo("M.GHS.C1");
         assertThat(claimBpEl.blueprintElements().get(0).getType()).isEqualTo(BlueprintElementTypes.TARGET);
         assertThat(claimBpEl.blueprintElements().get(0).blueprintElements()).hasSize(4);
         assertThat(claimBpEl.getScoring()).isNotEmpty();
+    }
+
+    @Test
+    public void shouldMapEnhancedMetadata() {
+
     }
 }

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<metadata>
+    <smarterAppMetadata xmlns="http://www.smarterapp.org/ns/1/assessment_item_metadata">
+        <Identifier>83834</Identifier>
+        <Subject>MATH</Subject>
+        <Version>9</Version>
+        <SecurityStatus>Secure</SecurityStatus>
+        <SmarterAppItemDescriptor>MATH.11.1.A-REI.1I</SmarterAppItemDescriptor>
+        <StimulusFormat>Standard</StimulusFormat>
+        <ItemAuthorIdentifier>Sridhar_Ravva</ItemAuthorIdentifier>
+        <ItemSpecFormat>SmarterApp</ItemSpecFormat>
+        <LastModifiedBy>Sridhar_Ravva</LastModifiedBy>
+        <IntendedGrade>11</IntendedGrade>
+        <MinimumGrade>9</MinimumGrade>
+        <MaximumGrade>11</MaximumGrade>
+        <DepthOfKnowledge>1</DepthOfKnowledge>
+        <AchievementQuintile>1</AchievementQuintile>
+        <AllowCalculator>N</AllowCalculator>
+        <InteractionType>EQ</InteractionType>
+        <MaximumNumberOfPoints>1</MaximumNumberOfPoints>
+        <ScorePoints>"0, 1"</ScorePoints>
+        <ScoringEngine>Automatic with Machine Rubric</ScoringEngine>
+        <PresentationFormat>Text</PresentationFormat>
+        <AdministrationDate>Phase 2</AdministrationDate>
+        <ContentTaskModel>TM1a_Rpdv</ContentTaskModel>
+        <AlgebraFunctionDescriptor>Linear</AlgebraFunctionDescriptor>
+        <BrailleType>BRF_EBAE_UEB</BrailleType>
+        <EnemyItem></EnemyItem>
+        <CopyrightAndOtherRestrictions></CopyrightAndOtherRestrictions>
+        <StimulusScource></StimulusScource>
+        <Notes></Notes>
+        <PerformanceTaskComponentItem>N</PerformanceTaskComponentItem>
+        <PtClassroomActivity></PtClassroomActivity>
+        <PtEnemy></PtEnemy>
+        <AccessibilityTagsASLLanguage>Y</AccessibilityTagsASLLanguage>
+        <IrtDimension>
+            <IrtStatDomain>Online</IrtStatDomain>
+            <IrtModelType>IRT3PLN</IrtModelType>
+            <IrtDimensionPurpose></IrtDimensionPurpose>
+            <IrtScore>1</IrtScore>
+            <IrtWeight>1</IrtWeight>
+            <IrtParameter>
+                <Name>a</Name>
+                <Value>0.9329</Value>
+            </IrtParameter>
+            <IrtParameter>
+                <Name>b</Name>
+                <Value>0.5231</Value>
+            </IrtParameter>
+            <IrtParameter>
+                <Name>c</Name>
+                <Value>0</Value>
+            </IrtParameter>
+        </IrtDimension>
+        <Status>Operational</Status>
+        <StandardPublication>
+            <Publication>SBAC-MA-v4</Publication>
+            <PrimaryStandard>SBAC-MA-v4:1|A-REI|I|m|A-REI.3</PrimaryStandard>
+        </StandardPublication>
+        <StandardPublication>
+            <Publication>SBAC-MA-v6</Publication>
+            <PrimaryStandard>SBAC-MA-v6:1|P|TS03|I</PrimaryStandard>
+        </StandardPublication>
+        <StandardPublication>
+            <Publication>SBAC</Publication>
+            <PrimaryStandard>M.GHS.C1A.TI</PrimaryStandard>
+        </StandardPublication>
+        <AssociatedTutorial>67863</AssociatedTutorial>
+        <AssociatedWordlist>123853</AssociatedWordlist>
+        <Language>eng</Language>
+        <Language>spa</Language>
+    </smarterAppMetadata>
+</metadata>

@@ -73,6 +73,13 @@
 			</exclusions>
 		</dependency>
 
+		<!-- SBAC common library -->
+		<dependency>
+			<groupId>org.opentestsystem.shared</groupId>
+			<artifactId>content-spec-id</artifactId>
+			<version>0.0.4</version>
+		</dependency>
+
 		<!-- Apache -->
 		<dependency>
             <groupId>org.apache.poi</groupId>
