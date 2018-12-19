@@ -15,6 +15,7 @@ import java.util.*;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
+import static org.apache.commons.lang3.StringUtils.isBlank;
 import static tds.packager.mapper.BlueprintConsts.*;
 
 public class BlueprintMapper {
@@ -25,11 +26,18 @@ public class BlueprintMapper {
         final Set<String> itemIds = findItemIds(workbook.getSheet(TestPackageSheetNames.SEGMENT_FORMS));
         final Map<String, Scoring> scoringMap = mapBlueprintScoring(workbook, testPackageValues);
 
+        final String subject = testPackageValues.get("Subject");
+        final String grade = parseGrade(testPackageValues.get("Grade"));
+        final ContentSpecFormatConverter converter = new ContentSpecFormatConverter(subject, grade);
         final List<BlueprintElement> rootBlueprintElements = mapPackageAndTests(testPackageId, workbook, scoringMap);
         rootBlueprintElements.addAll(mapMiscellaneousElements(workbook, scoringMap));
-        rootBlueprintElements.addAll(mapClaimsAndTargets(itemIds, itemMetaData, scoringMap));
+        rootBlueprintElements.addAll(mapClaimsAndTargets(itemIds, itemMetaData, scoringMap, converter));
 
         return rootBlueprintElements;
+    }
+
+    private static String parseGrade(String gradeString) {
+        return isBlank(gradeString ) ? "" : gradeString.split(",")[0];
     }
 
     public static List<String> parseBlueprintId(final String standard) {
@@ -189,7 +197,9 @@ public class BlueprintMapper {
 
     private static List<BlueprintElement> mapClaimsAndTargets(final Set<String> itemIds,
                                                               final Map<String, GitLabItemMetaData> itemMetaData,
-                                                              final Map<String, Scoring> scoringMap) {
+                                                              final Map<String, Scoring> scoringMap,
+                                                              final ContentSpecFormatConverter converter) {
+
         final Multimap<String, BlueprintElement> bpElParentMap = HashMultimap.create();
         final Set<String> claimIds = new HashSet<>();
 
@@ -201,6 +211,7 @@ public class BlueprintMapper {
             final ItemMetaDataUtil util = new ItemMetaDataUtil(itemMetaData.get(id).getItemMetadata());
 
             final String standard = util.getPrimaryStandard();
+
             final List<String> blueprintElementIds = parseBlueprintId(standard);
 
             final String claimBpElementId = blueprintElementIds.get(0); // always the first id in the ordered list
@@ -208,12 +219,14 @@ public class BlueprintMapper {
 
             BlueprintElement currEl = BlueprintElement.builder()
                     .setId(claimBpElementId)
+                    .setLabel(converter.convertLegacyToEnhanced(claimBpElementId))
                     .setType(BlueprintElementTypes.CLAIM)
                     .build();
 
             for (int i = 1; i < blueprintElementIds.size(); i++) {
                 BlueprintElement childEl = BlueprintElement.builder()
                         .setId(blueprintElementIds.get(i))
+                        .setLabel(converter.convertLegacyToEnhanced(blueprintElementIds.get(i)))
                         .setType(BlueprintElementTypes.TARGET)
                         .build();
 
@@ -228,20 +241,23 @@ public class BlueprintMapper {
         List<BlueprintElement> claimBlueprintElements = sortedClaimIds.stream()
                 .map(bpElId -> BlueprintElement.builder()
                         .setId(bpElId)
+                        .setLabel(converter.convertLegacyToEnhanced(bpElId))
                         .setType(BlueprintElementTypes.CLAIM)
                         .setBlueprintElements(new ArrayList<>())
                         .setScoring(Optional.ofNullable(scoringMap.get(bpElId)))
                         .build())
                 .collect(Collectors.toList());
 
-        claimBlueprintElements.forEach(blueprintElement -> mapBlueprintElement(blueprintElement, bpElParentMap, scoringMap));
+        claimBlueprintElements.forEach(blueprintElement ->
+                mapBlueprintElement(blueprintElement, bpElParentMap, scoringMap, converter));
 
         return new ArrayList<>(claimBlueprintElements);
     }
 
     // Recursively map all blueprint elements breadth-first
     private static void mapBlueprintElement(final BlueprintElement currentEl, final Multimap<String, BlueprintElement> parentMap,
-                                            final Map<String, Scoring> scoringMap) {
+                                            final Map<String, Scoring> scoringMap,
+                                            final ContentSpecFormatConverter converter) {
         if (parentMap.containsKey(currentEl.getId())) {
             final List<BlueprintElement> blueprintElements = currentEl.blueprintElements();
             final List<BlueprintElement> bpEl = new ArrayList<>(parentMap.get(currentEl.getId()));
@@ -249,12 +265,13 @@ public class BlueprintMapper {
             bpEl.forEach(childEl -> {
                 final BlueprintElement currBpEl = BlueprintElement.builder()
                         .setId(childEl.getId())
+                        .setLabel(converter.convertLegacyToEnhanced(childEl.getId()))
                         .setType(BlueprintElementTypes.TARGET)
                         .setBlueprintElements(new ArrayList<>())
                         .setScoring(Optional.ofNullable(scoringMap.get(childEl.getId())))
                         .build();
                 blueprintElements.add(currBpEl);
-                mapBlueprintElement(currBpEl, parentMap, scoringMap);
+                mapBlueprintElement(currBpEl, parentMap, scoringMap, converter);
             });
         }
     }
