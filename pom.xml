@@ -4,7 +4,7 @@
 
 	<groupId>org.opentestsystem.delivery</groupId>
 	<artifactId>tds-fixed-form-packager</artifactId>
-	<version>1.0.5-SNAPSHOT</version>
+	<version>1.1.1</version>
 	<packaging>jar</packaging>
 
 	<name>tds-fixed-form-packager</name>
