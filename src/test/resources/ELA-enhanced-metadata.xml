@@ -1,0 +1,62 @@
+<metadata>
+    <smarterAppMetadata xmlns="http://www.smarterapp.org/ns/1/assessment_item_metadata">
+        <Identifier>29929</Identifier>
+        <AssociatedStimulus>816</AssociatedStimulus>
+        <ItemAuthorIdentifier>Sridhar_Ravva</ItemAuthorIdentifier>
+        <ItemSpecFormat>SmarterApp</ItemSpecFormat>
+        <LastModifiedBy>Sridhar_Ravva</LastModifiedBy>
+        <SecurityStatus>Secure</SecurityStatus>
+        <SmarterAppItemDescriptor>A Never-Ending Cycle, 7477</SmarterAppItemDescriptor>
+        <StimulusFormat>Standard</StimulusFormat>
+        <Subject>ELA</Subject>
+        <Version>1</Version>
+        <IntendedGrade>11</IntendedGrade>
+        <MinimumGrade>11</MinimumGrade>
+        <MaximumGrade>11</MaximumGrade>
+        <DepthOfKnowledge>1</DepthOfKnowledge>
+        <AchievementQuintile>2</AchievementQuintile>
+        <ContentTaskModel>1</ContentTaskModel>
+        <InteractionType>MC</InteractionType>
+        <EnemyItem></EnemyItem>
+        <MaximumNumberOfPoints>1</MaximumNumberOfPoints>
+        <ScorePoints>"0,1"</ScorePoints>
+        <PresentationFormat>Text</PresentationFormat>
+        <BrailleType>BRF</BrailleType>
+        <Notes></Notes>
+        <StimulusName></StimulusName>
+        <AdministrationDate>Field Test</AdministrationDate>
+        <ScoringEngine>Automatic with Key</ScoringEngine>
+        <PerformanceTaskComponentItem>N</PerformanceTaskComponentItem>
+        <AccessibilityTagsASLLanguage>Y</AccessibilityTagsASLLanguage>
+        <IrtDimension>
+            <IrtStatDomain>Online</IrtStatDomain>
+            <IrtModelType>IRT3PLN</IrtModelType>
+            <IrtDimensionPurpose></IrtDimensionPurpose>
+            <IrtScore>1</IrtScore>
+            <IrtWeight>1</IrtWeight>
+            <IrtParameter>
+                <Name>a</Name>
+                <Value>0.33562</Value>
+            </IrtParameter>
+            <IrtParameter>
+                <Name>b</Name>
+                <Value>-0.74449</Value>
+            </IrtParameter>
+            <IrtParameter>
+                <Name>c</Name>
+                <Value>0</Value>
+            </IrtParameter>
+        </IrtDimension>
+        <Status>Operational</Status>
+        <StandardPublication>
+            <Publication>SBAC-ELA-v1</Publication>
+            <PrimaryStandard>SBAC-ELA-v1:3-L|4-11|11-12.SL.3</PrimaryStandard>
+        </StandardPublication>
+        <StandardPublication>
+            <Publication>SBAC</Publication>
+            <PrimaryStandard>E.GHS.C3SL.T4.11-12.SL.3</PrimaryStandard>
+        </StandardPublication>
+        <AssociatedTutorial>67708</AssociatedTutorial>
+        <Language>eng</Language>
+    </smarterAppMetadata>
+</metadata>

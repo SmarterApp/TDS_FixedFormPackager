@@ -20,6 +20,9 @@ public class MapperBaseTest {
 
     protected Map<String, GitLabItemMetaData> itemMetadataICA;
 
+    protected Map<String, GitLabItemMetaData> itemMetadataEnhancedICA;
+
+
     protected XmlMapper xmlMapper;
 
     @Before
@@ -96,6 +99,10 @@ public class MapperBaseTest {
                         "    <StandardPublication>\n" +
                         "      <Publication>SBAC-MA-v6</Publication>\n" +
                         "      <PrimaryStandard>SBAC-MA-v6:1|P|TS03|I</PrimaryStandard>\n" +
+                        "    </StandardPublication>\n" +
+                        "    <StandardPublication>\n" +
+                        "      <Publication>SBAC</Publication>\n" +
+                        "      <PrimaryStandard>M.GHS.C1A.TI</PrimaryStandard>\n" +
                         "    </StandardPublication>\n" +
                         "    <AssociatedTutorial>67863</AssociatedTutorial>\n" +
                         "    <AssociatedWordlist>123853</AssociatedWordlist>\n" +

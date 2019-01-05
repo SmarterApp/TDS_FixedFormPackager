@@ -25,7 +25,7 @@ public class SegmentMapperTest extends MapperBaseTest {
         assertThat(segment1.getAlgorithmImplementation()).isEqualTo("FAIRWAY FIXEDFORM");
 
         List<SegmentBlueprintElement> seg1Elements = segment1.segmentBlueprint();
-        assertThat(seg1Elements).hasSize(5);
+        assertThat(seg1Elements).hasSize(6);
 
         Segment segment2 = segments.get(1);
         assertThat(segment2.getId()).isEqualTo("SBAC-IAB-FIXED-G11M-AlgLinearFun-Calc-MATH-11");
