@@ -108,7 +108,7 @@ public class SegmentFormMapper {
                     )
                     .setTeacherHandScoring(getTeacherHandScoring(column))
                     .setItemScoreDimensions(getItemScoreDimensions(column, itemMetaDataUtil))
-                    .setBlueprintReferences(getBlueprintReferences(itemMetaDataUtil.getPrimaryStandard(), assessmentId))
+                    .setBlueprintReferences(getBlueprintReferences(itemMetaDataUtil.getPrimaryStandard(), segmentId))
                     .setPoolProperties(getPoolProperties(itemrelease, itemMetaDataUtil))
                     .setPresentations(getPresentations(itemPresentations))
                     .build());
@@ -266,7 +266,7 @@ public class SegmentFormMapper {
         }
     }
 
-    private static List<BlueprintReference> getBlueprintReferences(final String standard, final String assessmentId) {
+    private static List<BlueprintReference> getBlueprintReferences(final String standard, final String segmentId) {
         //SBAC-MA-v6:1|P|TS06|M - > 1|P|TS06|M
         final List<BlueprintReference> blueprintReferences = new ArrayList<>();
         final String bottomLevelBpRef = standard.split(":")[1];
@@ -276,7 +276,7 @@ public class SegmentFormMapper {
             blueprintReferences.add(BlueprintReference.builder().setIdRef(bottomLevelBpRef).build());
             return blueprintReferences;
         }
-        blueprintReferences.add(BlueprintReference.builder().setIdRef(assessmentId).build());
+        blueprintReferences.add(BlueprintReference.builder().setIdRef(segmentId).build());
         final List<String> refIds = new ArrayList<>();
 
         final String[] targetSections = bottomLevelBpRef.split("\\|");

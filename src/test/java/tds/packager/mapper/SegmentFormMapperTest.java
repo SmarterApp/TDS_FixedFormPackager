@@ -69,7 +69,7 @@ public class SegmentFormMapperTest extends MapperBaseTest {
 
         List<BlueprintReference> blueprintReferences1 = ig1Item1.getBlueprintReferences();
         assertThat(blueprintReferences1).hasSize(5);
-        assertThat(blueprintReferences1.get(0).getIdRef()).isEqualTo("SBAC-IAB-FIXED-G11M-AlgLin");
+        assertThat(blueprintReferences1.get(0).getIdRef()).isEqualTo("SBAC-IAB-FIXED-G11M-AlgLinearFun-NoCalc-MATH-11");
         assertThat(blueprintReferences1.get(1).getIdRef()).isEqualTo("1");
         assertThat(blueprintReferences1.get(2).getIdRef()).isEqualTo("1|P");
         assertThat(blueprintReferences1.get(3).getIdRef()).isEqualTo("1|P|TS03");
