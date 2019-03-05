@@ -116,17 +116,26 @@ public class ItemMetaDataUtil {
         }
     }
 
-    public String getIrtElement(String elementName) {
+    public String getIrtElement(final String elementName, final int index) {
         final String expression = "metadata/smarterAppMetadata/IrtDimension/" + elementName;
         try {
-            return ((NodeList) this.xPath.compile(expression).evaluate(this.xmlDocument, XPathConstants.NODESET)).item(0).getTextContent();
+            return ((NodeList) this.xPath.compile(expression).evaluate(this.xmlDocument, XPathConstants.NODESET)).item(index).getTextContent();
         } catch (XPathExpressionException e) {
             throw new RuntimeException("XPath expression " + expression + " failed. Could not retrieve IrtModelType. ", e);
         }
     }
 
-    public NodeList getIrtParameters() {
-        return this.xpathQuery("metadata/smarterAppMetadata/IrtDimension/IrtParameter");
+    public int getIrtDimensionCount() {
+        final String expression = "metadata/smarterAppMetadata/IrtDimension";
+        try {
+            return ((NodeList) this.xPath.compile(expression).evaluate(this.xmlDocument, XPathConstants.NODESET)).getLength();
+        } catch (XPathExpressionException e) {
+            throw new RuntimeException("XPath expression " + expression + " failed. Could not retrieve IrtDimension count. ", e);
+        }
+    }
+
+    public NodeList getIrtParameters(final int dimensionIndex) {
+        return this.xpathQuery("metadata/smarterAppMetadata/IrtDimension[" + dimensionIndex + "]/IrtParameter");
     }
 
     public String getStatus() {
