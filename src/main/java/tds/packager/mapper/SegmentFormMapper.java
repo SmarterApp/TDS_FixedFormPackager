@@ -1,5 +1,6 @@
 package tds.packager.mapper;
 
+import org.springframework.util.StringUtils;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import tds.itemrenderer.data.xml.itemrelease.Attrib;
@@ -12,7 +13,6 @@ import tds.packager.model.xlsx.TestPackageSheetNames;
 import tds.packager.model.xlsx.TestPackageWorkbook;
 import tds.teacherhandscoring.model.TeacherHandScoring;
 import tds.testpackage.model.*;
-import org.springframework.util.StringUtils;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -28,12 +28,12 @@ public class SegmentFormMapper {
         final ItemreleaseUnmarshaller unmarshaller = new ItemreleaseUnmarshaller();
 
         final LinkedHashSet<String> segFormIds = new LinkedHashSet();
-        final HashMap<String,Set<String>> segFormPresentations = new HashMap<>();
+        final HashMap<String, Set<String>> segFormPresentations = new HashMap<>();
         final LinkedHashMap<String, LinkedHashMap<String, ArrayList<String>>> itemGroups = new LinkedHashMap<>();
         final HashMap<String, Item> items = new HashMap<>();
 
         // Iterate over all the columns / items
-        for(int i = 0; i < cols; i++) {
+        for (int i = 0; i < cols; i++) {
             final Map<String, String> column = sheet.getInputVariableValuesMap(i);
             if (!segmentId.equals(column.get("SegmentId"))) {
                 // Skip this column if it does not correspond to the segment ID we are dealing with
@@ -50,18 +50,18 @@ public class SegmentFormMapper {
             String stimulusId = stimNodes.getLength() == 1 ? stimNodes.item(0).getTextContent() : EMPTY_STRING;
 
             //If no stimulus associated with this item then it gets its own itemgroup with the id=itemId
-            if(stimulusId.isEmpty()) {
+            if (stimulusId.isEmpty()) {
                 stimulusId = itemId;
             }
 
-            if(!itemGroups.containsKey(segFormId)) {
+            if (!itemGroups.containsKey(segFormId)) {
                 ArrayList<String> itemList = new ArrayList<>();
                 itemList.add(itemId);
                 LinkedHashMap<String, ArrayList<String>> stimulusItemList = new LinkedHashMap<>();
                 stimulusItemList.put(stimulusId, itemList);
                 itemGroups.put(segFormId, stimulusItemList);
             } else {
-                if(!itemGroups.get(segFormId).containsKey(stimulusId)) {
+                if (!itemGroups.get(segFormId).containsKey(stimulusId)) {
                     ArrayList<String> itemList = new ArrayList<>();
                     itemList.add(itemId);
                     itemGroups.get(segFormId).put(stimulusId, itemList);
@@ -75,18 +75,18 @@ public class SegmentFormMapper {
             String braille = column.get("ItemBraillePresentation");
             String spanish = column.get("ItemSpanishPresentation");
 
-            if(!segFormPresentations.containsKey(segFormId)) {
+            if (!segFormPresentations.containsKey(segFormId)) {
                 segFormPresentations.put(segFormId, new HashSet<>());
             }
-            if(english.equalsIgnoreCase("TRUE")) {
+            if (english.equalsIgnoreCase("TRUE")) {
                 segFormPresentations.get(segFormId).add("English");
                 itemPresentations.add("English");
             }
-            if(braille.equalsIgnoreCase("TRUE")) {
+            if (braille.equalsIgnoreCase("TRUE")) {
                 segFormPresentations.get(segFormId).add("Braille");
                 itemPresentations.add("Braille");
             }
-            if(spanish.equalsIgnoreCase("TRUE")) {
+            if (spanish.equalsIgnoreCase("TRUE")) {
                 segFormPresentations.get(segFormId).add("Spanish");
                 itemPresentations.add("Spanish");
             }
@@ -114,7 +114,7 @@ public class SegmentFormMapper {
                     .build());
         }
 
-        segFormIds.forEach((segFormId)->{
+        segFormIds.forEach((segFormId) -> {
             segmentForms.add(
                     SegmentForm.builder()
                             .setId(segFormId)
@@ -151,8 +151,7 @@ public class SegmentFormMapper {
     }
 
     private static String fixMeasurementModelFormat(final String modelType) {
-        if (modelType != null && modelType.equalsIgnoreCase("IRT3PLN"))
-        {
+        if (modelType != null && modelType.equalsIgnoreCase("IRT3PLN")) {
             return "IRT3PLn";
         }
         return modelType;
@@ -169,8 +168,8 @@ public class SegmentFormMapper {
         final List<PoolProperty> poolProperties = new ArrayList<>();
         final List<Attrib> attrList = itemrelease.getItemPassage().getAttriblist().getAttrib();
         final List<Attrib> ansKeys = attrList.stream().filter(attrib -> attrib.getAttid().equals("itm_att_Answer Key")).collect(Collectors.toList());
-        ansKeys.forEach(ansKey->{
-            if(!ansKey.getVal().isEmpty()) {
+        ansKeys.forEach(ansKey -> {
+            if (!ansKey.getVal().isEmpty()) {
                 poolProperties.add(PoolProperty.builder()
                         .setName("Answer Key").setValue(ansKey.getVal())
                         .build());
@@ -178,8 +177,8 @@ public class SegmentFormMapper {
 
         });
         final List<Attrib> ansKeysII = attrList.stream().filter(attrib -> attrib.getAttid().equals("itm_att_Answer Key (Part II)")).collect(Collectors.toList());
-        ansKeysII.forEach(ansKey->{
-            if(!ansKey.getVal().isEmpty()) {
+        ansKeysII.forEach(ansKey -> {
+            if (!ansKey.getVal().isEmpty()) {
                 poolProperties.add(PoolProperty.builder()
                         .setName("Answer Key (Part II)").setValue(ansKey.getVal())
                         .build());
@@ -240,28 +239,33 @@ public class SegmentFormMapper {
             }
             return itemScoreDimensions;
         } else {
-            //if nothing in the Measurementmodel_x field then fetch from metadata.xml
-            String modelType = fixMeasurementModelFormat(itemMetaDataUtil.getIrtElement("IrtModelType"));
-            String dimension = itemMetaDataUtil.getIrtElement("IrtDimensionPurpose");
-            int scorePoints = Integer.parseInt(itemMetaDataUtil.getIrtElement("IrtScore"));
-            double weight = Double.parseDouble(itemMetaDataUtil.getIrtElement("IrtWeight"));
-            NodeList irtParameterNodes = itemMetaDataUtil.getIrtParameters();
-            Set<ItemScoreParameter> itemScoreParameters = new HashSet<>();
-            for (int n = 0; n < irtParameterNodes.getLength(); n++) {
-                Element node = (Element) irtParameterNodes.item(n);
-                itemScoreParameters.add(
-                        ItemScoreParameter.builder()
-                                .setMeasurementParameter(node.getElementsByTagName("Name").item(0).getTextContent())
-                                .setValue(Double.parseDouble(node.getElementsByTagName("Value").item(0).getTextContent()))
-                                .build());
+            int irtDimensionCount = itemMetaDataUtil.getIrtDimensionCount();
+
+            for (i = 0; i < irtDimensionCount; i++) {
+                //if nothing in the Measurementmodel_x field then fetch from metadata.xml
+                String modelType = fixMeasurementModelFormat(itemMetaDataUtil.getIrtElement("IrtModelType", i));
+                String dimension = itemMetaDataUtil.getIrtElement("IrtDimensionPurpose", i);
+                int scorePoints = Integer.parseInt(itemMetaDataUtil.getIrtElement("IrtScore", i));
+                double weight = Double.parseDouble(itemMetaDataUtil.getIrtElement("IrtWeight", i));
+                NodeList irtParameterNodes = itemMetaDataUtil.getIrtParameters(i + 1);
+                Set<ItemScoreParameter> itemScoreParameters = new HashSet<>();
+                for (int n = 0; n < irtParameterNodes.getLength(); n++) {
+                    Element node = (Element) irtParameterNodes.item(n);
+                    itemScoreParameters.add(
+                            ItemScoreParameter.builder()
+                                    .setMeasurementParameter(node.getElementsByTagName("Name").item(0).getTextContent())
+                                    .setValue(Double.parseDouble(node.getElementsByTagName("Value").item(0).getTextContent()))
+                                    .build());
+                }
+                itemScoreDimensions.add(ItemScoreDimension.builder()
+                        .setDimension(Optional.of(dimension))
+                        .setMeasurementModel(modelType)
+                        .setScorePoints(scorePoints)
+                        .setItemScoreParameters(new ArrayList<>(itemScoreParameters))
+                        .setWeight(weight)
+                        .build());
             }
-            itemScoreDimensions.add(ItemScoreDimension.builder()
-                    .setDimension(Optional.of(dimension))
-                    .setMeasurementModel(modelType)
-                    .setScorePoints(scorePoints)
-                    .setItemScoreParameters(new ArrayList<>(itemScoreParameters))
-                    .setWeight(weight)
-                    .build());
+
             return itemScoreDimensions;
         }
     }
@@ -296,7 +300,7 @@ public class SegmentFormMapper {
                 refIds.add(id.toString());
             }
         }
-        refIds.forEach(refId->{
+        refIds.forEach(refId -> {
             blueprintReferences.add(BlueprintReference.builder().setIdRef(refId).build());
         });
         return blueprintReferences;
@@ -305,27 +309,27 @@ public class SegmentFormMapper {
     private static String getCohort(final String segmentFormId, final TestPackageSheet segmentFormsSheet) {
         for (int i = 0; i <= segmentFormsSheet.getTotalNumberOfInputColumns(); i++) {
             if (segmentFormsSheet.getString("SegmentFormId", i).equals(segmentFormId))
-               return segmentFormsSheet.getString("SegmentFormCohort", i);
+                return segmentFormsSheet.getString("SegmentFormCohort", i);
         }
         return EMPTY_STRING;
     }
 
     private static List<Presentation> getPresentations(final Set<String> presentationStrings) {
         final List<Presentation> presentations = new ArrayList<>();
-        presentationStrings.forEach( presentation-> {
-            if(presentation.equalsIgnoreCase("English")) {
+        presentationStrings.forEach(presentation -> {
+            if (presentation.equalsIgnoreCase("English")) {
                 presentations.add(Presentation.builder()
                         .setCode("ENU")
                         .setLabel("English")
                         .build());
             }
-            if(presentation.equalsIgnoreCase("Spanish")) {
+            if (presentation.equalsIgnoreCase("Spanish")) {
                 presentations.add(Presentation.builder()
                         .setCode("ESN")
                         .setLabel("Spanish")
                         .build());
             }
-            if(presentation.equalsIgnoreCase("Braille")) {
+            if (presentation.equalsIgnoreCase("Braille")) {
                 presentations.add(Presentation.builder()
                         .setCode("ENU-Braille")
                         .setLabel("Braille")
@@ -337,25 +341,25 @@ public class SegmentFormMapper {
 
     private static List<ItemGroup> getItemGroups(final HashMap<String, ArrayList<String>> itemGroup, final HashMap<String, Item> items) {
         final List<ItemGroup> itemGroups = new ArrayList<>();
-            itemGroup.forEach((stimId, itemList) -> {
-                List <Item> itemsList= new ArrayList<>();
-                itemList.forEach((itemId)->{
-                    itemsList.add(items.get(itemId));
-                });
-                // Single Item ItemGroups don't get a Stimulus element
-                if(itemList.size() == 1) {
-                    itemGroups.add(ItemGroup.builder()
-                            .setMaxResponses(Optional.of("0"))
-                            .setId(stimId)
-                            .setItems(itemsList).build());
-                } else {
-                    itemGroups.add(ItemGroup.builder()
-                            .setMaxResponses(Optional.of("ALL"))
-                            .setId(stimId)
-                            .setStimulus(Optional.of(Stimulus.builder().setId(stimId).build()))
-                            .setItems(itemsList).build());
-                }
+        itemGroup.forEach((stimId, itemList) -> {
+            List<Item> itemsList = new ArrayList<>();
+            itemList.forEach((itemId) -> {
+                itemsList.add(items.get(itemId));
             });
+            // Single Item ItemGroups don't get a Stimulus element
+            if (itemList.size() == 1) {
+                itemGroups.add(ItemGroup.builder()
+                        .setMaxResponses(Optional.of("0"))
+                        .setId(stimId)
+                        .setItems(itemsList).build());
+            } else {
+                itemGroups.add(ItemGroup.builder()
+                        .setMaxResponses(Optional.of("ALL"))
+                        .setId(stimId)
+                        .setStimulus(Optional.of(Stimulus.builder().setId(stimId).build()))
+                        .setItems(itemsList).build());
+            }
+        });
         return itemGroups;
     }
 }
