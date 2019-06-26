@@ -8,6 +8,11 @@ This project uses the following tools
 * Java 1.8
 * Maven 3
 
+## Required Dependencies
+You must build these projects to ensure the necessary dependencies are installed in your local Maven cache
+
+* https://github.com/SmarterApp/TDS_SupportTool
+
 ## Building and Running the project
 Once you have Java 1.8 and Maven 3 installed you can build the project using the following command (in the projects root directory).
 
