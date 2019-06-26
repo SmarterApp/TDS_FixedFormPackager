@@ -9,9 +9,9 @@ This project uses the following tools
 * Maven 3
 
 ## Required Dependencies
-You must build these projects to ensure the necessary dependencies are installed in your local Maven cache
+You must install the dependencies described here before building
 
-* https://github.com/SmarterApp/TDS_SupportTool
+* https://confluence.fairwaytech.com/display/SBAC1719/Maven+Configuration
 
 ## Building and Running the project
 Once you have Java 1.8 and Maven 3 installed you can build the project using the following command (in the projects root directory).
