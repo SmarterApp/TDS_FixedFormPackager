@@ -346,19 +346,11 @@ public class SegmentFormMapper {
             itemList.forEach((itemId) -> {
                 itemsList.add(items.get(itemId));
             });
-            // Single Item ItemGroups don't get a Stimulus element
-            if (itemList.size() == 1) {
-                itemGroups.add(ItemGroup.builder()
-                        .setMaxResponses(Optional.of("0"))
-                        .setId(stimId)
-                        .setItems(itemsList).build());
-            } else {
-                itemGroups.add(ItemGroup.builder()
-                        .setMaxResponses(Optional.of("ALL"))
-                        .setId(stimId)
-                        .setStimulus(Optional.of(Stimulus.builder().setId(stimId).build()))
-                        .setItems(itemsList).build());
-            }
+            itemGroups.add(ItemGroup.builder()
+                    .setMaxResponses(Optional.of(itemList.size() == 1 ? "0" : "ALL"))
+                    .setId(stimId)
+                    .setStimulus(Optional.of(Stimulus.builder().setId(stimId).build()))
+                    .setItems(itemsList).build());
         });
         return itemGroups;
     }
