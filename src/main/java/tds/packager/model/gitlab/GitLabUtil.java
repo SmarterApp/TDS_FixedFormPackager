@@ -23,8 +23,7 @@ public class GitLabUtil {
         try {
             for (String itemKey : items) {
                 System.out.println("Fetching metadata for " + group + "/Item-" + itemKey);
-                List<Project> projects = gitLabApi.getProjectApi().getProjects("Item-" + itemKey);
-                Project project = getGitLabProject(projects, itemKey);
+                Project project = gitLabApi.getProjectApi().getProject(group, "Item-" + itemKey);
                 gitLabItems.put(trimBankKey(itemKey), new GitLabItemMetaData(
                                 decodeGitLabFile(gitLabApi.getRepositoryFileApi().getFile(project, "metadata.xml", "master")),
                                 decodeGitLabFile(gitLabApi.getRepositoryFileApi().getFile(project, "item-" + itemKey + ".xml", "master"))
@@ -40,15 +39,6 @@ public class GitLabUtil {
 
     private static String trimBankKey(final String itemKey) {
         return itemKey.split("-")[1];
-    }
-
-    private static Project getGitLabProject(List<Project> projects, String itemId) {
-        for (Project project : projects) {
-            if (project.getName().equalsIgnoreCase("Item-" + itemId)) {
-                return project;
-            }
-        }
-        throw new RuntimeException("Unable to find Gitlab project for Item with id " + itemId);
     }
 
     private static String decodeGitLabFile(RepositoryFile file) {
