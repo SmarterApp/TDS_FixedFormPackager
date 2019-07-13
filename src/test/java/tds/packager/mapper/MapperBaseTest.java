@@ -6723,6 +6723,167 @@ public class MapperBaseTest {
                         "    </content>\n" +
                         "  </item>\n" +
                         "</itemrelease>\n"))
+                .put("200012", new GitLabItemMetaData("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                        "<metadata>\n" +
+                        "<smarterAppMetadata xmlns=\"http://www.smarterapp.org/ns/1/assessment_item_metadata\">\n" +
+                        "   <Identifier>200012</Identifier>\n" +
+                        "   <Version>0.1</Version>\n" +
+                        "   <InteractionType>MC</InteractionType>\n" +
+                        "   <Subject>MATH</Subject>\n" +
+                        "   <Status>Draft</Status>\n" +
+                        "   <Language>eng</Language>\n" +
+                        "   <SecurityStatus>secure</SecurityStatus>\n" +
+                        "   <MinimumGrade>4</MinimumGrade>\n" +
+                        "   <IntendedGrade>4</IntendedGrade>\n" +
+                        "   <MaximumGrade>4</MaximumGrade>\n" +
+                        "   <BrailleType></BrailleType>\n" +
+                        "   <EnemyItem></EnemyItem>\n" +
+                        "   <ItemAuthorIdentifier></ItemAuthorIdentifier>\n" +
+                        "   <Claim2Category></Claim2Category>\n" +
+                        "   <Claim2RevisionCategory></Claim2RevisionCategory>\n" +
+                        "   <AllowCalculator>N</AllowCalculator>\n" +
+                        "   <MathematicalPractice></MathematicalPractice>\n" +
+                        "   <AssociatedTutorial>200032</AssociatedTutorial>\n" +
+                        "   <MaximumNumberOfPoints>1</MaximumNumberOfPoints>\n" +
+                        "   <ScorePoints>\"0, 1\"</ScorePoints>\n" +
+                        "   <ItemSpecFormat>SmarterApp</ItemSpecFormat>\n" +
+                        "   <DepthOfKnowledge>1</DepthOfKnowledge>\n" +
+                        "   <SpecificationsVersion></SpecificationsVersion>\n" +
+                        "   <PerformanceTaskComponentItem>N</PerformanceTaskComponentItem>\n" +
+                        "   <PtSequence></PtSequence>\n" +
+                        "   <AccessibilityTagsASLLanguage>N</AccessibilityTagsASLLanguage>\n" +
+                        "   <StandardPublication>\n" +
+                        "      <Publication>SBAC-MA-v4</Publication>\n" +
+                        "      <PrimaryStandard>SBAC-MA-v4:1|NBT|D-4|m|4.NBT.2</PrimaryStandard>\n" +
+                        "   </StandardPublication>\n" +
+                        "   <StandardPublication>\n" +
+                        "      <Publication>SBAC-MA-v6</Publication>\n" +
+                        "      <PrimaryStandard>SBAC-MA-v6:1|P|TS03|D-4</PrimaryStandard>\n" +
+                        "   </StandardPublication>\n" +
+                        "   <StandardPublication>\n" +
+                        "      <Publication>SBAC</Publication>\n" +
+                        "      <PrimaryStandard>M.G4.C1NBT.TD.4.NBT.2</PrimaryStandard>\n" +
+                        "   </StandardPublication>\n" +
+                        "   <ContentTaskModel>G4 U1</ContentTaskModel>\n" +
+                        "   <LanguageFeatures></LanguageFeatures>\n" +
+                        "   <MeaningPurpose></MeaningPurpose>\n" +
+                        "   <PrimaryClaim>1</PrimaryClaim>\n" +
+                        "   <PrimaryCommonCoreStandard>4.NBT.2</PrimaryCommonCoreStandard>\n" +
+                        "   <PrimaryContentDomain>NBT</PrimaryContentDomain>\n" +
+                        "   <QuaternaryClaim></QuaternaryClaim>\n" +
+                        "   <QuaternaryCommonCoreStandard></QuaternaryCommonCoreStandard>\n" +
+                        "   <ScoringEngine>Automatic with Key</ScoringEngine>\n" +
+                        "   <SecondaryClaim></SecondaryClaim>\n" +
+                        "   <SecondaryCommonCoreStandard></SecondaryCommonCoreStandard>\n" +
+                        "   <SecondaryContentDomain></SecondaryContentDomain>\n" +
+                        "   <TertiaryClaim></TertiaryClaim>\n" +
+                        "   <TertiaryCommonCoreStandard></TertiaryCommonCoreStandard>\n" +
+                        "   <TertiaryContentDomain></TertiaryContentDomain>\n" +
+                        "   <TestCategory>Interim</TestCategory>\n" +
+                        "</smarterAppMetadata>\n" +
+                        "</metadata>", "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                        "<itemrelease version=\"2.0\">\n" +
+                        "   <item format=\"mc\" id=\"200012\" version=\"0\" bankkey=\"200\">\n" +
+                        "      <attriblist>\n" +
+                        "         <attrib attid=\"itm_item_id\">\n" +
+                        "            <name>Item: ITS ID</name>\n" +
+                        "            <val></val>\n" +
+                        "            <desc></desc>\n" +
+                        "         </attrib>\n" +
+                        "         <attrib attid=\"itm_att_Item Format\">\n" +
+                        "            <name>Item: Item Format</name>\n" +
+                        "            <val>MC</val>\n" +
+                        "            <desc></desc>\n" +
+                        "         </attrib>\n" +
+                        "         <attrib attid=\"itm_att_Answer Key\">\n" +
+                        "            <name>Item: Answer Key</name>\n" +
+                        "            <val>D</val>\n" +
+                        "            <desc></desc>\n" +
+                        "         </attrib>\n" +
+                        "         <attrib attid=\"itm_att_Page Layout\">\n" +
+                        "            <name>Item: Page Layout</name>\n" +
+                        "            <val>8</val>\n" +
+                        "            <desc></desc>\n" +
+                        "         </attrib>\n" +
+                        "         <attrib attid=\"itm_att_Response Type\">\n" +
+                        "            <name>Item: Response Type</name>\n" +
+                        "            <val>Vertical</val>\n" +
+                        "            <desc></desc>\n" +
+                        "         </attrib>\n" +
+                        "         <attrib attid=\"itm_att_Grade\">\n" +
+                        "            <name>Item: Grade</name>\n" +
+                        "            <val>4</val>\n" +
+                        "            <desc></desc>\n" +
+                        "         </attrib>\n" +
+                        "         <attrib attid=\"itm_item_subject\">\n" +
+                        "            <name>Item: Subject</name>\n" +
+                        "            <val>MATH</val>\n" +
+                        "            <desc></desc>\n" +
+                        "         </attrib>\n" +
+                        "         <attrib attid=\"itm_att_Item Point\">\n" +
+                        "            <name>Item: Item Point</name>\n" +
+                        "            <val>1 pt.</val>\n" +
+                        "            <desc></desc>\n" +
+                        "         </attrib>\n" +
+                        "      </attriblist>\n" +
+                        "      <tutorial id=\"200032\" bankkey=\"200\"/>\n" +
+                        "      <resourceslist/>\n" +
+                        "      <content language=\"ENU\" version=\"2.0\">\n" +
+                        "         <rationaleoptlist>\n" +
+                        "            <rationale>\n" +
+                        "               <name>Rationale for Option A</name>\n" +
+                        "               <val><![CDATA[]]></val>\n" +
+                        "            </rationale>\n" +
+                        "            <rationale>\n" +
+                        "               <name>Rationale for Option B</name>\n" +
+                        "               <val><![CDATA[]]></val>\n" +
+                        "            </rationale>\n" +
+                        "            <rationale>\n" +
+                        "               <name>Rationale for Option C</name>\n" +
+                        "               <val><![CDATA[]]></val>\n" +
+                        "            </rationale>\n" +
+                        "            <rationale>\n" +
+                        "               <name>Rationale for Option D</name>\n" +
+                        "               <val><![CDATA[]]></val>\n" +
+                        "            </rationale>\n" +
+                        "         </rationaleoptlist>\n" +
+                        "         <stem><![CDATA[<p>Which of these is 332,065 in word form?</p>]]></stem>\n" +
+                        "         <rubriclist>\n" +
+                        "            <rubric scorepoint=\"\" index=\"0\">\n" +
+                        "               <name>Rubric</name>\n" +
+                        "               <val><![CDATA[D]]></val>\n" +
+                        "            </rubric>\n" +
+                        "            <samplelist maxval=\"\" minval=\"\" index=\"0\"/>\n" +
+                        "         </rubriclist>\n" +
+                        "         <optionlist>\n" +
+                        "            <option>\n" +
+                        "               <name>Option A</name>\n" +
+                        "               <val><![CDATA[<p>three million, thirty-two hundred, six hundred five</p>]]></val>\n" +
+                        "               <feedback></feedback>\n" +
+                        "            </option>\n" +
+                        "            <option>\n" +
+                        "               <name>Option B</name>\n" +
+                        "               <val><![CDATA[<p>three hundred thousand, two hundred sixty-five</p>]]></val>\n" +
+                        "               <feedback></feedback>\n" +
+                        "            </option>\n" +
+                        "            <option>\n" +
+                        "               <name>Option C</name>\n" +
+                        "               <val><![CDATA[<p>three million, thirty-two thousand, sixty-five</p>]]></val>\n" +
+                        "               <feedback></feedback>\n" +
+                        "            </option>\n" +
+                        "            <option>\n" +
+                        "               <name>Option D</name>\n" +
+                        "               <val><![CDATA[<p>three hundred thirty-two thousand, sixty-five</p>]]></val>\n" +
+                        "               <feedback></feedback>\n" +
+                        "            </option>\n" +
+                        "         </optionlist>\n" +
+                        "         <attachmentlist/>\n" +
+                        "         <apipAccessibility>\n" +
+                        "            <accessibilityInfo/>\n" +
+                        "         </apipAccessibility>\n" +
+                        "      </content>\n" +
+                        "   </item>\n" +
+                        "</itemrelease>"))
                 .build();
 
         itemMetadataICA = ImmutableMap.<String, GitLabItemMetaData>builder()
