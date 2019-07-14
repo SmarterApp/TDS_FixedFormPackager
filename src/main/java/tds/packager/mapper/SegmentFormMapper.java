@@ -193,17 +193,11 @@ public class SegmentFormMapper {
             }
         }
 
-        final Map<String, String> poolPropertiesMap = ImmutableMap.<String, String>builder()
-                .put("ASL", itemMetaDataUtil.getASL())
-                .put("Braille", itemMetaDataUtil.getBraille())
-                .put("Depth of Knowledge", itemMetaDataUtil.getDepthOfKnowledge())
-                .put("Grade", itemMetaDataUtil.getIntendedGrade())
-                .put("Scoring Engine", itemMetaDataUtil.getScoringEngine())
-                .build();
-
-        poolPropertiesMap.keySet()
-                .forEach(propertyKey -> getPoolProperty(propertyKey, poolPropertiesMap.get(propertyKey))
-                        .ifPresent(poolProperties::add));
+        getPoolProperty("ASL", itemMetaDataUtil.getASL()).ifPresent(poolProperties::add);
+        getPoolProperty("Braille", itemMetaDataUtil.getBraille()).ifPresent(poolProperties::add);
+        getPoolProperty("Depth of Knowledge", itemMetaDataUtil.getDepthOfKnowledge()).ifPresent(poolProperties::add);
+        getPoolProperty("Grade", itemMetaDataUtil.getIntendedGrade()).ifPresent(poolProperties::add);
+        getPoolProperty("Scoring Engine", itemMetaDataUtil.getScoringEngine()).ifPresent(poolProperties::add);
 
         return poolProperties;
     }
