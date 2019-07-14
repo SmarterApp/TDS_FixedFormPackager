@@ -37,7 +37,7 @@ public class SegmentMapperTest extends MapperBaseTest {
         assertThat(segment2.getAlgorithmImplementation()).isEqualTo("FAIRWAY FIXEDFORM");
 
         List<SegmentBlueprintElement> seg2Elements = segment2.segmentBlueprint();
-        assertThat(seg2Elements).hasSize(23);
+        assertThat(seg2Elements).hasSize(24);
         SegmentBlueprintElement segmentBpEl = seg2Elements.stream()
                 .filter(bpEl -> bpEl.getIdRef().equals("SBAC-IAB-FIXED-G11M-AlgLinearFun-Calc-MATH-11"))
                 .findFirst()
