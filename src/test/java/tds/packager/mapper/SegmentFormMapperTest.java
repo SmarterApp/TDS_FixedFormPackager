@@ -1,6 +1,8 @@
 package tds.packager.mapper;
 
 import org.junit.Test;
+import org.omg.PortableServer.POA;
+
 import tds.testpackage.model.*;
 
 import java.util.List;
@@ -99,7 +101,7 @@ public class SegmentFormMapperTest extends MapperBaseTest {
         assertThat(segmentForm2.getPresentations()).contains(Presentation.builder().setCode("ENU").setLabel("English").build());
         assertThat(segmentForm2.getPresentations()).contains(Presentation.builder().setCode("ENU-Braille").setLabel("Braille").build());
         assertThat(segmentForm2.getPresentations()).contains(Presentation.builder().setCode("ESN").setLabel("Spanish").build());
-        assertThat(segmentForm2.itemGroups()).hasSize(12);
+        assertThat(segmentForm2.itemGroups()).hasSize(13);
         //full proper ordering of the ItemGroups / Items and that ItemGroup Id is the same as the Item Id (because single item itemgroups)
         assertThat(segmentForm2.itemGroups().get(0).getId()).isEqualTo("501");
         assertThat(segmentForm2.itemGroups().get(0).getId()).isEqualTo(segmentForm2.itemGroups().get(0).items().get(0).getId());
@@ -125,5 +127,23 @@ public class SegmentFormMapperTest extends MapperBaseTest {
         assertThat(segmentForm2.itemGroups().get(10).getId()).isEqualTo(segmentForm2.itemGroups().get(10).items().get(0).getId());
         assertThat(segmentForm2.itemGroups().get(11).getId()).isEqualTo("30309");
         assertThat(segmentForm2.itemGroups().get(11).getId()).isEqualTo(segmentForm2.itemGroups().get(11).items().get(0).getId());
+        assertThat(segmentForm2.itemGroups().get(12).getId()).isEqualTo("200012");
+        assertThat(segmentForm2.itemGroups().get(12).getId()).isEqualTo(segmentForm2.itemGroups().get(12).items().get(0).getId());
+    }
+
+    @Test
+    public void shouldNotCreatePoolPropertiesThatHaveNoValue() {
+        final List<Segment> segments = SegmentMapper.map(mockIABWorkbook, "SBAC-IAB-FIXED-G11M-AlgLin", itemMetadataIAB);
+        final List<SegmentForm> segmentForms2 = SegmentFormMapper.map(mockIABWorkbook, segments.get(1).getId(), itemMetadataIAB, "SBAC-IAB-FIXED-G11M-AlgLin-MATH-11");
+        assertThat(segmentForms2).hasSize(1);
+        final SegmentForm segmentForm2 = segmentForms2.get(0);
+
+        // Item 200012 has an empty <BrailleType> element, meaning it has no value.  Therefore, it should not have a
+        // Braille pool property However, it should have the other pool properties, since they are assigned a name and a
+        // value.
+        final List<PoolProperty> item200012PoolProperties = segmentForm2.itemGroups().get(12).items().get(0).poolProperties();
+        assertThat(item200012PoolProperties).hasSize(5);
+        assertThat(item200012PoolProperties)
+                .doesNotContain(PoolProperty.builder().setName("Braille").setValue("BRF").build());
     }
 }

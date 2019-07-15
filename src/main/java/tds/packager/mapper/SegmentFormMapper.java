@@ -1,8 +1,22 @@
 package tds.packager.mapper;
 
+import com.google.common.collect.ImmutableMap;
 import org.springframework.util.StringUtils;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import tds.itemrenderer.data.xml.itemrelease.Attrib;
 import tds.itemrenderer.data.xml.itemrelease.Itemrelease;
 import tds.packager.model.gitlab.GitLabItemMetaData;
@@ -12,10 +26,15 @@ import tds.packager.model.xlsx.TestPackageSheet;
 import tds.packager.model.xlsx.TestPackageSheetNames;
 import tds.packager.model.xlsx.TestPackageWorkbook;
 import tds.teacherhandscoring.model.TeacherHandScoring;
-import tds.testpackage.model.*;
-
-import java.util.*;
-import java.util.stream.Collectors;
+import tds.testpackage.model.BlueprintReference;
+import tds.testpackage.model.Item;
+import tds.testpackage.model.ItemGroup;
+import tds.testpackage.model.ItemScoreDimension;
+import tds.testpackage.model.ItemScoreParameter;
+import tds.testpackage.model.PoolProperty;
+import tds.testpackage.model.Presentation;
+import tds.testpackage.model.SegmentForm;
+import tds.testpackage.model.Stimulus;
 
 public class SegmentFormMapper {
     private static final String EMPTY_STRING = "";
@@ -132,7 +151,7 @@ public class SegmentFormMapper {
                 && column.get("THSTrainingGuide").isEmpty() && column.get("THSLayout").isEmpty()
                 && column.get("THSDescription").isEmpty() && column.get("THSPassage").isEmpty()
                 && column.get("THSItemName").isEmpty()
-        ) {
+                ) {
             return Optional.empty();
         }
         TeacherHandScoring teacherHandScoring = TeacherHandScoring.builder()
@@ -167,39 +186,40 @@ public class SegmentFormMapper {
         //Glossary
         final List<PoolProperty> poolProperties = new ArrayList<>();
         final List<Attrib> attrList = itemrelease.getItemPassage().getAttriblist().getAttrib();
-        final List<Attrib> ansKeys = attrList.stream().filter(attrib -> attrib.getAttid().equals("itm_att_Answer Key")).collect(Collectors.toList());
-        ansKeys.forEach(ansKey -> {
-            if (!ansKey.getVal().isEmpty()) {
-                poolProperties.add(PoolProperty.builder()
-                        .setName("Answer Key").setValue(ansKey.getVal())
-                        .build());
+        for (final Attrib attrib : attrList) {
+            if (attrib.getAttid().equals("itm_att_Answer Key") || attrib.getAttid().equals("itm_att_Answer Key (Part II)")) {
+                getPoolProperty(attrib.getAttid().substring(attrib.getAttid().lastIndexOf("_") + 1), attrib.getVal())
+                        .ifPresent(poolProperties::add);
             }
+        }
 
-        });
-        final List<Attrib> ansKeysII = attrList.stream().filter(attrib -> attrib.getAttid().equals("itm_att_Answer Key (Part II)")).collect(Collectors.toList());
-        ansKeysII.forEach(ansKey -> {
-            if (!ansKey.getVal().isEmpty()) {
-                poolProperties.add(PoolProperty.builder()
-                        .setName("Answer Key (Part II)").setValue(ansKey.getVal())
-                        .build());
-            }
-        });
-        poolProperties.add(PoolProperty.builder()
-                .setName("ASL").setValue(itemMetaDataUtil.getASL())
-                .build());
-        poolProperties.add(PoolProperty.builder()
-                .setName("Braille").setValue(itemMetaDataUtil.getBraille())
-                .build());
-        poolProperties.add(PoolProperty.builder()
-                .setName("Depth of Knowledge").setValue(itemMetaDataUtil.getDepthOfKnowledge())
-                .build());
-        poolProperties.add(PoolProperty.builder()
-                .setName("Grade").setValue(itemMetaDataUtil.getIntendedGrade())
-                .build());
-        poolProperties.add(PoolProperty.builder()
-                .setName("Scoring Engine").setValue(itemMetaDataUtil.getScoringEngine())
-                .build());
+        getPoolProperty("ASL", itemMetaDataUtil.getASL()).ifPresent(poolProperties::add);
+        getPoolProperty("Braille", itemMetaDataUtil.getBraille()).ifPresent(poolProperties::add);
+        getPoolProperty("Depth of Knowledge", itemMetaDataUtil.getDepthOfKnowledge()).ifPresent(poolProperties::add);
+        getPoolProperty("Grade", itemMetaDataUtil.getIntendedGrade()).ifPresent(poolProperties::add);
+        getPoolProperty("Scoring Engine", itemMetaDataUtil.getScoringEngine()).ifPresent(poolProperties::add);
+
         return poolProperties;
+    }
+
+    /**
+     * Get a {@link tds.testpackage.model.PoolProperty} for the specified name and value.
+     * <p>
+     * In some Item metadata files, there are elements that describe a pool property but have no value.  For
+     * example, a metadata.xml file can have <BrailleType></BrailleType>, indicating this item is not Braille-able
+     * or Braille content has not yet been provided.  A <PoolProperty></PoolProperty> element should only be created
+     * if there is a name and a value.  Pool properties with a name but no value should be ignored.
+     * </p>
+     *
+     * @param name  The name attribute of the {@link tds.testpackage.model.PoolProperty} element
+     * @param value The value attribute of the {@link tds.testpackage.model.PoolProperty} element
+     * @return An {@link Optional#of(Object)} if a name and value are present;
+     * otherwise {@link java.util.Optional#empty()}
+     */
+    private static Optional<PoolProperty> getPoolProperty(final String name, final String value) {
+        return StringUtils.isEmpty(value)
+                ? Optional.empty()
+                : Optional.of(PoolProperty.builder().setName(name).setValue(value).build());
     }
 
     private static List<ItemScoreDimension> getItemScoreDimensions(final Map<String, String> column, final ItemMetaDataUtil itemMetaDataUtil) {
