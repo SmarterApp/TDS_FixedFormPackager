@@ -40,8 +40,8 @@ public class SegmentFormMapperTest extends MapperBaseTest {
         assertThat(ig1Item1.fieldTest()).isFalse();
         assertThat(ig1Item1.administrationRequired()).isTrue();
         assertThat(ig1Item1.responseRequired()).isTrue();
-        assertThat(ig1Item1.handScored()).isFalse();
-        assertThat(ig1Item1.doNotScore()).isFalse();
+        assertThat(ig1Item1.handScored()).isTrue();
+        assertThat(ig1Item1.doNotScore()).isTrue();
         assertThat(ig1Item1.getId()).isEqualTo("83834");
         assertThat(ig1.getId()).isEqualTo(ig1Item1.getId());
         assertThat(ig1Item1.getType()).isEqualTo("EQ");
@@ -83,6 +83,8 @@ public class SegmentFormMapperTest extends MapperBaseTest {
 
         ItemGroup ig2 = itemGroups1.get(1);
         assertThat(ig2.getId()).isEqualTo("83838");
+        assertThat(ig2.items().get(0).handScored()).isFalse();
+        assertThat(ig2.items().get(0).doNotScore()).isFalse();
         ItemGroup ig3 = itemGroups1.get(2);
         assertThat(ig3.getId()).isEqualTo("12164");
 
