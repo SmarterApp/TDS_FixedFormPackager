@@ -99,12 +99,12 @@ public class SegmentFormMapper {
                     .setHandScored(
                             StringUtils.isEmpty(column.get("ItemHandScored"))
                                     ? Optional.of("false")
-                                    : Optional.of(column.get("ItemHandScored"))
+                                    : Optional.of(column.get("ItemHandScored").toLowerCase())
                     )
                     .setDoNotScore(
                             StringUtils.isEmpty(column.get("ItemDoNotScore"))
                                     ? Optional.of("false")
-                                    : Optional.of(column.get("ItemDoNotScore"))
+                                    : Optional.of(column.get("ItemDoNotScore").toLowerCase())
                     )
                     .setTeacherHandScoring(getTeacherHandScoring(column))
                     .setItemScoreDimensions(getItemScoreDimensions(column, itemMetaDataUtil))
